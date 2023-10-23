@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('packages', function (Blueprint $table) {
-            $table->string('packageID')->primary();
+            $table->unsignedBigInteger('packageID')->primary();
             $table->string('highlight');
             $table->string('itineraryPdf');
             $table->string('remarks');
             $table->string('destination');
             $table->float('costing');
-            $table->string('itineraryID');
+            $table->unsignedBigInteger('itineraryID');
             $table->foreign('itineraryID')->references('itineraryID')->on('itineraries')->onDelete('cascade');
-            $table->string('tourCode');
+            $table->unsignedBigInteger('tourCode');
             $table->foreign('tourCode')->references('tourCode')->on('tours')->onDelete('cascade');
             $table->timestamps();
         });

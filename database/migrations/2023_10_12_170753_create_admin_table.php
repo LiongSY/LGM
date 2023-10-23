@@ -12,8 +12,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('admin', function (Blueprint $table) {
-            $table->string('adminID')->primary();
-            $table->foreignId('staffID')->constrained('staff', 'staffID');
+            $table->unsignedBigInteger('adminID')->primary();
+            $table->unsignedBigInteger('staffID');
+            $table->foreign('staffID')->references('staffID')->on('staff')->onDelete('cascade');
             $table->timestamps();
         });
     }

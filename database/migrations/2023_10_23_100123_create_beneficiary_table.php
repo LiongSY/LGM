@@ -9,10 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('beneficiary', function (Blueprint $table) {
-            $table->string('benID')->primary();
+            $table->unsignedBigInteger('benID')->primary();
             $table->string('benTitle');
             $table->string('benName');
             $table->string('benIC');

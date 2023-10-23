@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('package_room', function (Blueprint $table) {
-            $table->string('packageID')->primary();
-            $table->string('roomID')->primary();
+            $table->unsignedBigInteger('packageID');
+            $table->unsignedBigInteger('roomID');
             $table->foreign('packageID')->references('packageID')->on('packages')->onDelete('cascade');
             $table->foreign('roomID')->references('roomID')->on('rooms')->onDelete('cascade');
             $table->timestamps();

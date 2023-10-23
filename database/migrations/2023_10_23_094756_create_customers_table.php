@@ -9,23 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('customer', function (Blueprint $table) {
-            $table->string('customerID')->primary();
+        Schema::create('customers', function (Blueprint $table) {
+            $table->unsignedBigInteger('customerID')->primary();
             $table->string('titles');
             $table->string('remarks');
-            $table->foreignId('userID')->constrained('users', 'userID');
-            $table->string('passportNo');
+            $table->unsignedBigInteger('userID');
+            $table->foreign('userID')->references('userID')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('passportNo');
             $table->foreign('passportNo')->references('passportNo')->on('passports')->onDelete('cascade');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('customer');
+        Schema::dropIfExists('customers');
     }
 };
