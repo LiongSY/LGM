@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -49,6 +50,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+      
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -66,7 +68,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $customerID = IdGenerator::generate(['table'=> 'customers','field' => 'customerID','length' => 6, 'prefix' => 'C']);
+        $custID = IdGenerator::generate(['table'=> 'customers','field' => 'customerID','length' => 6, 'prefix' => 'C']);
+        Log::info($custID);
+        
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -78,11 +82,16 @@ class RegisterController extends Controller
             'identityNo' => " ",
             'address' => " "
         ]);
-
+    
         Customer::create([
-            'customerID' => $customerID,
+            'customerID' => $custID,
+            'titles' => " ",
+            'remarks' => " ",
+            'userID' => $user->userID,
+            'passportNo' => " "
         ]);
-
+    
         return $user;
     }
+    
 }

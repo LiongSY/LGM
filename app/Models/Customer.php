@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $primaryKey = 'customerID';
+    
     protected $fillable = [
-        'titles', 'remarks', 'userID', 'passportNo'
-    ];}
+        'customerID', 'titles', 'remarks', 'userID', 'passportNo'
+    ];
+}
