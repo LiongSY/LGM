@@ -9,13 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('staff', function (Blueprint $table) {
-            $table->string('staffID');
-            $table->dateTime('lastSeen');
-            $table->string('status');
-            $table->foreignId('userID')->constrained('users', 'userID');
+        Schema::create('rooms', function (Blueprint $table) {
+            $table->string('roomID')->primary();
+            $table->string('roomType');
+            $table->float('roomPrice');
+            $table->string('roomDesc');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('staff');
+        Schema::dropIfExists('rooms');
     }
 };

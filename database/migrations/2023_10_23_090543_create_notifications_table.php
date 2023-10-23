@@ -9,13 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('staff', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->string('notificationID')->primary();
+            $table->string('notificationMessage');
             $table->string('staffID');
-            $table->dateTime('lastSeen');
-            $table->string('status');
-            $table->foreignId('userID')->constrained('users', 'userID');
+            $table->foreign('staffID')->references('staffID')->on('staff')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('staff');
+        Schema::dropIfExists('notifications');
     }
 };
