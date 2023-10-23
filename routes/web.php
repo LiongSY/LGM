@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', function () {
+    return view('homePage');
+})->name('homePage');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -50,3 +54,6 @@ Route::group(['middleware' => 'auth'], function () {
 //     // Customer Dashboard Routes
 //     Route::get('/customer/dashboard', 'Customer\DashboardController@index')->name('customer.dashboard');
 // });
+
+//client side
+
