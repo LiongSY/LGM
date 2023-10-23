@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('passports', function (Blueprint $table) {
-        $table->unsignedBigInteger('passportNo')->primary();
+        $table->String('passportNo')->primary();
         $table->date('expiryDate');
         $table->string('passportImage');
         $table->timestamps();

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('beneficiary', function (Blueprint $table) {
-            $table->unsignedBigInteger('benID')->primary();
+            $table->String('benID')->primary();
             $table->string('benTitle');
             $table->string('benName');
             $table->string('benIC');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('benAddress');
             
             // Optional foreign key relationship with Customers table
-            $table->unsignedBigInteger('customerID')->nullable();
+            $table->String('customerID')->nullable();
             $table->foreign('customerID')->references('customerID')->on('customers')->onDelete('set null');
             
             $table->timestamps();

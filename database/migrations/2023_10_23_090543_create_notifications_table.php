@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->unsignedBigInteger('notificationID')->primary();
+            $table->String('notificationID')->primary();
             $table->string('notificationMessage');
-            $table->unsignedBigInteger('staffID');
+            $table->String('staffID');
             $table->foreign('staffID')->references('staffID')->on('staff')->onDelete('cascade');
             $table->timestamps();
         });

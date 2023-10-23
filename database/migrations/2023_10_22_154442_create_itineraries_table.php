@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('itineraries', function (Blueprint $table) {
-            $table->unsignedBigInteger('itineraryID')->primary();
+            $table->String('itineraryID')->primary();
             $table->integer('noOfDays');
             $table->string('hotelName');
             $table->string('meals');

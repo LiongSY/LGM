@@ -9,16 +9,15 @@ return new class extends Migration
     public function up()
 {
     Schema::create('users', function (Blueprint $table) {
-        $table->unsignedBigInteger('userID')->primary();
+        $table->increments('userID');
         $table->string('name');
         $table->string('email')->unique();
         $table->string('phoneNo');
         $table->string('password');
-        $table->string('gender');
-        $table->string('nationality');
-        $table->string('identityNo');
-        $table->date('dob');
-        $table->string('address');
+        $table->string('gender')->nullable;
+        $table->string('nationality')->nullable;
+        $table->string('identityNo')->nullable;
+        $table->string('address')->nullable;
         $table->string('role');
         $table->rememberToken();
         $table->timestamp('email_verified_at')->nullable();
