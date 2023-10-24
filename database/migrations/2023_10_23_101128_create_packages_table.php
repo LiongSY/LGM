@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->String('packageID')->primary();
+            $table->string('packageName');
             $table->string('highlight');
             $table->string('itineraryPdf');
             $table->string('remarks');

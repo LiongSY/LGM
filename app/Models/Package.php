@@ -9,5 +9,5 @@ class Package extends Model
 {
     protected $primaryKey = 'packageID';
     protected $fillable = [
-        'highlight', 'itineraryPdf', 'remarks', 'destination', 'costing', 'itineraryID', 'tourCode'
+        'packageName','highlight', 'itineraryPdf', 'remarks', 'destination', 'costing', 'itineraryID', 'tourCode'
     ];}
