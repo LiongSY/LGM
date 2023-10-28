@@ -257,9 +257,84 @@ header .nav-bar{
 
 .media-icons a{
     color: var(--white-color);
-    font-size: 1.7em;
+    font-size: 20px;
     margin: 10px 0;
 }
+
+/*==========search travel==========*/
+
+.trip_bx{
+    width: 100%;
+    margin-top: 15px;
+    height: fit-content;
+}
+
+
+.search_bx{
+    width:fit-content;
+    height: fit-content;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:auto;
+    background: var(--white-color);
+    border: 5px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px rgb(114, 114, 114);
+}
+
+
+.trip_bx .search_bx .card{
+    width: 200px;
+    height: 100%;
+    
+}
+
+.trip_bx .search_bx .card h3{
+    font-size: 15px;
+    margin: 0px;
+    font-weight: 700;
+}
+
+.trip_bx .search_bx .card h3 .bi{
+   position: absolute;
+   font-size: 12px;
+   margin: 2px 0px 0px 5x;
+}
+
+
+.trip_bx .search_bx .card input{
+   margin-top: 3px;
+   padding: 5px 0px;
+   border: none;
+   outline: none;
+   font-size: 13px;
+ }
+
+ .trip_bx .search_bx input[type="button"]{
+    background: rgb(51, 63, 228);
+    color: var(--white-color);
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: .3s linear;
+    cursor: pointer;
+ }
+
+ .trip_bx .search_bx input[type="button"]:hover{
+   background: rgb(94, 103, 241);
+ }
+
+
+
+
+
+
+
+
+
 
 
 

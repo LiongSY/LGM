@@ -55,4 +55,20 @@
             <img src="{{ asset('images/winter.jpeg') }}" class="swiper-slide" alt="">
         </div>
     </div>
+
+    <div class="trip_bx">
+        <div class="search_bx">
+            <div class="card">
+                <h3>Location <i class="bi bi-geo-alt"></i></h3>
+                <input type="text" placeholder="Enter your destination">
+            </div>
+            <div class="card">
+                <h3>Date <i class="bi bi-caret-down-fill"></i></h3>
+                <input type="date" >
+            </div>
+          <input type="button" value="Explore Now">
+</div>
+
+</div>
+
 @endsection
