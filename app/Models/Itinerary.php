@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Itinerary extends Model
 {
-    protected $primaryKey = 'itineraryID';
+
+    public function package() {
+        return $this->hasOne(Package::class);
+    }
     protected $fillable = [
-        'noOfDays', 'hotelName', 'meals', 'information'
+        'packageID','noOfDays', 'hotelName', 'meals', 'information','remarks'
     ];}

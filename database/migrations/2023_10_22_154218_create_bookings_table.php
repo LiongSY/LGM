@@ -20,14 +20,14 @@ return new class extends Migration
             $table->integer('noOfRoom');
             $table->integer('typesOfRoom');
             $table->integer('additionalDays');
-            $table->string('additionalActivities');
+            $table->longText('additionalActivities');
             $table->float('bookingAmount');
             $table->float('bookingDeposit');
             $table->string('bookingStatus');
-            $table->string('bookingRemarks');
+            $table->longText('bookingRemarks');
             //foreign key
             $table->string('tourCode');
-            
+            $table->string('customerID');
             $table->timestamps();
         });
     }

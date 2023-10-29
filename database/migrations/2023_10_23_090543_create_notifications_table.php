@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->String('notificationID')->primary();
-            $table->string('notificationMessage');
+            $table->longText('notificationMessage');
             $table->String('staffID');
             $table->foreign('staffID')->references('staffID')->on('staff')->onDelete('cascade');
             $table->timestamps();

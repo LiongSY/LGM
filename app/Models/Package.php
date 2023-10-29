@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Package extends Model
 {
-    protected $primaryKey = 'packageID';
+    public function tours()
+    {
+        return $this->hasMany(Tour::class, 'packageID','packageID');
+    }
+    public function itinerary() {
+        return $this->belongsTo(Itinerary::class);
+    }
     protected $fillable = [
-        'packageName','highlight', 'itineraryPdf', 'remarks', 'destination', 'costing', 'itineraryID', 'tourCode'
+        'packageID','packageImage','packageName','highlight', 'itineraryPdf', 'remarks', 'destination', 'itineraryID', 'singleRoom','doubleRoom','tripleRoom'
     ];}

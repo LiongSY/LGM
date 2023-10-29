@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    protected $primaryKey = 'bookingID';
     protected $fillable = [
         'bookingDate', 'noOfAdult', 'noOfChild', 'noOfInfant', 'noOfRoom', 'typesOfRoom', 'additionalDays', 'additionalActivities',
-        'bookingAmount', 'bookingDeposit', 'bookingStatus', 'bookingRemarks', 'tourCode'
+        'bookingAmount', 'bookingDeposit', 'bookingStatus', 'bookingRemarks', 'tourCode', 'customerID'
     ];}

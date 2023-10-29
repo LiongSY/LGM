@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->string('customerID')->primary();
             $table->string('titles');
-            $table->string('remarks');
+            $table->mediumText('remarks');
             $table->unsignedInteger('userID');
             $table->foreign('userID')->references('userID')->on('users')->onDelete('cascade');
             $table->string('passportNo');

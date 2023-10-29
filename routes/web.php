@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PackageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,8 +37,16 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
+	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index'])->where('page', 'dashboard');
 });
+
+
+Route::post('/packageManagement', [PackageController::class, 'store'])->name('pages.store');
+Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
+Route::get('/packages/{package}/edit', [PackageController::class, 'edit'])->name('packages.edit');
+Route::get('/packages/{package}', [PackageController::class, 'show'])->name('packages.show');
+Route::delete('/packages/{package}', [PackageController::class, 'destroy'])->name('packages.destroy');
+
 
 // Middleware route
 // Route::group(['middleware' => ['auth', 'staff']], function () {

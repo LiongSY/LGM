@@ -7,7 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tour extends Model
 {
-    protected $primaryKey = 'tourCode';
+
+     public function package()
+     {
+         return $this->belongsTo(Package::class,'packageID',);
+     }
+
+     public function flight() {
+          return $this->belongsTo(Flight::class);
+      }
     protected $fillable = [
-        'departureDate', 'tourLanguages', 'tourPrice', 'tourStatus', 'noOfSeats', 'flightNumber'
+        'tourCode', 'tourLanguages', 'tourPrice', 'tourStatus', 'noOfSeats', 'packageID','flightID'
     ];}

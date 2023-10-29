@@ -5710,7 +5710,13 @@ License - nucleoapp.com/license/
 .card label {
   font-size: 0.8571em;
   margin-bottom: 5px;
-  color: #9A9A9A;
+  color: #535151;
+}
+
+th{
+  font-size: 0.8571em;
+  margin-bottom: 5px;
+  color: #000;
 }
 
 .card .card-footer {

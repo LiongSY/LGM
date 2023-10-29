@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Flight extends Model
 {
-    protected $primaryKey = 'flightNumber';
+    public function tour() {
+        return $this->hasOne(Tour::class);
+    }
     protected $fillable = [
-        'departureDate', 'returnDate', 'sector', 'airlines', 'departureTime', 'returnTime'
+        'flightID','departureDate', 'arrivalDate', 'sector', 'airlines', 'departureTime', 'arrivalTime','flightNumber','returnDepartureDate', 'returnArrivalDate', 'returnSector', 'returnAirlines', 'returnDepartureTime', 'returnArrivalTime','returnFlightNumber',
     ];}

@@ -12,15 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('flights', function (Blueprint $table) {
-            $table->String('flightNumber')->primary();
+            $table->String('flightID')->primary();
             $table->date('departureDate');
-            $table->date('returnDate');
+            $table->date('arrivalDate');
+            $table->date('returnDepartureDate');
+            $table->date('returnArrivalDate');
             $table->string('sector');
             $table->string('airlines');
+            $table->string('flightNumber');
+            $table->string('returnSector');
+            $table->string('returnAirlines');
+            $table->string('returnFlightNumber');
             $table->time('departureTime');
-            $table->time('returnTime');
+            $table->time('arrivalTime');
+            $table->time('returnDepartureTime');
+            $table->time('returnArrivalTime');
             // Foreign key to associate flights with tours
-          
+           
             $table->timestamps();
         });
     }

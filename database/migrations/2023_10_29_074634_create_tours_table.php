@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tours', function (Blueprint $table) {
-            $table->String('tourCode')->primary();
-            $table->date('departureDate');
+            $table->string('tourCode')->primary();
             $table->string('tourLanguages');
             $table->float('tourPrice');
             $table->string('tourStatus');
             $table->integer('noOfSeats');
-
-            $table->String('flightNumber');
-            $table->foreign('flightNumber')->references('flightNumber')->on('flights')->onDelete('cascade');
+            $table->string('packageID');
+            $table->foreign('packageID')->references('packageID')->on('packages')->onDelete('cascade');
+            $table->string('flightID');
+            $table->foreign('flightID')->references('flightID')->on('flights')->onDelete('cascade');
             $table->timestamps();
         });
     }

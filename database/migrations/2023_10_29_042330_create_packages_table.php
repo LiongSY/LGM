@@ -14,15 +14,14 @@ return new class extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->String('packageID')->primary();
             $table->string('packageName');
-            $table->string('highlight');
+            $table->string('packageImage');
+            $table->longText('highlight');
             $table->string('itineraryPdf');
-            $table->string('remarks');
+            $table->longText('remarks');
             $table->string('destination');
-            $table->float('costing');
-            $table->String('itineraryID');
-            $table->foreign('itineraryID')->references('itineraryID')->on('itineraries')->onDelete('cascade');
-            $table->String('tourCode');
-            $table->foreign('tourCode')->references('tourCode')->on('tours')->onDelete('cascade');
+            $table->float('singleRoom');
+            $table->float('doubleRoom');
+            $table->float('tripleRoom');
             $table->timestamps();
         });
     }

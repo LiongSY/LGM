@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('itineraries', function (Blueprint $table) {
-            $table->String('itineraryID')->primary();
+            $table->string('packageID');
             $table->integer('noOfDays');
             $table->string('hotelName');
             $table->string('meals');
-            $table->string('information');
+            $table->longText('remarks');
+            $table->longText('information');
+            $table->foreign('packageID')->references('packageID')->on('packages')->onDelete('cascade');
             $table->timestamps();
         });
     }

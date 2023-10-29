@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
 {
-    protected $primaryKey = 'notificationID';
     protected $fillable = [
         'notificationMessage', 'staffID'
     ];}
