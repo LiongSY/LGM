@@ -1,349 +1,68 @@
-/*==========Google fonts==========*/
-
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Ubuntu&display=swap');
-
-
-/*==========variables==========*/
-:root{
-    --white-color: #fff;
-    --dark-color: #222;
-    --body-bg-color: #fff ;
-    --section-bg-color: #202834;
-    --navigation-item-hover-color: #3b5378;
-
-    --text-shadow: 0 5px 25px rgba(0, 0, 0, 0.1) ;
-    --box-shadow: 0 5px 25px rgb(0 0 0 / 20%) ;
-
-    --scroll-bar-color: #fff ;
-    --scroll-thumb-color: #282f4e ;
-    --scroll-thumb-hover-color: #454f6b ;
-
+/* Style the navigation bar */
+.navbar-transparent {
+    background-color: transparent;
+    transition: background-color 0.5s;
 }
 
-/*==========Scroll bar==========*/
-
-
-/*==========Main==========*/
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
-
-body{
-    background: var(--body-bg-color);
-}
-
-/*==========Header==========*/
-header{
-    z-index: 999;
-    position: fixed;
-    width: 100%;
-    height: calc(5rem + 1rem);
+/* Set the initial position of the navigation bar at the top */
+.navbar-fixed-top {
     top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
 }
 
-header .nav-bar{
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 200px;
-    transition: 0.3s ease;
+/* Style the navigation links */
+.navbar-nav .nav-item {
+    margin-right: 15px;
 }
 
-.nav-close-btn, .nav-menu-btn{
-    display: none;
+.navbar-nav .nav-item .nav-link{
+   color: black;
+}
+.navbar.sticky {
+    background-color: white;
 }
 
-.nav-bar .logo{
-    color: var(--white-color);
-    font-size: 1.8em;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-decoration: none;
-    text-shadow: var(--text-shadow);
+/* Style the navigation links on hover */
+.navbar-nav .nav-item a:hover {
+    color: white; /* Change to your desired color */
 }
 
-.navigation .nav-items a{
-    color: var(--white-color);
-    font-size: 1em;
-    text-decoration: none;
-    text-shadow: var(--text-shadow);
+/* Style the logo */
+.navbar-brand img {
+    height: 80px; /* Adjust the height as needed */
 }
 
-.navigation .nav-items a i{
-    display: none;
+/* Style the carousel captions */
+.carousel-caption h3 {
+    font-size: 24px;
+    color: #fff; /* Text color for slide titles */
 }
 
-.navigation .nav-items a:not(:last-child){
-    margin-right: 45px;
+.carousel-caption p {
+    font-size: 16px;
+    color: #fff; /* Text color for slide descriptions */
 }
 
-
-/*==========Home==========*/
-.home{
-    min-height: 100vh;
-}
-
-/*==========Background Slider==========*/
-.bg-slider{
-    z-index: 777;
-    position: relative;
-    width: 100%;
-    min-height: 85vh;
-}
-
-.bg-slider .swiper-slide{
-    position: relative;
-    width: 100%;
-    height: 85vh;
-}
-
-.bg-slider .swiper-slide img{
-    width: 100%;
-    height: 85vh;
-    object-fit: cover;
-    background-position: center;
+/* Set the background properties for carousel items */
+.carousel-item {
     background-size: cover;
-    pointer-events: none;
-}
-
-.swiper-slide .text-content{
-    position: absolute;
-    top: 25%;
-    color: var(--white-color);
-    margin: 0 200px;
-    transition: 0.3s ease;
-}
-
-.swiper-slide .text-content .title{
-    font-size: 4em;
-    font-weight: 700;
-    text-shadow: var(--text-shadow);
-    margin-bottom: 20px;
-    transform: translateY(-50px);
-    opacity: 0;
-}
-
-.swiper-slide-active .text-content .title{
-    transform: translateY(-50px);
-    opacity: 1;
-    transition: 1s ease;
-    transition-delay: 0.3s;
-    transition-property: transform, opacity;
-}
-
-.swiper-slide .text-content .title span{
-    font-size: 0.3em;
-    font-weight: 300;
-}
-
-.swiper-slide .text-content p{
-    max-width: 700px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    text-shadow: var(--text-shadow);
-    padding: 20px;
-    border-radius: 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    border-right: 1px solid rgba(255,255,255,0.1);
-    box-shadow: var(--box-shadow);
-    transform: translateX(-80px);
-    opacity: 0;
-}
-
-.swiper-slide-active .text-content p{
-    transform: translateX(0);
-    opacity: 1;
-    transition: 1s ease;
-    transition-delay: 0.3s;
-    transition-property: transform, opacity;
-}
-
-.swiper-slide .text-content .choose-btn{
-   border: none;
-   outline: none; 
-   background: var(--white-color);
-   color: var(--dark-color);
-   font-size: 1em;
-   font-weight: 500;
-   padding: 8px 25px;
-   display: flex;
-   align-items: center;
-   margin-top: 40px;
-   border-radius: 10px;
-   cursor: pointer;
-   transform: translateX(50px);
-   opacity: 0;
-}
-
-.swiper-slide-active .text-content .choose-btn{
-    transform: translateX(0);
-    opacity: 1;
-    transition: 1s ease;
-    transition-delay: 0.3s;
-    transition-property: transform, opacity;
-}
-
-
-.swiper-slide .text-content .choose-btn i{
-    font-size: 1.6em;
-    transition: 0.3s ease;
-}
-
-.swiper-slide .text-content .choose-btn:hover i{
-    transform: translateX(5px);
-}
-
-.dark-layer:before{
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.bg-slider-thumbs{
-    z-index: 777;
-    position: absolute;
-    bottom: 7em;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: 0.3s ease;
-}
-
-.thumbs-container{
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 10px 3px;
-    border-radius: 10px;
-    border-bottom: 1px solid rgba(255, 255,255, 0.1);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: var(--box-shadow);
-}
-
-.thumbs-container img{
-    width: 50px;
-    height: 35px;
-    margin: 0 5px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.swiper-slide-thumb-active{
-    border: 1px solid var(--white-color);
-}
-
-/*==========Media icons (fb,instagram,whatsapp)==========*/
-.media-icons{
-    z-index: 999;
-    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 80vh; /* Make the images full-screen */
+    text-align: center;
     display: flex;
-    flex-direction: column;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-left: 90px;
-
-}
-
-.media-icons a{
-    color: var(--white-color);
-    font-size: 20px;
-    margin: 10px 0;
-}
-
-/*==========search travel==========*/
-
-.trip_bx{
-    width: 100%;
-    margin-top: 15px;
-    height: fit-content;
-}
-
-
-.search_bx{
-    width:fit-content;
-    height: fit-content;
-    padding: 15px;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    margin:auto;
-    background: var(--white-color);
-    border: 5px;
-    border-radius: 15px;
-    box-shadow: 0px 10px 25px rgb(114, 114, 114);
+    align-items: center;
 }
 
-
-.trip_bx .search_bx .card{
-    width: 200px;
-    height: 100%;
+.card{
+    padding: 20px;
     
-}
+  }
 
-.trip_bx .search_bx .card h3{
-    font-size: 15px;
-    margin: 0px;
-    font-weight: 700;
-}
 
-.trip_bx .search_bx .card h3 .bi{
-   position: absolute;
-   font-size: 12px;
-   margin: 2px 0px 0px 5x;
+.custom-margin{
+    margin-top: 70px;
 }
 
 
-.trip_bx .search_bx .card input{
-   margin-top: 3px;
-   padding: 5px 0px;
-   border: none;
-   outline: none;
-   font-size: 13px;
- }
-
- .trip_bx .search_bx input[type="button"]{
-    background: rgb(51, 63, 228);
-    color: var(--white-color);
-    border: none;
-    outline: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    transition: .3s linear;
-    cursor: pointer;
- }
-
- .trip_bx .search_bx input[type="button"]:hover{
-   background: rgb(94, 103, 241);
- }
-
-
-
-
-
-
-
-
-
-
-
-
-/*==========Media queries (max-width: 1100px)==========*/
-@media screen and (max-width: 1100px){
-    
-}
-
-/*==========Media queries (max-width: 785px)==========*/
-@media screen and (max-width:785px){
-    
-}
+ 
