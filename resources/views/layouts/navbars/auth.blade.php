@@ -48,8 +48,8 @@
                     <p>{{ __('Icons') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'map' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'map') }}">
+            <li class="{{ $elementActive == 'createPackage' ? 'active' : '' }}">
+                <a href="{{ route('page.index', 'createPackage') }}">
                     <i class="nc-icon nc-pin-3"></i>
                     <p>{{ __('Package Management') }}</p>
                 </a>

@@ -41,7 +41,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
-Route::post('/packageManagement', [PackageController::class, 'store'])->name('pages.store');
+Route::get('/packages/create', [PackageController::class, 'create'])->name('packages.create');
+Route::post('/packages', [PackageController::class, 'store'])->name('pages.store');
 Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
 Route::get('/packages/{package}/edit', [PackageController::class, 'edit'])->name('packages.edit');
 Route::get('/packages/{package}', [PackageController::class, 'show'])->name('packages.show');
