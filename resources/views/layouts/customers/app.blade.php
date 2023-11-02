@@ -29,9 +29,37 @@
     </div>
 </nav>
 
+<script>
+  // Get the navigation bar element
+  const navbar = document.querySelector('.navbar-transparent');
+
+  // Function to update the background color of the navigation bar
+  function updateNavbarBackground() {
+    // Get the current scroll position
+    const scrollY = window.scrollY;
+
+    // Set a threshold for when to start changing the background color
+    const threshold = 100; // You can adjust this value as needed
+
+    if (scrollY > threshold) {
+      // Add a background color to the navigation bar
+      navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; // Change the color and opacity as needed
+    } else {
+      // Make the navigation bar transparent
+      navbar.style.backgroundColor = 'transparent';
+    }
+  }
+
+  // Listen for scroll events and update the background color
+  window.addEventListener('scroll', updateNavbarBackground);
+
+  // Initial call to set the initial background color
+  updateNavbarBackground();
+</script>
+
+
 
 @yield('content')
 
 </body>
 </html>
-
