@@ -11,8 +11,10 @@
             <!-- Form for Packages Management -->
             <form onsubmit="return validateForm()" action="{{ route('pages.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div>
+                <div>    <a href="{{ URL::previous() }}" class="btn btn-secondary" style="float:right; top:0px">Back</a>
+
                     <div class="card-header" style="padding-left:0px"> <b>Package Management<b>
+                        
                     </div>
                     <hr>
                     <div class="form-row">

@@ -7,7 +7,9 @@
 <div class="content"> <div class="row"> <div class="col-md-12">
     <div class="card">
     <div class="card-header">
-    <h4 class="card-title">Packages</h4>
+    <h4 style="float:left"class="card-title">Packages</h4>
+    
+    <a href="{{ route('packages.create') }}" class="btn btn-primary" style="float:right">Create</a>
     </div>
     <div class="card-body">
     <form action="{{ route('packages.index') }}" method="GET" class="mb-3">

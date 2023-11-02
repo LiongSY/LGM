@@ -27,6 +27,36 @@ class PackageController extends Controller
     return view('pages.package', compact('packages'));
 }
 
+    public function show(Request $request, $id){
+        
+    $package = Package::where('packageID', $id)->first();
+
+    // Retrieve associated tours, flights, and itinerary
+    $tours = Tour::where('packageID', $id)->get();
+
+    // Array to store flight details
+    $flightDetails = [];
+
+    // Loop through tours to get flight details
+    foreach ($tours as $tour) {
+        // Retrieve flight details based on the tour's flightID
+        $flight = Flight::where('flightID', $tour->flightID)->first();
+
+        // Add flight details to the array
+        $flightDetails[] = $flight;
+    }
+
+    $itineraries = Itinerary::where('packageID', $id)->get();
+
+    return view('pages.viewPackage', compact('package', 'tours', 'itineraries','flightDetails'));
+
+
+    }
+
+    public function create(){
+        return view('pages.createPackage');
+    }
+
     public function store(Request $request)
     {
         //packages
