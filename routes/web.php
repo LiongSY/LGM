@@ -22,6 +22,14 @@ Route::get('/', function () {
     return view('homePage');
 })->name('homePage');
 
+Route::get('/tourPackages', function () {
+    return view('packages');
+})->name('tourPackages');
+
+Route::get('/news', function () {
+    return view('news');
+})->name('news');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
