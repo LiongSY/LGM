@@ -43,7 +43,6 @@
                     <td>{{ $package->packageName }}</td>
                     <td>{{ $package->destination }}</td>
                     <td>
-                        <a href="{{ route('packages.edit', [$package->packageID]) }}" class="btn btn-primary">Edit</a>
                         <a href="{{ route('packages.show', [$package->packageID]) }}" class="btn btn-info">View</a>
                         <form action="{{ route('packages.destroy', [$package->packageID]) }}" method="POST"
                             style="display:inline;">

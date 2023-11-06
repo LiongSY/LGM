@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Package extends Model
 {
+
     public function tours()
     {
         return $this->hasMany(Tour::class, 'packageID','packageID');

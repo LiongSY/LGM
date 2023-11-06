@@ -37,12 +37,9 @@ class PackageController extends Controller
     // Array to store flight details
     $flightDetails = [];
 
-    // Loop through tours to get flight details
     foreach ($tours as $tour) {
-        // Retrieve flight details based on the tour's flightID
         $flight = Flight::where('flightID', $tour->flightID)->first();
 
-        // Add flight details to the array
         $flightDetails[] = $flight;
     }
 
@@ -53,6 +50,31 @@ class PackageController extends Controller
 
     }
 
+
+    public function editPackage(Request $request, $id){
+        $package = Package::where('packageID', $id)->first();
+
+        return view('pages.editPackage', compact('package'));
+    }
+
+    public function editTour(Request $request, $id){
+        $tour = Tour::where('tourCode', $id)->first();
+
+
+            $flight = Flight::where('flightID', $tour->flightID)->first();
+    
+        
+
+        return view('pages.editTour', compact('tour', 'flight'));
+    }
+
+    public function editItinerary(Request $request, $id){
+        $itineraries = Itinerary::where('packageID', $id)->get();
+
+        return view('pages.editItinerary', compact('itineraries'));
+    }
+
+    
     public function create(){
         return view('pages.createPackage');
     }
@@ -124,11 +146,6 @@ class PackageController extends Controller
         ]);        
         }
 
-
-
-
-
-
         for ($i = 0; $i < count($departureDates); $i++) {
             $flightID[$i] = IdGenerator::generate(['table'=> 'flights','field' => 'flightID','length' => 6, 'prefix' => 'F']);
             Flight::create([
@@ -136,7 +153,7 @@ class PackageController extends Controller
                 'departureDate' => $departureDates[$i],
                 'arrivalDate' => $arrivalDates[$i],
                 'sector' => $sectors[$i],
-                'airlines' => $noOfSeats[$i],
+                'airlines' => $airlines[$i],
                 'flightNumber'=> $flightNumbers[$i],
                 'departureTime'=> $departureTimes[$i],
                 'arrivalTime'=> $arrivalTimes[$i],
@@ -168,4 +185,60 @@ class PackageController extends Controller
 
        
     }
+
+    public function updateTour(Request $request, $id){
+    // Retrieve associated tours, flights, and itinerary
+    $tours = Tour::where('tourCode', $id)->get();
+
+    foreach ($tours as $index => $tour) {
+
+        
+    $tour->update([
+
+    'tour_languages' => $request->input('tourLanguages'),
+    'tour_price' => $request->input('tourPrice'),
+    'no_of_seats' => $request->input('noOfSeats'),
+        
+    ]);
+
+
+        $flight = Flight::where('flightID', $tour->flightID)->first();
+        $flight->update([
+            'sector' => $request->input('sector')[$index],
+            'airlines' => $request->input('airlines')[$index],
+            'flightNumber' => $request->input('flightNumber')[$index],
+            'departureDate' => $request->input('departureDate')[$index],
+            'arrivalDate' => $request->input('arrivalDate')[$index],
+            'departureTime' => $request->input('departureTime')[$index],
+            'arrivalTime' => $request->input('arrivalTime')[$index],
+            'returnSector' => $request->input('returnSector')[$index],
+            'returnAirlines' => $request->input('returnAirlines')[$index],
+            'returnFlightNumber' => $request->input('returnFlightNumber')[$index],
+            'returnDepartureDate' => $request->input('returnDepartureDate')[$index],
+            'returnArrivalDate' => $request->input('returnArrivalDate')[$index],
+            'returnDepartureTime' => $request->input('returnDepartureTime')[$index],
+            'returnArrivalTime' => $request->input('returnArrivalTime')[$index],
+            // Update other flight fields if needed
+        ]);
+    }
+    
+     // Redirect the user back with a success message
+     return redirect()->route('packages.show', $id)->with('success', 'Package updated successfully!');    
+
+    }
+
+
+    public function updatePackage(Request $request, $id){
+        // Find the package by ID
+        Package::where('packageID', $id)->update([
+            'packageName' => $request->input('packageName'),
+            'destination' => $request->input('destination'),
+            'highlight' => $request->input('packageHighlight'),
+            'singleRoom' => $request->input('singleRoom'),
+            'doubleRoom' => $request->input('doubleRoom'),
+            'tripleRoom' => $request->input('tripleRoom'),
+            'remarks' => $request->input('packageRemarks'),
+        ]);
+        // Redirect back to the show page with a success message
+        return redirect()->route('packages.show', $id)->with('success', 'Package updated successfully!');    }
 }

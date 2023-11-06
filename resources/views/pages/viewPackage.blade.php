@@ -5,10 +5,19 @@
 
 @section('content')
 <div class="content"> <div class="col-md-12"> <!-- Package Details -->
+@if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="card">
     <div class="card-body">
     <h5 style="float:left">Package Details</h5>
-    <a href="{{ URL::previous() }}" class="btn btn-secondary" style="float:right; top:0px">Back</a>
+    <a href="{{ route('packages.index') }}" class="btn btn-secondary" style="float:right; top:0px">Back</a>
+    
     <table class="table">
     <tbody>
     <tr>
@@ -52,6 +61,8 @@
     
     </tbody>
     </table>
+    <a href="{{ route('editPackage', $package->packageID) }}" class="btn btn-danger" style="float:right; margin-right: 10px;">Edit</a>
+
     </div>
 </div>
 
@@ -78,6 +89,7 @@
                     <td>{{ $tour->tourPrice }}</td>
                     <td>{{ $tour->noOfSeats }}</td>
                     <td>
+                    <a href="{{ route('editTour', $tour->tourCode) }}" class="btn btn-danger">Edit Tour</a>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#tourModal{{ $key }}">Flight Details</button>
                     </td>
                 </tr>
@@ -151,8 +163,12 @@
              </div>
                 <!-- Add more itinerary details as needed -->
                 @endforeach
+                <a href="{{ route('editItinerary', $package->packageID) }}" style="float:right"class="btn btn-danger">Edit Itinerary</a>
+
     </div>
+
 </div>
+
 </div>
 </div>
 @endsection

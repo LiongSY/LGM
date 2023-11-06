@@ -11,7 +11,8 @@
             <!-- Form for Packages Management -->
             <form onsubmit="return validateForm()" action="{{ route('pages.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div>    <a href="{{ URL::previous() }}" class="btn btn-secondary" style="float:right; top:0px">Back</a>
+                <div>    
+                    <a href="{{ URL::previous() }}" class="btn btn-secondary" style="float:right; top:0px">Back</a>
 
                     <div class="card-header" style="padding-left:0px"> <b>Package Management<b>
                         
@@ -29,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label for="packageHighlight">Highlight of the Package:</label>
-                        <textarea class="form-control" id="packageHighlight" name="packageHighlight" required></textarea>
+                        <textarea class="form-control long-textarea" id="packageHighlight" name="packageHighlight" required></textarea>
                     </div>
                     <div class="form-row">
                         <!-- <div class="form-group col-md-6">
@@ -54,7 +55,7 @@
                     </div>
                     <div class="form-group">
                         <label for="remarks">Remarks for the Package:</label>
-                        <textarea class="form-control" id="packageRemarks" name="packageRemarks" required></textarea>
+                        <textarea class="form-control long-textarea" id="packageRemarks" name="packageRemarks" required></textarea>
                     </div>
 
                     <br>

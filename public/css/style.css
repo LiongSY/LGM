@@ -31,59 +31,6 @@
     height: 80px; /* Adjust the height as needed */
 }
 
-/* Style the carousel captions */
-.carousel-caption h3 {
-    font-size: 24px;
-    color: #fff; /* Text color for slide titles */
-}
-
-.carousel-caption p {
-    font-size: 16px;
-    color: #fff; /* Text color for slide descriptions */
-}
-
-/* Set the background properties for carousel items */
-.carousel-item {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 80vh; /* Make the images full-screen */
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.card{
-    padding: 20px;
-    
-  }
-
-
-.custom-margin{
-    margin-top: 70px;
-}
-
-
-
-.carousel-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
-
-.carousel {
-    display: flex;
-    width: 100%;
-    overflow: hidden;
-}
-
-.carousel img {
-    width: 100%;
-    height: auto;
-    transition: transform 1s ease;
-}
 
 .amazing {
     background: url('/images/Amazing.jpg'); /* Use an absolute or relative path here */

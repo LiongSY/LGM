@@ -44,9 +44,20 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/packages/create', [PackageController::class, 'create'])->name('packages.create');
 Route::post('/packages', [PackageController::class, 'store'])->name('pages.store');
 Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
-Route::get('/packages/{package}/edit', [PackageController::class, 'edit'])->name('packages.edit');
+// Route::get('/packages/{package}/edit', [PackageController::class, 'edit'])->name('packages.edit');
 Route::get('/packages/{package}', [PackageController::class, 'show'])->name('packages.show');
 Route::delete('/packages/{package}', [PackageController::class, 'destroy'])->name('packages.destroy');
+
+Route::get('/package/edit/{id}', [PackageController::class, 'editPackage'])->name('editPackage');
+Route::put('/package/{id}', [PackageController::class, 'updatePackage'])->name('package.updatePackage');
+
+Route::get('/tour/edit/{id}', [PackageController::class, 'editTour'])->name('editTour');
+Route::put('/tour/{id}', [PackageController::class, 'updateTour'])->name('package.updateTour');
+
+Route::get('/itinerary/edit/{id}', [PackageController::class, 'editItinerary'])->name('editItinerary');
+Route::put('/itinerary/{id}', [PackageController::class, 'updateItinerary'])->name('package.updateItinerary');
+
+
 
 
 // Middleware route
