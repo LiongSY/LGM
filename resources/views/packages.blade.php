@@ -34,13 +34,11 @@
         <div class="row justify-content-center" style="margin-top: 30px">
             <div class="col-md-3">
                 <div class="card" style="border: none;">
-                    <!-- <h3 class="text-center">Location <i class="bi bi-geo-alt"></i></h3> -->
                     <input class="form-control" type="text" placeholder="Enter your destination">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card" style="border: none;">
-                    <!-- <h3 class="text-center">Date <i class="bi bi-caret-down-fill"></i></h3> -->
                     <input class="form-control" type="date">
                 </div>
             </div>
@@ -53,22 +51,84 @@
     </form>
 </div>
 
-<div class="container-fluid" style="margin: 40px;">
-    <div class="row content">
-        <div class="col-sm-3 sidenav" style="height: 100%; background-color: #f1f1f1;">
-            <h2>Tour Category</h2>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="cruiseCheckbox">
-                <label class="form-check-label" for="cruiseCheckbox">Cruise</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="groupTourCheckbox">
-                <label class="form-check-label" for="groupTourCheckbox">Group Tour</label>
-            </div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-sm-3">
+    <form action="" method="get">
+        <h3>Filter and Sort</h3>
 
-            <h2>Price</h2>
-            <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+        <!-- Filter by Location -->
+        <div class="form-group">
+            <label for="location">Location</label>
+            <select name="location" class="form-control">
+                <option value="">All</option>
+                <option value="China">China</option>
+                <!-- Add more location options as needed -->
+            </select>
+        </div>
+
+        <!-- Sort by Price -->
+        <div class="form-group">
+            <label for="sort">Sort by</label>
+            <select name="sort" class="form-control">
+                <option value="price_asc">Price (Low to High)</option>
+                <option value="price_desc">Price (High to Low)</option>
+                <!-- Add more sorting options as needed -->
+            </select>
+        </div>
+
+        <!-- Filter by Date -->
+        <div class="form-group">
+            <label for="date">Filter by Date</label>
+            <select name="date" class="form-control">
+                <option value="">All Dates</option>
+                <option value="2023-11">November 2023</option>
+                <option value="2023-12">December 2023</option>
+                <!-- Add more date options as needed -->
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Apply</button>
+    </form>
+    </div>
+
+    <div class="col-sm-9">
+        <div style="border:2px solid black; margin:5px">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="img_list">
+                    <img src="images/event4.jpg" alt="#" class="zoomable-image">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h2 style="font-size:14px;"><strong>[GRAZY MEGA DEALS 3.0 - INTERIOR TWIN] 5D4N SINGAPORE/PENANG/PHUKET/SINGAPORE (SPECTRUM OF THE SEAS)</strong></h2>
+                <p style=" font-size:14px">
+                <i class="icon-location">
+                </i>ASIA, CRUISE&nbsp;&nbsp;<i class="bi bi-geo-alt-fill"></i><a href="https://s3-ap-southeast-1.amazonaws.com/storage.iceb2b.my/itinerary/2054/file/Spectrum_of_the_Seas_6pp_Brochure_May_2023__FA.pdf" target="_blank">package download</a>&nbsp;&nbsp;<img src="/" width="22px"> </p>
+                
+                <div>
+                            <p style="font-size: 18px;"><i class="bi bi-tag-fill"></i><strong>Price: RM 1,888</strong></p>
+                        </div>
+
+
+                <ul class="add_info" style="color:grey;">
+                    <b>Departure Date(s)</b>
+                    <div class="date_display"><br>
+                        <span class="date">16Nov2023</span>
+                        <span class="date">30Nov2023</span>
+                    </div>	
+                </ul>
+            </div>
         </div>
     </div>
+    
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
 @endsection

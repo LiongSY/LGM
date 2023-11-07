@@ -311,4 +311,150 @@ ul {
     max-width: 80px;
 }
 
+/* packagescss */
 
+.strip_all_tour_list {
+  background-color: #fff;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,.1);
+  color: #777;
+  display: block;
+  margin-bottom: 30px
+}
+
+.strip_all_tour_list h3 {
+  text-transform: uppercase
+}
+
+.tour_list_desc .rating {
+  font-size: 15px;
+  margin: 15px 0 3px -3px
+}
+
+.img_list {
+  min-height: 220px;
+  overflow: hidden;
+  position: relative;
+  text-align: center
+}
+
+.img_list img {
+  height: 220px;
+  left: -10%;
+  position: absolute;
+  width: auto
+}
+
+.zoomable-image{
+  transition: transform 0.2s;
+}
+
+.zoomable-image:hover{
+  transform: scale(1.1);
+}
+
+.price_list .button {
+  display: block
+}
+
+.tour_list_desc {
+  border-right: 1px solid #ededed;
+  height: 220px;
+  line-height: 17px;
+  padding: 10px 20px 0 0
+}
+
+.tour_list_desc h3 {
+  font-size: 18px;
+  line-height: 20px;
+  margin-bottom: 10px;
+  margin-top: 0
+}
+
+.price_list {
+  color: #e74c3c;
+  display: table;
+  font-size: 38px;
+  height: 220px;
+  margin-left: -15px;
+  width: 100%
+}
+
+.price_list small {
+  color: #999;
+  display: block;
+  font-size: 11px;
+  line-height: 12px;
+  margin-bottom: 10px
+}
+
+.price_list div {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle
+}
+
+.price_list p {
+  margin: 0;
+  padding: 0
+}
+
+.price_list .normal_price_list {
+  color: #999;
+  display: block;
+  font-size: 20px;
+  margin-top: 10px;
+  text-decoration: line-through
+}
+
+.price_list sup {
+  font-size: 22px;
+  position: relative;
+  top: -10px
+}
+
+
+ul.add_info {
+  list-style: none;
+  margin: 0;
+  padding: 0
+}
+
+ul.add_info li {
+  border: 1px solid #ededed;
+  border-radius: 3px;
+  display: inline-block;
+  height: 35px;
+  margin-right: 5px;
+  text-align: center;
+  width: 35px
+}
+
+ul.add_info li a {
+  color: #555;
+  display: block;
+  height: 35px;
+  width: 35px
+}
+
+ul.add_info li i {
+  display: inline-block;
+  font-size: 22px;
+  position: relative;
+  top: 6px
+}
+
+.date_display{
+  width: 100%; 
+  white-space: nowrap; 
+  overflow-x: overlay; 
+  height: 58px;
+}
+
+.date_display .date{
+  padding: 3px 8px; 
+  font-size: 14px; 
+  color: #fa8c16;
+   background: #fff7e6; 
+   border: 1px solid #ffd591; 
+   border-radius: 5px;
+}
