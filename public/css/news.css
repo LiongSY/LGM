@@ -1,0 +1,197 @@
+/* 这个是news和blog的css 之后放进去
+
+#page-title {
+    clear: both;
+    padding: 80px 0;
+    background-color: #f8f9fa;
+    position: relative;
+    /* page header left*/
+    /* page header right*/
+  /* }
+  
+  #page-title .page-title {
+    text-align: center;
+    padding: 0;
+  } */
+  
+  /* #page-title .page-title > h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  } */
+  
+  
+  /* #page-title .page-title > h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  } */
+  
+  /* #page-title .page-title > span {
+    font-weight: 400;
+    font-size: 14px;
+  } */
+  
+  /* #page-title .breadcrumb {
+    text-align: center;
+    margin-bottom: 0;
+    padding: 0;
+  } */
+  
+  /* .breadcrumb {
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: block;
+  } */
+  
+  
+  /* .tour_container .img-responsive{
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: overlay;
+    height: 250px;   
+    -o-object-fit: cover;
+    object-fit: cover;
+  } */
+  
+  /* .tour_container {
+    position: relative; 
+    overflow: hidden;
+     border: 1px solid #fff;
+  }
+   */
+
+  /* .img_container img {
+    -webkit-backface-visibility: hidden;
+    transform: scale(1.2);
+    transition: all .5s ease
+  }
+   */
+  
+/*   
+  .short_info {
+    background: url(/images/shadow_tour.png) repeat-x 0 100%;
+    bottom: -1px;
+    color: #fff;
+    left: 0;
+    padding: 10px 10px 8px 5px;
+    position: absolute;
+    width: 100%
+  }
+   */
+  
+  /* .short_info i {
+    display: inline-block;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle
+  }
+   */
+
+/*    
+  .short_info .date {
+    display: inline-block;
+    float: right;
+    font-size: 28px;
+    font-weight: 700
+  } */
+  
+  
+  
+  /* #page-title {
+    clear: both;
+    padding: 80px 0;
+    background-color: #f8f9fa;
+    position: relative; */
+    /* page header left*/
+    /* page header right*/
+  /* } */
+  
+  /* #page-title .page-title {
+    text-align: center;
+    padding: 0;
+  }
+   */
+
+/*    
+  #page-title .page-title > h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  
+  
+  #page-title .page-title > h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+   */
+
+  /* #page-title .page-title > span {
+    font-weight: 400;
+    font-size: 14px;
+  }
+  
+  #page-title .breadcrumb {
+    text-align: center;
+    margin-bottom: 0;
+    padding: 0;
+  }
+  
+  .breadcrumb {
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  
+
+.tour_container .img-responsive{
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: overlay;
+    height: 250px;   
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+  
+  .tour_container {
+    position: relative; 
+    overflow: hidden;
+     border: 1px solid #fff;
+  }
+  
+  .img_container img {
+    -webkit-backface-visibility: hidden;
+    transform: scale(1.2);
+    transition: all .5s ease
+  }
+  
+  
+  
+  .tour_container .tour_title {
+    padding: 15px;
+    position: relative
+  }
+  
+  
+  
+   */ 

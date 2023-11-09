@@ -63,7 +63,8 @@
                         <h2>Trending Packages</h2>
                     </div>
                 </div>
-            </div>    <div class="card-wrapper container-sm d-flex justify-content-around">
+            </div>   
+             <div class="card-wrapper container-sm d-flex justify-content-around">
         <div class="card" style="width: 20rem; border:none;">
             <img src="images/tour1.jpg" class="card-img-top" alt="...">
             <div class="card-body">
