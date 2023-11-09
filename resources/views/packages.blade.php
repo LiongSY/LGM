@@ -91,20 +91,22 @@
         <button type="submit" class="btn btn-primary">Apply</button>
     </form>
     </div>
-
-    <div class="col-sm-9">
-        <div style="border:2px solid black; margin:5px">
+    @foreach ($packages as $package)
+    <div class="col-sm-9" >
+    <a href="{{ route('itinerary', [$package->packageID]) }}">
+        <div style="border:1px solid white; margin:5px; border-radius:20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
         <div class="row">
             <div class="col-md-4">
-                <div class="img_list">
-                    <img src="images/event4.jpg" alt="#" class="zoomable-image">
+                <div class="img_list" style="border-radius:20px;">
+                <img src="{{ $package->packageImage }}" alt="#" class="zoomable-image">
                 </div>
             </div>
-            <div class="col-md-8">
-                <h2 style="font-size:14px;"><strong>[GRAZY MEGA DEALS 3.0 - INTERIOR TWIN] 5D4N SINGAPORE/PENANG/PHUKET/SINGAPORE (SPECTRUM OF THE SEAS)</strong></h2>
+            <div class="col-md-8" style="padding-top:10px; padding-right:20px">
+                <h2 style="font-size:14px; "><strong>{{ $package->packageName }}</strong></h2>
                 <p style=" font-size:14px">
-                <i class="icon-location">
-                </i>ASIA, CRUISE&nbsp;&nbsp;<i class="bi bi-geo-alt-fill"></i><a href="https://s3-ap-southeast-1.amazonaws.com/storage.iceb2b.my/itinerary/2054/file/Spectrum_of_the_Seas_6pp_Brochure_May_2023__FA.pdf" target="_blank">package download</a>&nbsp;&nbsp;<img src="/" width="22px"> </p>
+                <i class="icon-location"></i>{{$package->destination}}&nbsp;&nbsp;<i class="bi bi-geo-alt-fill"></i>
+                <!-- <a href="https://s3-ap-southeast-1.amazonaws.com/storage.iceb2b.my/itinerary/2054/file/Spectrum_of_the_Seas_6pp_Brochure_May_2023__FA.pdf" target="_blank">package download</a> -->
+                &nbsp;&nbsp;<img src="/" width="22px"> </p>
                 
                 <div>
                             <p style="font-size: 18px;"><i class="bi bi-tag-fill"></i><strong>Price: RM 1,888</strong></p>
@@ -120,8 +122,9 @@
                 </ul>
             </div>
         </div>
+        </a>
     </div>
-    
+    @endforeach
 </div>
 </div>
 </div>

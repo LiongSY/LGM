@@ -22,13 +22,30 @@ Route::get('/', function () {
     return view('homePage');
 })->name('homePage');
 
-Route::get('/tourPackages', function () {
-    return view('packages');
-})->name('tourPackages');
+//customer side packages
+Route::get('/tourPackages', [PackageController::class, 'displayPackages'])->name('packages');
+Route::get('/itinerary/{id}', [PackageController::class, 'displayItinerary'])->name('itinerary');
+
+
+
+
+
+
+
+
+
+// Route::get('/tourPackages', function () {
+//     return view('packages');
+// })->name('tourPackages');
 
 Route::get('/news', function () {
     return view('news');
 })->name('news');
+
+// Route::get('/itinerary', function () {
+//     return view('itinerary');
+// })->name('itinerary');
+
 
 Auth::routes();
 
@@ -52,6 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/packages/create', [PackageController::class, 'create'])->name('packages.create');
 Route::post('/packages', [PackageController::class, 'store'])->name('pages.store');
 Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
+
 // Route::get('/packages/{package}/edit', [PackageController::class, 'edit'])->name('packages.edit');
 Route::get('/packages/{package}', [PackageController::class, 'show'])->name('packages.show');
 Route::delete('/packages/{package}', [PackageController::class, 'destroy'])->name('packages.destroy');

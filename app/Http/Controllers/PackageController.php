@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
+
+  
+
     public function index(Request $request)
 {
     
@@ -241,4 +244,58 @@ class PackageController extends Controller
         ]);
         // Redirect back to the show page with a success message
         return redirect()->route('packages.show', $id)->with('success', 'Package updated successfully!');    }
+
+
+
+
+
+          //customer
+        public function displayPackages(Request $request)
+        {
+            
+            $query = Package::query();
+            
+            if ($request->has('search')) {
+                $searchTerm = $request->input('search');
+                $query->where('packageID', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('packageName', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('destination', 'like', '%' . $searchTerm . '%');
+            }
+        
+            $packages = $query->paginate(10); 
+            return view('packages', compact('packages'));
+        }
+
+
+        public function displayItinerary (Request $request, $id)
+        {
+            // need $id , is the package if passed from the route
+
+            $package = Package::where('packageID', $id)->first();
+            $tours = Tour::where('packageID',$id)->get();
+            $flightDetails =[];
+
+            foreach($tours as $tour){
+                $flight = Flight::where('flightID', $tour->flightID)->first();
+
+                $flightDetails[]=$flight;
+            }
+
+            $itineraries = Itinerary::where('packageID', $id)->get();
+
+            return view('itinerary', compact('package', 'tours', 'itineraries', 'flightDetails'));
+
+        }
+
+
+
+      
+
+
+
 }
+
+
+
+
+    
