@@ -6,6 +6,17 @@
 @section('content')
 <div class="content"> <div class="row"> <div class="col-md-12">
     <div class="card">
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
     <div class="card-header">
     <h4 style="float:left"class="card-title">Packages</h4>
     
@@ -14,7 +25,7 @@
     <div class="card-body">
     <form action="{{ route('packages.index') }}" method="GET" class="mb-3">
            <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search events" name="search">
+            <input type="text" class="form-control" placeholder="Search packages" name="search">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
                 </div>
@@ -51,7 +62,6 @@
                             <button type="submit" class="btn btn-danger"
                                 onclick="return confirm('Are you sure you want to delete this package?')">Delete</button>
                         </form>
-
                     </td>
                 </tr>
                 @endforeach

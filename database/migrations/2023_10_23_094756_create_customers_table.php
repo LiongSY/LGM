@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->string('customerID')->primary();
-            $table->string('titles');
-            $table->mediumText('remarks');
+            $table->string('titles')->nullable;
+            $table->mediumText('remarks')->nullable;
             $table->unsignedInteger('userID');
             $table->foreign('userID')->references('userID')->on('users')->onDelete('cascade');
-            $table->string('passportNo');
             $table->timestamps();
         });
     }

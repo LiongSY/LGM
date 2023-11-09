@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Beneficiary extends Model
 {
-    protected $primaryKey = 'benID';
+    protected $table = 'beneficiary';
+
     protected $fillable = [
-        'benTitle', 'benName', 'benIC', 'benRelationship', 'benContact', 'benAddress', 'customerID'
+        'benID', 'benTitle', 'benName', 'benIC', 'benRelationship', 'benContact', 'benAddress', 'customerID'
     ];}

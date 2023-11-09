@@ -15,6 +15,8 @@ return new class extends Migration
         $table->String('passportNo')->primary();
         $table->date('expiryDate');
         $table->string('passportImage');
+        $table->string('customerID');
+        $table->foreign('customerID')->references('customerID')->on('customers')->onDelete('cascade');
         $table->timestamps();
         });
     }
