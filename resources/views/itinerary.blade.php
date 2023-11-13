@@ -105,18 +105,85 @@
     </div>
 </div>
 
-            <div class="tab-pane fade" id="remark-tab-pane" role="tabpanel" aria-labelledby="remark-tab">
+<div class="tab-pane fade" id="remark-tab-pane" role="tabpanel" aria-labelledby="remark-tab">
                 <!-- REMARK CONTENT -->
                 <div>
                   <br>
                 <p><b>Remarks: </b></p> {!! nl2br(e($package->remarks)) !!}
                </div>
                <br>
-            </div>
+            </div>
 
-            <div class="tab-pane fade" id="departuredate-tab-pane" role="tabpanel" aria-labelledby="departure-tab">
-                <!-- DEPARTURE DATE CONTENT -->
-            </div>
+<div class="tab-pane fade" id="departuredate-tab-pane" role="tabpanel" aria-labelledby="departure-tab">
+    <!-- DEPARTURE DATE CONTENT -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Tour Details Table -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">Tour Details</th>
+                        <th>Flight Number</th>
+                        <th>Sector</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+              <tbody>
+    @foreach($tours as $key => $tour)
+        <tr>
+            <td>
+                <strong>Tour Code:</strong> {{ $tour->tourCode }}<br>
+                <strong>Tour Languages:</strong> {{ $tour->tourLanguages }}<br>
+                <strong>Tour Price:</strong> {{ $tour->tourPrice }}<br>
+                <strong>Tour Status:</strong> {{ $tour->tourStatus }}<br>
+                <strong>No. of Seats:</strong> {{ $tour->noOfSeats }}
+            </td>
+            <td>
+                <b>Outbound:</b> {{ $flightDetails[$key]->flightNumber }}<br>
+                Return: {{ $flightDetails[$key]->returnFlightNumber}}
+            </td>
+            <td>
+                Outbound : {{ $flightDetails[$key]->sector }}<br>
+                Return : {{ $flightDetails[$key]->returnSector }}
+            </td>
+
+            <td>
+                <b>Outbound:</b><br>
+                <div style="display: flex; flex-direction: row;">
+                    <div style="margin-right: 10px;">
+                    <div>
+                        <strong>Date/Time:</strong><br>
+                        Departure: {{ $flightDetails[$key]->departureDate }} &nbsp; {{ $flightDetails[$key]->departureTime }}<br>
+                        Arrival: {{ $flightDetails[$key]->arrivalDate }} &nbsp;{{ $flightDetails[$key]->arrivalTime }}
+                    </div>
+                    </div>
+                </div><br>
+                <b>Return:</b><br>
+                <div style="display: flex; flex-direction: row;">
+                    <div style="margin-right: 10px;">
+                    <div>
+                        <strong>Date/Time:</strong><br>
+                        Departure: {{ $flightDetails[$key]->returnDepartureDate }} &nbsp; {{ $flightDetails[$key]->returnDepartureTime }}<br>
+                        Arrival: {{ $flightDetails[$key]->returnArrivalDate }} &nbsp;{{ $flightDetails[$key]->returnArrivalTime }}
+                    </div>
+                    </div>
+                </div>
+               
+            </td>
+        </tr>
+    @endforeach
+</tbody>
+
+            </table>
         </div>
+
+       
     </div>
+
+</div>
+
+</div>
+
+        </div>
 @endsection
