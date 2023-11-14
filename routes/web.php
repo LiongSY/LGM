@@ -39,9 +39,6 @@ Route::get('/itinerary/{id}', [PackageController::class, 'displayItinerary'])->n
 
 
 
-
-
-
 // Route::get('/tourPackages', function () {
 //     return view('packages');
 // })->name('tourPackages');
