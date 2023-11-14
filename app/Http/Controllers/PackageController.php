@@ -6,6 +6,8 @@ use App\Models\Flight;
 use App\Models\Itinerary;
 use App\Models\Package;
 use App\Models\Tour;
+
+use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 
@@ -324,7 +326,6 @@ class PackageController extends Controller
 
         public function displayItinerary (Request $request, $id)
         {
-            // need $id , is the package if passed from the route
 
             $package = Package::where('packageID', $id)->first();
             $tours = Tour::where('packageID',$id)->get();
@@ -343,11 +344,26 @@ class PackageController extends Controller
         }
 
 
+        public function generateItinerary(Request $request, $id){
+            $package = Package::where('packageID', $id)->first();
 
+            // Retrieve associated tours, flights, and itinerary
+            $tours = Tour::where('packageID', $id)->get();
+        
+            // Array to store flight details
+            $flightDetails = [];
+        
+            foreach ($tours as $tour) {
+                $flight = Flight::where('flightID', $tour->flightID)->first();
+        
+                $flightDetails[] = $flight;
+            }
+        
+            $itineraries = Itinerary::where('packageID', $id)->get();
+        
+            return view('pages.generateItinerary', compact('package', 'tours', 'itineraries','flightDetails'));
+        }
       
-
-
-
 }
 
 

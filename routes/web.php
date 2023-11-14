@@ -87,6 +87,8 @@ Route::put('/tour/{id}', [PackageController::class, 'updateTour'])->name('packag
 
 Route::get('/itinerary/edit/{id}', [PackageController::class, 'editItinerary'])->name('editItinerary');
 Route::put('/itinerary/{id}', [PackageController::class, 'updateItinerary'])->name('package.updateItinerary');
+//generate itinerary
+Route::get('/itinerary/generate/{id}', [PackageController::class, 'generateItinerary'])->name('generateItinerary');
 
 //admin
 Route::get('/admin/addStaff', [AdminController::class, 'create'])->name('admin.addStaff');

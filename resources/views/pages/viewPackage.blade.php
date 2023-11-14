@@ -165,6 +165,7 @@
                 <!-- Add more itinerary details as needed -->
                 @endforeach
                 <a href="{{ route('editItinerary', $package->packageID) }}" style="float:right"class="btn btn-danger">Edit Itinerary</a>
+                <a href="{{ route('generateItinerary', $package->packageID) }}" style="float:left"class="btn btn-warning">View Itinerary</a>
 
     </div>
 
