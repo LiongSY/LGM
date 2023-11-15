@@ -1,8 +1,5 @@
 /* Style the navigation bar */
-.navbar-transparent {
-    background-color: transparent;
-    transition: background-color 0.5s;
-}
+
 
 /* Set the initial position of the navigation bar at the top */
 .navbar-fixed-top {
@@ -17,9 +14,7 @@
 .navbar-nav .nav-item .nav-link{
    color: rgb(40, 80, 160);
 }
-.navbar.sticky {
-    background-color: white;
-}
+
 
 /* Style the navigation links on hover */
 .navbar-nav .nav-item a:hover {
