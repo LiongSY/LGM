@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeneficiaryController;
+use App\Http\Controllers\BotManController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PackageController;
@@ -109,6 +110,9 @@ Route::put('/passport/update/{passportNo}', [PassportController::class, 'update'
 Route::post('/beneficiary', [BeneficiaryController::class, 'store'])->name('beneficiary.store');
 Route::get('/beneficiary/edit/{benID}', [BeneficiaryController::class, 'edit'])->name('beneficiary.edit');
 Route::put('/beneficiary/update/{benID}', [BeneficiaryController::class, 'update'])->name('beneficiary.update');
+
+//botman
+Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 
 
 //booking
