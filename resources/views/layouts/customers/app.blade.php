@@ -140,7 +140,14 @@
   
   <script>
      var botmanWidget = {
-         introMessage: "Hi ✋! I'm LilyBot from LGM Tour & Travel. <br> Please select the option below:<br><br>1. Booking Assistance.<br>2. Destination Information.<br>3. Feedback and Reviews.<br>4. Chat with agent."
+         introMessage: "Hi ✋! I'm LilyBot from LGM Tour & Travel. <br> Please select the option below:<br><br>1. Booking Assistance.<br>2. Destination Information.<br>3. Feedback and Reviews.<br>4. Chat with agent.",
+         title:'LilyBot',
+        mainColor:'#1F4E7A',
+        background:'#f1f1f1',
+        aboutText:'',
+       bubbleBackground:'#1F4E7A', //widget
+       headerTextColor: '#f1f1f1',
+       bubbleAvatarUrl: '{{ asset('images/customer-service.png') }}',
      };
     </script>
 </body>
