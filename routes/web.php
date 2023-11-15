@@ -31,6 +31,21 @@ Route::get('/', function () {
     return view('homePage');
 })->name('homePage');
 
+// Route::get('/', function () {
+//     return view('booking');
+// })->name('booking');
+
+Route::get('/customerProfile', function () {
+    return view('customerProfile');
+})->name('customerProfile');
+
+
+//customer/user profile
+Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
+Route::post('/profile/update', 'ProfileController@update')->name('profile.update');
+
+
+
 //customer side packages
 Route::get('/tourPackages', [PackageController::class, 'displayPackages'])->name('packages');
 Route::get('/itinerary/{id}', [PackageController::class, 'displayItinerary'])->name('itinerary');
