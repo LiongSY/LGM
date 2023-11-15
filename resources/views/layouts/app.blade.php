@@ -41,7 +41,7 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('paper') }}/demo/demo.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+   
 </head>
 
 <body class="{{ $class }}">
@@ -70,7 +70,7 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="{{ asset('paper') }}/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
     <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
     <script src="{{ asset('paper') }}/demo/demo.js"></script>
-    <!-- Sharrre libray -->
+    <!-- Share libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
     
     @stack('scripts')
