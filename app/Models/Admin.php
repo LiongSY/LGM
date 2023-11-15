@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Admin extends Model
 {
-    protected $primaryKey = 'adminID';
+
+    protected $table = 'admin';
+
     protected $fillable = [
-        'staffID'
+        'adminID','staffID'
     ];
 }

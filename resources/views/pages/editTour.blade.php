@@ -17,22 +17,21 @@
 
                     <a href="{{ URL::previous() }}" class="btn btn-secondary" style="float:right; top:0px">Back</a>
 
-                    <div class="card-header" style="padding-left:0px"> <b>Update Tours<b></div>
-                    <div class="card-header" style="padding-left:0px">{{ $tour->tourCode }}</div>
+                    <div class="card-header" style="padding-left:0px"> <b>UPDATE {{ $tour->tourCode }}<b></div>
                     <hr>
                     <div class="tourRow">
                         <div class="form-row">
                             <div class="col-md-4">
                                 <label for="tourLanguages">Tour Languages:</label>
-                                <input type="text" class="form-control" id="tourLanguages" value="{{ $tour->tourLanguages }}" name="tourLanguages[]" required>
+                                <input type="text" class="form-control" id="tourLanguages" value="{{ $tour->tourLanguages }}" name="tourLanguages" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="tourPrice">Tour Price:</label>
-                                <input type="number" class="form-control" id="tourPrice" value="{{ $tour->tourPrice }}" name="tourPrice[]" required>
+                                <input type="number" class="form-control" id="tourPrice" value="{{ $tour->tourPrice }}" name="tourPrice" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="noOfSeats">Number of Seats:</label>
-                                <input type="number" class="form-control" id="noOfSeats" value="{{ $tour->noOfSeats }}" name="noOfSeats[]" required>
+                                <input type="number" class="form-control" id="noOfSeats" value="{{ $tour->noOfSeats }}" name="noOfSeats" required>
                             </div>
                         </div>
 
@@ -42,51 +41,51 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="sector">Sector:</label>
-                                <input type="text" class="form-control" id="sector" value="{{ $flight->sector }}" name="sector[]" required>
+                                <input type="text" class="form-control" id="sector" value="{{ $flight->sector }}" name="sector" required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="airlines">Airlines:</label>
-                                <input type="text" class="form-control" id="airlines" value="{{ $flight->airlines }}" name="airlines[]" required>
+                                <input type="text" class="form-control" id="airlines" value="{{ $flight->airlines }}" name="airlines" required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="flightNumber">Flight Number:</label>
-                                <input type="text" class="form-control" id="flightNumber" value="{{ $flight->flightNumber }}" name="flightNumber[]" required>
+                                <input type="text" class="form-control" id="flightNumber" value="{{ $flight->flightNumber }}" name="flightNumber" required>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="departureDate">Departure Date:</label>
-                                <input type="date" class="form-control" id="departureDate" value="{{ $flight->departureDate }}" name="departureDate[]" required>
+                                <input type="date" class="form-control" id="departureDate" value="{{ $flight->departureDate }}" name="departureDate" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="returnDate">Arrival Date:</label>
-                                <input type="date" class="form-control" id="returnDate" value="{{ $flight->arrivalDate }}" name="arrivalDate[]" required>
+                                <input type="date" class="form-control" id="returnDate" value="{{ $flight->arrivalDate }}" name="arrivalDate" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="departureTime">Departure Time:</label>
-                                <input type="time" class="form-control" id="departureTime" value="{{ $flight->departureTime }}" name="departureTime[]" required>
+                                <input type="time" class="form-control" id="departureTime" value="{{ $flight->departureTime }}" name="departureTime" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="returnTime">Arrival Time:</label>
-                                <input type="time" class="form-control" id="arrivalTime" value="{{ $flight->arrivalTime }}" name="arrivalTime[]" required>
+                                <input type="time" class="form-control" id="arrivalTime" value="{{ $flight->arrivalTime }}" name="arrivalTime" required>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="sector">Return Sector:</label>
-                                <input type="text" class="form-control" id="reuturnSector" value="{{ $flight->returnSector }}" name="returnSector[]" required>
+                                <input type="text" class="form-control" id="reuturnSector" value="{{ $flight->returnSector }}" name="returnSector" required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="airlines">Return Airlines:</label>
-                                <input type="text" class="form-control" id="returnAirlines" value="{{ $flight->returnAirlines }}" name="returnAirlines[]" required>
+                                <input type="text" class="form-control" id="returnAirlines" value="{{ $flight->returnAirlines }}" name="returnAirlines" required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="flightNumber">Return Flight Number:</label>
-                                <input type="text" class="form-control" id="returnFlightNumber" value="{{ $flight->returnFlightNumber }}" name="returnFlightNumber[]" required>
+                                <input type="text" class="form-control" id="returnFlightNumber" value="{{ $flight->returnFlightNumber }}" name="returnFlightNumber" required>
                             </div>
                         </div>
 
@@ -94,29 +93,28 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="departureDate">Return Departure Date:</label>
-                                <input type="date" class="form-control" id="departureDate" value="{{ $flight->returnDepartureDate }}" name="returnDepartureDate[]" required>
+                                <input type="date" class="form-control" id="departureDate" value="{{ $flight->returnDepartureDate }}" name="returnDepartureDate" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="returnDate"> Return Arrival Date:</label>
-                                <input type="date" class="form-control" id="returnDate" value="{{ $flight->returnArrivalDate }}" name="returnArrivalDate[]" required>
+                                <input type="date" class="form-control" id="returnDate" value="{{ $flight->returnArrivalDate }}" name="returnArrivalDate" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="departureTime">Return Departure Time:</label>
-                                <input type="time" class="form-control" id="returndDepartureTime" value="{{ $flight->returnDepartureTime }}" name="returnDepartureTime[]" required>
+                                <input type="time" class="form-control" id="returndDepartureTime" value="{{ $flight->returnDepartureTime }}" name="returnDepartureTime" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="returnTime">Return Arrival Time:</label>
-                                <input type="time" class="form-control" id="returnArrivalTime" value="{{ $flight->returnArrivalTime }}" name="returnArrivalTime[]" required>
+                                <input type="time" class="form-control" id="returnArrivalTime" value="{{ $flight->returnArrivalTime }}" name="returnArrivalTime" required>
                             </div>
                         </div>
 
                     </div>
 
 
-                        <button type="submit" class="btn btn-primary"style="float:left">Submit</button>
-                        <button class="btn btn-warning addTourBtn" style="float:right">Add Tour</button>
+                        <button type="submit" class="btn btn-primary"style="float:left">Update Tour</button>
 
             </form>
 
@@ -233,134 +231,6 @@ function validateForm() {
     }
 
  
-
-
-    $(document).ready(function () {
-        var numOfTour = 1;
-
-    // Add Tour button click event
-    $('.addTourBtn').click(function () {
-        numOfTour++;
-
-        var newTourRow = `
-        <div class="tourRow">
-        <div class="card-header" style="padding-left:0px">Tour ${numOfTour}
-                    </div>
-                    <hr>
-                        <div class="form-row">
-                            <div class="col-md-4">
-                                <label for="tourLanguages">Tour Languages:</label>
-                                <input type="text" class="form-control" id="tourLanguages" name="tourLanguages[]" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="tourPrice">Tour Price:</label>
-                                <input type="number" class="form-control" id="tourPrice" name="tourPrice[]" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="noOfSeats">Number of Seats:</label>
-                                <input type="number" class="form-control" id="noOfSeats" name="noOfSeats[]" required>
-                            </div>
-                        </div>
-                    
-                        <div class="card-header" style="padding-left:0px"> Flight Details
-                        </div>
-                        <hr>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="sector">Sector:</label>
-                                <input type="text" class="form-control" id="sector" name="sector[]" required>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="airlines">Airlines:</label>
-                                <input type="text" class="form-control" id="airlines" name="airlines[]" required>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="flightNumber">Flight Number:</label>
-                                <input type="text" class="form-control" id="flightNumber" name="flightNumber[]" required>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="departureDate">Departure Date:</label>
-                                <input type="date" class="form-control" id="departureDate" name="departureDate[]" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="returnDate">Arrival Date:</label>
-                                <input type="date" class="form-control" id="returnDate" name="arrivalDate[]" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="departureTime">Departure Time:</label>
-                                <input type="time" class="form-control" id="departureTime" name="departureTime[]" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="returnTime">Arrival Time:</label>
-                                <input type="time" class="form-control" id="arrivalTime" name="arrivalTime[]" required>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="sector">Return Sector:</label>
-                                <input type="text" class="form-control" id="reuturnSector" name="returnSector[]" required>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="airlines">Return Airlines:</label>
-                                <input type="text" class="form-control" id="returnAirlines" name="returnAirlines[]" required>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="flightNumber">Return Flight Number:</label>
-                                <input type="text" class="form-control" id="returnFlightNumber" name="returnFlightNumber[]" required>
-                            </div>
-                        </div>
-
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="departureDate">Return Departure Date:</label>
-                                <input type="date" class="form-control" id="departureDate" name="returnDepartureDate[]" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="returnDate"> Return Arrival Date:</label>
-                                <input type="date" class="form-control" id="returnDate" name="returnArrivalDate[]" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="departureTime">Return Departure Time:</label>
-                                <input type="time" class="form-control" id="returndDepartureTime" name="returnDepartureTime[]" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="returnTime">Return Arrival Time:</label>
-                                <input type="time" class="form-control" id="returnArrivalTime" name="returnArrivalTime[]" required>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-danger deleteTourRow">Delete</button>
-
-                    </div>
-
-        `;
-
-        $('.tourRow:last .deleteTourRow').remove();
-            // Append the new row below the first input group and above the submit button
-            $('.tourRow:last').after(newTourRow);
-
-    });
-
-    $(document).on('click', '.deleteTourRow', function () {
-            // Remove the entire row when delete button is clicked
-            $(this).closest('.tourRow').remove();
-            // Decrement the number of days counter when a row is deleted
-            numOfTour--;
-
-            if (numOfTour > 1) {
-                $('.tourRow:last').append('<button type="button" class="btn btn-danger deleteTourRow">Delete</button>');
-            }
-
-        });
-});
 
 
 

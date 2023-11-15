@@ -13,7 +13,7 @@ class Package extends Model
         return $this->hasMany(Tour::class, 'packageID','packageID');
     }
     public function itinerary() {
-        return $this->belongsTo(Itinerary::class);
+        return $this->hasMany(Itinerary::class, 'packageID','packageID');
     }
     protected $fillable = [
         'packageID','packageImage','packageName','highlight', 'itineraryPdf', 'remarks', 'destination', 'itineraryID', 'singleRoom','doubleRoom','tripleRoom'

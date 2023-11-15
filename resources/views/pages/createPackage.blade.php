@@ -237,7 +237,7 @@
 function validateForm() {
     document.getElementById("errorMessages").style.display = "none";
     document.getElementById("errorMessages").innerHTML = "";
-
+    
         var packageName = document.getElementById("packageName").value;
         var packageHighlight = document.getElementById("packageHighlight").value;
         var destination = document.getElementById("destination").value;

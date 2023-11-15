@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Staff extends Model
 {
     protected $fillable = [
-        'lastSeen', 'status', 'userID'
+        'staffID','lastSeen', 'status', 'userID'
     ];
 }

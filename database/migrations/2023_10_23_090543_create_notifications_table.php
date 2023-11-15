@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->String('notificationID')->primary();
             $table->longText('notificationMessage');
-            $table->String('staffID');
-            $table->foreign('staffID')->references('staffID')->on('staff')->onDelete('cascade');
+            $table->unsignedInteger('userID');
+            $table->foreign('userID')->references('userID')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -155,6 +155,7 @@
               <div class="card-body">
               <p><strong>Day: </strong>{{ $itinerary->noOfDays }}</p>
               <p><strong>Remarks: </strong>{{ $itinerary->remarks }}</p>
+              <p><strong>Meals: </strong>{{ $itinerary->meals }}</p>
               <p><strong>Hotel: </strong>{{ $itinerary->hotelName }}</p>
               <p><strong>Information:</strong><br>{!! nl2br(e($itinerary->information)) !!}</p>
 
@@ -164,6 +165,7 @@
                 <!-- Add more itinerary details as needed -->
                 @endforeach
                 <a href="{{ route('editItinerary', $package->packageID) }}" style="float:right"class="btn btn-danger">Edit Itinerary</a>
+                <a href="{{ route('generateItinerary', $package->packageID) }}" style="float:left"class="btn btn-warning">View Itinerary</a>
 
     </div>
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -24,11 +24,16 @@ class ProfileController extends Controller
      * @param  \App\Http\Requests\ProfileRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ProfileRequest $request)
+    public function update(Request $request,$id)
     {
-        auth()->user()->update($request->all());
+        $request->validate([
+            'name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/'], 
+            'phoneNo' => ['required', 'regex:/^(01)[0-9]-*[0-9]{7,8}$/'], 
+        ]);
+         
+         auth()->user()->update($request->all());
 
-        return back()->withStatus(__('Profile successfully updated.'));
+         return back()->withStatus(__('Profile successfully updated.'));
     }
 
     /**
@@ -39,6 +44,7 @@ class ProfileController extends Controller
      */
     public function password(PasswordRequest $request)
     {
+        
         auth()->user()->update(['password' => Hash::make($request->get('password'))]);
 
         return back()->withPasswordStatus(__('Password successfully updated.'));

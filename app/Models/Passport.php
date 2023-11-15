@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Passport extends Model
 {
-    protected $primaryKey = 'passportNo';
     protected $fillable = [
-        'expiryDate', 'passportImage'
+       'passportNo', 'expiryDate', 'passportImage','customerID'
     ];}

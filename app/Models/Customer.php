@@ -9,6 +9,6 @@ class Customer extends Model
 {
     
     protected $fillable = [
-        'customerID', 'titles', 'remarks', 'userID', 'passportNo'
+        'customerID', 'titles', 'remarks', 'userID'
     ];
 }

@@ -6,6 +6,8 @@ use App\Models\Flight;
 use App\Models\Itinerary;
 use App\Models\Package;
 use App\Models\Tour;
+
+use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 
@@ -72,9 +74,10 @@ class PackageController extends Controller
     }
 
     public function editItinerary(Request $request, $id){
+        $package = Package::where('packageID', $id)->first();
         $itineraries = Itinerary::where('packageID', $id)->get();
 
-        return view('pages.editItinerary', compact('itineraries'));
+        return view('pages.editItinerary', compact('itineraries','package'));
     }
 
     
@@ -189,44 +192,98 @@ class PackageController extends Controller
        
     }
 
-    public function updateTour(Request $request, $id){
-    // Retrieve associated tours, flights, and itinerary
-    $tours = Tour::where('tourCode', $id)->get();
-
-    foreach ($tours as $index => $tour) {
-
+    public function updateItinerary(Request $request, $id){
         
-    $tour->update([
+        $numberOfDays = $request->input('noOfDays'); // This will be an array
+        $remarks = $request->input('remarks'); // This will be an array
+        $hotelNames = $request->input('hotelName'); // This will be an array
+        $meals = $request->input('meals'); // This will be an array of arrays
+        $information = $request->input('information'); // This will be an array
+        for ($i = 0; $i < count($numberOfDays); $i++) {
+            
 
-    'tour_languages' => $request->input('tourLanguages'),
-    'tour_price' => $request->input('tourPrice'),
-    'no_of_seats' => $request->input('noOfSeats'),
+            $mealsString = (array_key_exists($i, $meals) && is_array($meals[$i]))
+            ? implode('|', $meals[$i])
+            : "No Meal";
+
+            Itinerary::where('packageID', $id)
+            ->where('noOfDays', $i + 1) // Assuming day numbering starts from 1
+            ->update([
+                'remarks' => $remarks[$i],
+                'hotelName' => $hotelNames[$i],
+                'meals' => $mealsString,
+                'information' => $information[$i],
+            ]);
+        }
+
+
+           
+         // Redirect the user back with a success message
+          return redirect()->route('packages.show', $id)->with('success', 'Itinerary updated successfully!');    
+    
+        
+    }
+
+    public function destroy($id)
+    {
+
+        $package = Package::where('packageID', $id)->first();
+
+        $tours = Tour::where('packageID', $id)->get();
+
+
+        $package->tours()->delete();
+
+        foreach ($tours as $tour) {
+
+            $flightID = $tour->flightID;
+           
+            Flight::where('flightID', $flightID)->delete();
+            
+        }
+        
+
+        $package->itinerary()->delete();
+
+        Package::where('packageID', $id)->delete();
+
+        return redirect()->route('packages.index')->with('success', 'Package deleted successfully.');
+
+    }
+
+    public function updateTour(Request $request, $id){
+        
+    $tour= Tour::where('tourCode', $id)->first();
+    
+    Tour::where('tourCode', $id)->update([
+
+    'tourLanguages' => $request->input('tourLanguages'),
+    'tourPrice' => $request->input('tourPrice'),
+    'noOfSeats' => $request->input('noOfSeats'),
         
     ]);
 
 
-        $flight = Flight::where('flightID', $tour->flightID)->first();
-        $flight->update([
-            'sector' => $request->input('sector')[$index],
-            'airlines' => $request->input('airlines')[$index],
-            'flightNumber' => $request->input('flightNumber')[$index],
-            'departureDate' => $request->input('departureDate')[$index],
-            'arrivalDate' => $request->input('arrivalDate')[$index],
-            'departureTime' => $request->input('departureTime')[$index],
-            'arrivalTime' => $request->input('arrivalTime')[$index],
-            'returnSector' => $request->input('returnSector')[$index],
-            'returnAirlines' => $request->input('returnAirlines')[$index],
-            'returnFlightNumber' => $request->input('returnFlightNumber')[$index],
-            'returnDepartureDate' => $request->input('returnDepartureDate')[$index],
-            'returnArrivalDate' => $request->input('returnArrivalDate')[$index],
-            'returnDepartureTime' => $request->input('returnDepartureTime')[$index],
-            'returnArrivalTime' => $request->input('returnArrivalTime')[$index],
-            // Update other flight fields if needed
+       Flight::where('flightID', $tour->flightID)->update([
+            'sector' => $request->input('sector'),
+            'airlines' => $request->input('airlines'),
+            'flightNumber' => $request->input('flightNumber'),
+            'departureDate' => $request->input('departureDate'),
+            'arrivalDate' => $request->input('arrivalDate'),
+            'departureTime' => $request->input('departureTime'),
+            'arrivalTime' => $request->input('arrivalTime'),
+            'returnSector' => $request->input('returnSector'),
+            'returnAirlines' => $request->input('returnAirlines'),
+            'returnFlightNumber' => $request->input('returnFlightNumber'),
+            'returnDepartureDate' => $request->input('returnDepartureDate'),
+            'returnArrivalDate' => $request->input('returnArrivalDate'),
+            'returnDepartureTime' => $request->input('returnDepartureTime'),
+            'returnArrivalTime' => $request->input('returnArrivalTime'),
         ]);
-    }
+    
     
      // Redirect the user back with a success message
-     return redirect()->route('packages.show', $id)->with('success', 'Package updated successfully!');    
+     return redirect()->route('packages.show', $tour->packageID)->with('success', 'Tour updated successfully!');    
 
     }
 
@@ -269,7 +326,6 @@ class PackageController extends Controller
 
         public function displayItinerary (Request $request, $id)
         {
-            // need $id , is the package if passed from the route
 
             $package = Package::where('packageID', $id)->first();
             $tours = Tour::where('packageID',$id)->get();
@@ -288,11 +344,26 @@ class PackageController extends Controller
         }
 
 
+        public function generateItinerary(Request $request, $id){
+            $package = Package::where('packageID', $id)->first();
 
+            // Retrieve associated tours, flights, and itinerary
+            $tours = Tour::where('packageID', $id)->get();
+        
+            // Array to store flight details
+            $flightDetails = [];
+        
+            foreach ($tours as $tour) {
+                $flight = Flight::where('flightID', $tour->flightID)->first();
+        
+                $flightDetails[] = $flight;
+            }
+        
+            $itineraries = Itinerary::where('packageID', $id)->get();
+        
+            return view('pages.generateItinerary', compact('package', 'tours', 'itineraries','flightDetails'));
+        }
       
-
-
-
 }
 
 

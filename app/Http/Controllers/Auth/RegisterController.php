@@ -77,10 +77,10 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'phoneNo' => $data['phone'],
             'role' => "customer",
-            'gender' => " ",
-            'nationality' => " ",
-            'identityNo' => " ",
-            'address' => " "
+            'gender' => "",
+            'nationality' => "",
+            'identityNo' => "",
+            'address' => ""
         ]);
     
         Customer::create([
@@ -88,7 +88,6 @@ class RegisterController extends Controller
             'titles' => " ",
             'remarks' => " ",
             'userID' => $user->userID,
-            'passportNo' => " "
         ]);
     
         return $user;
