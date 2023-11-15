@@ -1,15 +1,7 @@
 @extends('layouts.customers.app')
 
 @section('content')
-    <div class="container">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-
+    <div class="container" >
         <section id="page-title" class="text-light" style="background-image:url(images/newHeader.jpg);
             background-size: cover; background-position: center center;">
             <div class="container">

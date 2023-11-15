@@ -1,54 +1,18 @@
 @extends('layouts.customers.app')
 
 @section('content')
-<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item">
-            <img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="500"
-                src="images/winter.jpeg" preserveAspectRatio="xMidYMid slice" focusable="false">
-        </div>
-        <div class="carousel-item">
-            <img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="500"
-                src="images/summer.jpeg" preserveAspectRatio="xMidYMid slice" focusable="false">
-        </div>
-        <div class="carousel-item active">
-            <img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="500"
-                src="images/autumn.jpeg" preserveAspectRatio="xMidYMid slice" focusable="false">
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
 
 <!-- Search -->
-<div class="container mt-3">
-    <form>
-        <div class="row justify-content-center" style="margin-top: 30px">
-            <div class="col-md-3">
-                <div class="card" style="border: none;">
-                    <input class="form-control" type="text" placeholder="Enter your destination">
+<div class="container"  style="margin-top:9%">
+<div class="container mt-1" style="width:50%">
+<form action="" method="GET" class="mb-3">
+           <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search packages" name="search">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Search</button>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card" style="border: none;">
-                    <input class="form-control" type="date">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card" style="border: none; border-radius: 10px;">
-                    <button class="btn btn-primary btn-block">Explore Now</button>
-                </div>
-            </div>
-        </div>
-    </form>
+        </form>
 </div>
 
 <div class="container mt-5">
@@ -131,7 +95,7 @@
 </div>
 </div>
 </div>
-
+</div>
 
 
 @endsection

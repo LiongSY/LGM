@@ -23,9 +23,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/', function () {
     return view('homePage');
@@ -36,14 +36,15 @@ Route::get('/', function () {
 // })->name('booking');
 
 Route::get('/customerProfile', function () {
-    return view('customerProfile');
+    return view('profile');
 })->name('customerProfile');
 
 
-//customer/user profile
-Route::get('/profile/edit', 'ProfileController@edit')->name('customerProfile.edit');
-Route::post('/profile/update', 'ProfileController@update')->name('customerProfile.update');
-
+// Route::middleware(['auth'])->group(function () {
+// Route::get('/customerProfile/{id}', [CustomerController::class,'view'])->name('customerProfile.view');
+Route::get('/customerProfile/edit', [CustomerController::class,'edit'])->name('customerProfile.edit');
+Route::post('/customerProfile/update', [CustomerController::class,'update'])->name('customerProfile.update');
+// });
 //customer side packages
 Route::get('/tourPackages', [PackageController::class, 'displayPackages'])->name('packages');
 Route::get('/itinerary/{id}', [PackageController::class, 'displayItinerary'])->name('itinerary');
@@ -109,7 +110,6 @@ Route::delete('/staff/{staff}', [AdminController::class, 'destroy'])->name('admi
 Route::put('profile', [ProfileController::class, 'password'])->name('editPassword');
 Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
-//customers list
 Route::get('/customers', [CustomerController::class, 'index'])->name('users.customers');
 
 
