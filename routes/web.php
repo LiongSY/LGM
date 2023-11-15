@@ -41,10 +41,8 @@ Route::get('/customerProfile', function () {
 
 
 //customer/user profile
-Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
-Route::post('/profile/update', 'ProfileController@update')->name('profile.update');
-
-
+Route::get('/profile/edit', 'ProfileController@edit')->name('customerProfile.edit');
+Route::post('/profile/update', 'ProfileController@update')->name('customerProfile.update');
 
 //customer side packages
 Route::get('/tourPackages', [PackageController::class, 'displayPackages'])->name('packages');

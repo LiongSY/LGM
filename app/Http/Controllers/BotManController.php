@@ -31,8 +31,6 @@ class BotManController extends Controller
                 $this->feedback($bot);
             }elseif ($message == 4) {
                 $this->chatAgent($bot);
-            }else{
-                $this->repeat()
             }
 
             if(preg_match('/\b(hello*|hi*)\b/i', $message) === 1) {
