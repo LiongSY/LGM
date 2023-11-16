@@ -29,32 +29,26 @@
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="itinerary-tab-pane" role="tabpanel" aria-labelledby="itinerary-tab">
-                <div class="row">
+                <div class="row"><br>
                     <div class="col-lg-12">
-                        <ul class="timeline">
-                            <li class="timeline-item">
-                                <div class="timeline-icon"><i class="icon-map"></i></div>
                                 <p>
                                     <a class="btn btn btn-danger" href="{{ route('itinerary', [$package->itineraryPdf]) }}" target="_blank">
-                                        <i class="icon-arrow-down-circle"></i>ITINERARY PDF 行程下载
+                                       <i class="icon-arrow-down-circle"></i>ITINERARY PDF 行程下载
                                     </a>
                                 </p>
-                            </li>
                             @foreach ($itineraries as $itinerary)
                                 @if ($itinerary->packageID === $package->packageID)
-                                    <li class="timeline-item">
-                                        <div class="timeline-icon"><i class="icon-map-pin"></i></div>
-                                        <h4>Day {{ $itinerary->noOfDays }} </h4><br>
-                                        <p>Hotel Name: <strong>{{ $itinerary->hotelName }}</strong></p>
-                                        <p>Meals: <strong>{{ $itinerary->meals }}</strong></p>
-                                        <p>Information:<strong>{{ $itinerary->information }}</strong></p>
-                                        <p style="font-family: Verdana, Arial, sans-serif; font-size: 10.847px; color: rgb(124, 81, 161);">
-                                            Remarks:<strong>{{ $itinerary->remarks }}</strong>
-                                        </p>
-                                    </li>
+                                        <h4><i class="bi bi-geo-alt" style="color:blue;"></i>
+                                        <b> Day {{ $itinerary->noOfDays }} :</b>
+                                        <p style="color:red; display:inline;"> {{ $itinerary->remarks }}<p></h4>
+                                        <div class="card" style="border:1px solid grey; padding:15px">
+                                        <p><strong>Hotel Name: </strong>  {{ $itinerary->hotelName }}</p>
+                                        <p><strong>Meals: </strong> {{ $itinerary->meals }}</p>
+                                        <p><strong>Information:<br></strong>{!! nl2br(e($itinerary->information)) !!}</p>
+                                       
+                                        </div>
                                 @endif
                             @endforeach
-                        </ul>
                     </div>
                 </div>
             </div>

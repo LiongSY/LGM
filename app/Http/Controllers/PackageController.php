@@ -363,9 +363,19 @@ class PackageController extends Controller
         
             return view('pages.generateItinerary', compact('package', 'tours', 'itineraries','flightDetails'));
         }
-      
-}
 
+      public function search(Request $request)
+      {
+        $request->validate([
+            'destination' => 'required|string',
+        ]);
+
+        $searchResults = Package::where('destination', 'like', '%' . $request->input('destination') . '%')->get();
+        
+        return view('search',['searchResults'=> $searchResults]);
+      }
+
+    }
 
 
 

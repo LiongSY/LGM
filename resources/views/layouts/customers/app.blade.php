@@ -16,7 +16,7 @@
     <!-- CSS Files -->
     <link href="{{ asset('paper') }}/css/bootstrap.min.css" rel="stylesheet" />
     <link href="{{ asset('paper') }}/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <title>LGM Tour & Travel</title>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="css/style.css">
@@ -28,32 +28,73 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
+
 </head>
 <body>
-<nav class="navbar navbar-expand-lg fixed-top" style="background-color:#bde0fe;">
-    <div class="container">
-        <a class="navbar-brand" href="#"><img src="images/LGM.png" alt="Logo"></a>
-        <ul class="navbar-nav ml-auto" >
-            <li class="nav-item" >
-                <a class="nav-link" href="#">Home</a>
+
+
+
+<!-- navigation -->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#"  >
+        <img src="images/LGM.png" width="80px" height="auto" margin-right="50px;" class="d-inline-block align-top" alt="#">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="packagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Packages
+                </a>
+                <div class="dropdown-menu" aria-labelledby="packagesDropdown">
+                    <a class="dropdown-item" href="#">Itinerary</a>
+                    <a class="dropdown-item" href="#">Booking</a>
+                    <a class="dropdown-item" href="#">Comparison</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="mediaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Media
+                </a>
+                <div class="dropdown-menu" aria-labelledby="mediaDropdown">
+                    <a class="dropdown-item" href="#">News & Blog</a>
+                    <a class="dropdown-item" href="#">Gallery</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="moreDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </a>
+                <div class="dropdown-menu" aria-labelledby="moreDropdown">
+                    <a class="dropdown-item" href="#">About Us</a>
+                    <a class="dropdown-item" href="#">Contact Us</a>
+                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About Us</a>
+                <a class="nav-link" href="#">
+                    <i class="fas fa-user"></i> Profile
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact Us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Packages</a>
+                <a class="nav-link" href="#">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
             </li>
         </ul>
     </div>
 </nav>
 
-
-
 @yield('content')
-<footer class="text-white text-center text-lg-start" style="background-color: #23242a; padding-top: 30px;">
+
+<!-- footer -->
+<footer class="text-white text-center text-lg-start" style="background-color: #23242a; padding-top: 20px;">
 
     <div class="container p-4">
         <div class="row mt-4">
@@ -75,18 +116,13 @@
 
             <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
                 <h5 class="text-uppercase mb-4 pb-1">Search Something</h5>
-                <div class="form-outline form-white mb-4">
-                    <input type="text" id="formControlLg" class="form-control form-control-lg rounded-pill" placeholder="Enter your search term">
-                    <label class="form-label" for="formControlLg" style="margin-left: 0px;">Search</label>
-                    <button class="btn btn-outline-secondary rounded-pill" type="button">
-            <i class="fas fa-search"></i>
-        </button>
-                    <div class="form-notch">
-                        <div class="form-notch-leading" style="width: 9px;"></div>
-                        <div class="form-notch-middle" style="width: 48.8px;"></div>
-                        <div class="form-notch-trailing"></div>
-                    </div>
-                </div>
+                <!-- Search form -->
+<form class="form-inline d-flex justify-content-center md-form form-sm mt-0" style="margin:20px;">
+  <i class="fas fa-search" aria-hidden="true"></i>
+  <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+    aria-label="Search">
+</form>
+
                 <!-- Contact information -->
                 <ul class="fa-ul" style="margin-left: 1.65em;">
                     <li class="mb-3">
@@ -127,13 +163,16 @@
         </div>
     </div>
 
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2); font-size:12px;">
         © 2023 LGM Tour & Travel Sdn Bhd | All rights reserved
     </div>
 
+    <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top" style="background-color:blue; color:white; border-radius:100%;">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
 </footer>
 
-  
   <script>
      var botmanWidget = {
          introMessage: "Hi ✋! I'm LilyBot from LGM Tour & Travel. <br> Please select the option below:<br><br>1. Booking Assistance.<br>2. Destination Information.<br>3. Feedback and Reviews.<br>4. Chat with agent.",
@@ -151,12 +190,9 @@
 
   
 <!-- End of .container -->
-
 <script>
-
-
   // Get the navigation bar element
-  const navbar = document.querySelector('.navbar-transparent');
+  const navbar = document.querySelector('.navbar');
 
   // Function to update the background color of the navigation bar
   function updateNavbarBackground() {
@@ -180,5 +216,36 @@
 
   // Initial call to set the initial background color
   updateNavbarBackground();
+
+  // Get the button
+  let mybutton = document.getElementById("btn-back-to-top");
+
+  // When the user scrolls down 20px from the top of the document, show the button
+  window.onscroll = function () {
+    scrollFunction();
+  };
+
+  function scrollFunction() {
+    if (
+      document.body.scrollTop > 20 ||
+      document.documentElement.scrollTop > 20
+    ) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  mybutton.addEventListener("click", backToTop);
+
+  function backToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
+  
+  
 </script>
+
 

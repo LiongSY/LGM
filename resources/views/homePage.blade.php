@@ -57,6 +57,8 @@
     </div>
 
 
+<!-- trending packages -->
+<div class="container">
     <div class="row" style="margin-top:30px">
                 <div class="col-md-12">
                     <div class="titlepage">
@@ -65,15 +67,19 @@
                 </div>
             </div>   
              <div class="card-wrapper container-sm d-flex justify-content-around">
-        <div class="card" style="width: 20rem; border:none;">
+                <!-- user click on the button, it will bring user go to the specific package details. -->
+             <a href="#" style="text-decoration: none; color: inherit;">
+        <div class="card" style="width: 20rem; border:none; position:relative; overflow:hidden;  transition: transform 0.3s ease-in-out;">
             <img src="images/tour1.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title font-weight-bold">Korea Trip 7D6N</h5>
                 <p class="card-text">RM3855.00 ++</p>
-                <p class="font-weight-normal">Korea: From stunning landscapes to rich culture, Korea offers a world of
-                    exploration waiting for you to discover.</p>
+                <p class="font-weight-normal">Korea: From stunning landscapes to rich culture, Korea offers a world of exploration waiting for you to discover.</p>
             </div>
         </div>
+        
+</a>
+
         <div class="card" style="width: 20rem; border:none;">
             <img src="images/tour2.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -82,6 +88,7 @@
                 <p class="font-weight-normal">Japan: Go japan go travel good good good</p>
             </div>
         </div>
+
         <div class="card" style="width: 20rem; border:none;">
             <img src="images/tour3.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -92,124 +99,91 @@
             </div>
         </div>
 
-
     </div>
 
-<!-- 
-    <div class="container-services text-center">
-        <div class="row justify-content-center align-items-start mb-5">
-            <div class="col-lg-6 custom-margin">
-                <h3 class="section-title mb-3">Our Partnership</h3>
-            </div>
-        </div>
-    </div>
-    <div class="carousel-container">
-        <div class="carousel">
-            <img src="partner1.jpg" alt="Image 1">
-            <img src="partner2.jpg" alt="Image 2">
-            <img src="partner3.jpg" alt="Image 3">
-            <img src="partner4.png" alt="Image 4">
-            <img src="partner5.png" alt="Image 5">
-            <img src="partner6.jpg" alt="Image 6">
-            <img src="partner7.png" alt="Image 7">
-            <img src="partner8.png" alt="Image 8">
         </div>
     </div>
 
 
 
-    <div class="container-services text-center">
-        <div class="row justify-content-center align-items-start mb-5">
-            <div class="col-lg-6 custom-margin">
-                <h3 class="section-title mb-3">Our Services</h3>
-                <p>Unlocking Unforgettable Journeys: Our Services, Your Adventures.</p>
-            </div>
-        </div>
-    </div>
+<!-- service -->
 
-    <div class="container">
-        <section>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-hammer"></i>
+<div class="container">
+    <div class="row">
+                    <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom" >
+                        <div class="services-block-three">
+                            <a href="#">
+                                <div class="padding-15px-bottom">
+                                    <i class="fa fa-eercast"></i>
+                                </div>
+                                <h4>Accommodation</h4>
+                                <p class="xs-font-size13 xs-line-height-22">Strategic location, safe environment and easy accessibility are the features that we look for our customers' hotel bookings.</p>
+                            </a>
                         </div>
-                        <h3 class="card-title">Service Heading</h3>
-                        <p class="service">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur
-                            necessitatibus eaque.
-                        </p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-brush"></i>
+                    <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="#">
+                                <div class="padding-15px-bottom">
+                                    <i class="fa fa-snowflake-o"></i>
+                                </div>
+                                <h4>Travel Insurance</h4>
+                                <p class="xs-font-size13 xs-line-height-22">We care about you, so we got you covered.
+The travel insurance covers all of the item loss during the journey as well as flight issues.</p>
+                            </a>
                         </div>
-                        <h3 class="card-title">Service Heading</h3>
-                        <p class="service">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur
-                            necessitatibus eaque.
-                        </p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-wrench"></i>
+                    <div class="services-block-three col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="#">
+                                <div class="padding-15px-bottom">
+                                    <i class="fa fa-braille"></i>
+                                </div>
+                                <h4>Sight Seeing Planning</h4>
+                                <p class="xs-font-size13 xs-line-height-22">Tell us the tourist spots taht you wished to visit and we will plan the itinerary for you. We are assuring you a smooth journey with no time is wasted.</p>
+                            </a>
                         </div>
-                        <h3 class="card-title">Service Heading</h3>
-                        <p class="service">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur
-                            necessitatibus eaque.
-                        </p>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-truck-pickup"></i>
+                    <div class="services-block-three col-lg-4 col-md-6 sm-margin-30px-bottom xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="#">
+                                <div class="padding-15px-bottom">
+                                    <i class="fa fa-diamond"></i>
+                                </div>
+                                <h4>Hotels & Resorts</h4>
+                                <p class="xs-font-size13 xs-line-height-22">Exhaustive technology of implementing multi purpose projects is putting your project successful.</p>
+                            </a>
                         </div>
-                        <h3 class="card-title">Service Heading</h3>
-                        <p class="service">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur
-                            necessitatibus eaque.
-                        </p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-broom"></i>
+                    <div class="services-block-three col-lg-4 col-md-6 xs-margin-20px-bottom">
+                        <div class="services-block-three">
+                            <a href="#">
+                                <div class="padding-15px-bottom">
+                                    <i class="fa fa-object-ungroup"></i>
+                                </div>
+                                <h4>Consulting</h4>
+                                <p class="xs-font-size13 xs-line-height-22">Consulting services include a large number of aspects which are related, more or less directly, with travel: information of interest for the traveller</p>
+                            </a>
                         </div>
-                        <h3 class="card-title">Service Heading</h3>
-                        <p class="service">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur
-                            necessitatibus eaque.
-                        </p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-plug"></i>
+                    <div class="services-block-three col-lg-4 col-md-6">
+                        <div class="services-block-three">
+                            <a href="#">
+                                <div class="padding-15px-bottom">
+                                    <i class="fa fa-paper-plane-o"></i>
+                                </div>
+                                <h4>Clean Modern Code</h4>
+                                <p class="xs-font-size13 xs-line-height-22">Exhaustive technology of implementing multi purpose projects is putting your project successful.</p>
+                            </a>
                         </div>
-                        <h3 class="card-title">Service Heading</h3>
-                        <p class="service">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur
-                            necessitatibus eaque.
-                        </p>
                     </div>
+                    <!-- end -->
                 </div>
-            </div>
-        </section>
-    </div>
-        -->
+  </div>
 
+    
 
+<!-- amazing -->
     <div class="amazing">
         <div class="container">
             <div class="row">
@@ -362,6 +336,10 @@
                 </div>
             </section>
         </div>
+
+      
+</button>
+
 
         @endsection
 
