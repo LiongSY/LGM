@@ -342,48 +342,7 @@ function validateForm() {
     //     // Initialize the number of days counter
         var numOfDays = 1;
         var counter = 0;
-    //     handleFileInputChange(counter);
-
-    //      // Function to handle file input changes
-    // function handleFileInputChange(dayIndex) {
-
-    //     const fileInput = document.getElementById(`images_${dayIndex}`);
-    //     fileInput.addEventListener('change', function(event) {
-    //         handleFileSelect(event, dayIndex);
-    //     });
-    // }
-
-    // // Function to handle file selection
-    // function handleFileSelect(event, dayIndex) {
-    //     const files = event.target.files;
-    //     const uploadedFilesDiv = document.getElementById(`uploadedFiles_${dayIndex}`);
-    //     uploadedFilesDiv.innerHTML = ''; // Clear previous content
-
-    //     for (const file of files) {
-    //         const fileName = file.name;
-
-    //         // Create elements for file name and delete button
-    //         const fileContainer = document.createElement('div');
-    //         fileContainer.className = 'd-flex align-items-center border-bottom mb-2 pb-2';
-
-    //         const fileNameElement = document.createElement('span');
-    //         fileNameElement.textContent = fileName;
-    //         fileNameElement.className = 'mr-2';
-
-    //         const deleteButton = document.createElement('span');
-    //         deleteButton.innerHTML = '&times;'; // '×' character for delete
-    //         deleteButton.className = 'text-danger cursor-pointer';
-    //         deleteButton.addEventListener('click', function() {
-    //             // Remove the file name from UI
-    //             uploadedFilesDiv.removeChild(fileContainer);
-    //         });
-
-    //         // Append file name and delete button to the UI
-    //         fileContainer.appendChild(fileNameElement);
-    //         fileContainer.appendChild(deleteButton);
-    //         uploadedFilesDiv.appendChild(fileContainer);
-    //     }
-    // }
+    
 
         $('#noOfDays').val(1);
 
@@ -459,17 +418,23 @@ function validateForm() {
 
     });
 
+
+
+
+
     $(document).ready(function () {
+    //     // Initialize the number of days counter
         var numOfTour = 1;
 
-    // Add Tour button click event
-    $('.addTourBtn').click(function () {
-        numOfTour++;
+        $('.addTourBtn').click(function () {
 
-        var newTourRow = `
+            // Increment the number of days for the new field
+            numOfTour++;
 
-                    <div class="tourRow">
-                    <br>
+            // Create a new row with the updated number of days
+            var newTourRow = `
+            <div class="tourRow">
+            <br>
         <div class="card-header" style="padding-left:0px"> Tour ${numOfTour}
                     </div>
                     <hr>
@@ -562,21 +527,17 @@ function validateForm() {
                             <input type="time" class="form-control" id="returnArrivalTime" name="returnArrivalTime[]" required>
                         </div>
                     </div>
-                    </div>
                     
                     <button type="button" class="btn btn-danger deleteTourRow">Delete</button>
 
-                    </div>
-
-        `;
-
-        $('.tourRow:last .deleteTourRow').remove();
-            // Append the new row below the first input group and above the submit button
+            </div>`;
+            $('.tourRow:last .deleteTourRow').remove();
             $('.tourRow:last').after(newTourRow);
 
-    });
+        });
 
-    $(document).on('click', '.deleteTourRow', function () {
+        // Handle delete row functionality
+        $(document).on('click', '.deleteTourRow', function () {
             // Remove the entire row when delete button is clicked
             $(this).closest('.tourRow').remove();
             // Decrement the number of days counter when a row is deleted
@@ -587,7 +548,8 @@ function validateForm() {
             }
 
         });
-});
+
+    });
 
 
 
