@@ -69,7 +69,7 @@
              <div class="card-wrapper container-sm d-flex justify-content-around">
                 <!-- user click on the button, it will bring user go to the specific package details. -->
              <a href="#" style="text-decoration: none; color: inherit;">
-        <div class="card" style="width: 20rem; border:none; position:relative; overflow:hidden;  transition: transform 0.3s ease-in-out;">
+        <div class="card-service" style="width: 20rem; border:none; position:relative; overflow:hidden;  transition: transform 0.3s ease-in-out;">
             <img src="images/tour1.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title font-weight-bold">Korea Trip 7D6N</h5>
@@ -80,7 +80,7 @@
         
 </a>
 
-        <div class="card" style="width: 20rem; border:none;">
+        <div class="card-service" style="width: 20rem; border:none;">
             <img src="images/tour2.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title font-weight-bold">Japan Trip 6D5N</h5>
@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        <div class="card" style="width: 20rem; border:none;">
+        <div class="card-service" style="width: 20rem; border:none;">
             <img src="images/tour3.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title font-weight-bold">Europe Trip 5D4N</h5>
@@ -109,6 +109,13 @@
 <!-- service -->
 
 <div class="container">
+<div class="row" style="margin-top:30px">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>Our Services</h2>
+                    </div>
+                </div>
+            </div>   
     <div class="row">
                     <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom" >
                         <div class="services-block-three">
@@ -315,32 +322,28 @@ The travel insurance covers all of the item loss during the journey as well as f
         </div>
         </div>
 
-
-        <div class="subscribe" style="margin:70px;">
-            <section class="bg-img text-center" style="padding:4%; background:#7e8890;">
-                <div class="container">
-                    <h2 style="color:#e6e6e6;">
-                        <strong>Subscribe</strong>
-                    </h2>
-                    <h6 class="font-alt" style="color:#e6e6e6;">Get weekly top new jobs delivered to your inbox</h6>
-                    <br><br>
-                    <form class="form-subscribe" action="#">
-                        <div class="input-group">
-                            <input type="text" class="form-control input-lg" placeholder="Your email address">
-
-                            <span class="input-group-btn">
-                                <button class="btn btn-success btn-lg" type="submit">Subscribe</button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
-            </section>
+<!-- Subscribe -->
+<section class="bg-img text-center" style="padding: 4%; height:30%; background: url(images/newHeader.jpg);">
+    <div class="container">
+        <h2 style="color: #e6e6e6; margin-bottom:40px;">
+            <strong>Subscribe</strong>
+        </h2>
+        <div class="modal-body text-center" style="padding:20px; margin-top:-40px;">
+    <h4 style="margin-bottom:10px; color:blue;">Subscribe to our newsletter</h4>
+    <p style="margin:10px; color:white;">Subscribe to keep up with fresh news and exciting updates.</p>
+    <div class="input-group">
+        <input type="email" class="form-control" placeholder="Enter your email address" name="email">
+        <div class="input-group-append">
+            <input type="submit" class="btn" value="Subscribe">
         </div>
+    </div>
+</div>
+    </div>      
+</section>
 
-      
-</button>
-
-
+<br><br>
+ 
         @endsection
 
         
+       

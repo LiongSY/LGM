@@ -51,6 +51,8 @@
     background: #15cfe5;
 }
 
+
+
 .blog .titlepage h2{
     font-size: 24px;
 }
@@ -431,13 +433,13 @@ ul.add_info li i {
    border-radius: 5px;
 }
 
-.card:hover{
+.card-service:hover{
     transform: scale(1.1);
 }
 
 
 
-.card:hover::before{
+.card-service:hover::before{
     content:"Explore Now";
     position: absolute;
     top: 50%;
@@ -453,7 +455,7 @@ ul.add_info li i {
     cursor: pointer;
 }
 
-.card:hover::before{
+.card-service:hover::before{
     opacity: 1;
 }
 
@@ -1880,5 +1882,18 @@ body.breakpoint-xs .grid li {
     top: 0;
 }
 
+/* booking */
+icon-shape {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
 
+.icon-sm {
+    width: 2rem;
+    height: 2rem;
+    
+}
 

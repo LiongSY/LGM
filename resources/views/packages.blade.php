@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="col-md-8" style="padding-top:10px; padding-right:20px">
-                <h2 style="font-size:14px; "><strong>{{ $package->packageName }}</strong></h2>
+                <h2 style="font-size:14px;"><strong>{{ $package->packageName }}</strong></h2>
                 <p style=" font-size:14px">
                 <i class="icon-location"></i>{{$package->destination}}&nbsp;&nbsp;<i class="bi bi-geo-alt-fill"></i>
                 <!-- <a href="https://s3-ap-southeast-1.amazonaws.com/storage.iceb2b.my/itinerary/2054/file/Spectrum_of_the_Seas_6pp_Brochure_May_2023__FA.pdf" target="_blank">package download</a> -->

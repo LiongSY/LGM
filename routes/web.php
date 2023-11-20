@@ -31,13 +31,13 @@ Route::get('/', function () {
     return view('homePage');
 })->name('homePage');
 
-// Route::get('/', function () {
-//     return view('booking');
-// })->name('booking');
+Route::get('/booking', function () {
+    return view('booking');
+})->name('booking');
 
-Route::get('/customerProfile', function () {
-    return view('profile');
-})->name('customerProfile');
+// Route::get('/customerProfile', function () {
+//     return view('profile');
+// })->name('customerProfile');
 
 
 // Route::middleware(['auth'])->group(function () {
