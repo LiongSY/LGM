@@ -49,6 +49,9 @@ Route::post('/customerProfile/update', [CustomerController::class,'update'])->na
 Route::get('/tourPackages', [PackageController::class, 'displayPackages'])->name('packages');
 Route::get('/itinerary/{id}', [PackageController::class, 'displayItinerary'])->name('itinerary');
 
+//search
+Route::get('/displayPackages', [PackageController::class, 'displayPackages'])->name('displayPackages');
+
 //package comparison
 Route::get('/search-packages', [PackageController::class, 'search'])->name('search-packages');
 Route::post('/compare-packages', [PackageController::class, 'compare'])->name('compare-packages');
