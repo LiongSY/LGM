@@ -53,7 +53,18 @@
                 <tr>
                     <td>{{ $booking->bookingID }}</td>
                     <td>{{ $booking->bookingDate }}</td>
-                    <td>{{ $booking->bookingStatus }}</td>
+                    <td>    
+
+                    <form onsubmit="return validateForm()" action="{{ route('booking.updateStatus', $booking->bookingID) }}" method="POST" id="bookingForm_{{ $booking->bookingID }}">
+    @csrf
+    @method('PATCH')
+        <select class="form-control" id="bookingStatus_{{ $booking->bookingID }}" name="bookingStatus" onchange="confirmStatusUpdate('{{ $booking->bookingID }}','{{ $booking->bookingStatus }}')">
+            @foreach(['Room Pending', 'Pending Approval', 'Booking Approved', 'Booking Rejected', 'Completed'] as $statusOption)
+                <option value="{{ $statusOption }}" {{ $booking->bookingStatus === $statusOption ? 'selected' : '' }}>{{ $statusOption }}</option>
+            @endforeach
+        </select>
+</form>
+                   </td>
                     <td>
                         <a href="{{ route('booking.show', [$booking->bookingID]) }}" class="btn btn-info">View</a>
                         <a href="{{ route('booking.edit', [$booking->bookingID]) }}" class="btn btn-warning">Edit</a>
@@ -77,5 +88,21 @@
 </div>
 </div>
 </div>
+
+
+<script>
+    function confirmStatusUpdate(bookingID,bookingStatus) {
+        var selectedStatus = document.getElementById('bookingStatus_' + bookingID).value;
+        var confirmationMessage = "Are you sure you want to update the booking status to '" + selectedStatus + "'?";
+
+        if (confirm(confirmationMessage)) {
+            // If the user confirms, submit the form directly
+            document.getElementById('bookingForm_' + bookingID).submit();
+        } else {
+            document.getElementById('bookingStatus_' + bookingID).value = bookingStatus ;
+
+        }
+    }
+</script>
 
 @endsection

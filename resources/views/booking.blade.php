@@ -1,6 +1,7 @@
 @extends('layouts.customers.app')
 
 @section('content')
+<div class="container" style="margin-top:9%">
 
 <form>
     <div class="form-row">
@@ -33,7 +34,6 @@
         </div>
     </div>
 
-    <!-- Room Section -->
     <div class="container">
         <div class="row mb-4 justify-content">
             <div class="col-md-4 col-12">
@@ -83,6 +83,7 @@
     </div>
 
 </form>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 

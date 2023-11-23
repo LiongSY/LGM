@@ -93,20 +93,125 @@ class BookingController extends Controller
     }
     public function edit(Request $request, $id){
         $booking = Booking::where('bookingID', $id)->first();
+        $customer = Customer::where('customerID', $booking->customerID)->first();
 
-        return view('pages.editBooking', compact('booking'));
+        $user = User::where('userID', $customer->userID)->first();
+
+        // Retrieve associated tours, flights, and itinerary
+        $tour = Tour::where('tourCode', $booking->tourCode)->first();
+    
+        $flight = Flight::where('flightID', $tour->flightID)->first();
+    
+        $itineraries = Itinerary::where('packageID', $tour->packageID)->get();
+
+        $package = Package::where('packageID', $tour->packageID)->first();
+        return view('pages.editBooking', compact('booking', 'user', 'tour','package'));
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'noOfAdult' => 'required|integer|min:1',
+            'noOfChild' => 'required|integer|min:0',
+            'noOfInfant' => 'required|integer|min:0',
+            'noOfRoom.Single Room' => 'required|integer|min:0',
+            'noOfRoom.Double Room' => 'required|integer|min:0',
+            'noOfRoom.Triple Room' => 'required|integer|min:0',
+            'bookingRemarks' => 'required'
+        ]);
+
+        
+        $tour = Tour::where('tourCode', $request->tourCode)->first();
+        $package = Package::where('packageID', $tour->packageID)->first();
+
+        $totalTourAmount = $tour->tourPrice * ($request->noOfAdult + $request->noOfChild + $request->noOfInfant);
+    
+        $roomPrices = [
+            'Single Room' => $package->singleRoom,
+            'Double Room' => $package->doubleRoom,
+            'Triple Room' => $package->tripleRoom,
+        ];
+
+        $roomCounts = ['Single Room' => 0, 'Double Room' => 0, 'Triple Room' => 0];
+
+        foreach ($request->noOfRoom as $roomType => $quantity) {
+            $roomCounts[$roomType] += $quantity;
+        }
+    
+        $noOfRooms = [];
+    $typesOfRooms = [];
+
+    for ($i = 0; $i < $roomCounts['Triple Room']; $i++) {
+        $typesOfRooms[] = 'Triple Room';
     }
+
+    for ($i = 0; $i < $roomCounts['Double Room']; $i++) {
+        $typesOfRooms[] = 'Double Room';
+    }
+
+    for ($i = 0; $i < $roomCounts['Single Room']; $i++) {
+        $typesOfRooms[] = 'Single Room';
+    }
+
+
+        $totalRoomAmount = 0;
+
+        foreach ($roomCounts as $roomType => $quantity) {
+            $noOfRooms[$roomType] = $quantity;
+
+        }
+
+        foreach ($typesOfRooms as $room) {
+            $totalRoomAmount += $roomPrices[$room];
+
+        }
+
+
+        $totalAmount = $totalRoomAmount + $totalTourAmount;
+        $deposit = 0.3 * $totalAmount;
+
+
+
+        Booking::where('bookingID', $id)->update([
+            'noOfAdult' => $request->input('noOfAdult'),
+            'noOfChild' => $request->input('noOfChild'),
+            'noOfInfant' => $request->input('noOfInfant'),
+            'noOfRoom' => serialize($noOfRooms),
+            'typesOfRoom' => serialize($typesOfRooms),
+            'bookingAmount' => $totalAmount,
+            'bookingDeposit' => $deposit,
+            'bookingRemarks' => $request->input('bookingRemarks'),
+
+        ]);
+
+        return redirect()->back()->with('success', 'Booking status updated successfully');    
+
+ 
+    }
+
+    
+    public function updateStatus(Request $request,string $id)
+    {   
+        $request->validate([
+            'bookingStatus' => 'required|in:Room Pending,Pending Approval,Booking Approved,Booking Rejected,Completed',
+        ]);
+
+        Booking::where('bookingID', $id)->update([
+            'bookingStatus' => $request->input('bookingStatus'),
+        ]);
+        
+
+
+        return redirect()->back()->with('success', 'Booking status updated successfully');    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        Booking::where('bookingID', $id)->delete();
+
+        return redirect()->back()->with('success', 'Booking '.$id.' deleted successfully');    
+
     }
 }

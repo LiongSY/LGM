@@ -140,7 +140,7 @@ class BookingConversation extends Conversation
     public function calculateTourAmount(){
         $tour = Tour::where('tourCode', $this->bookingData['tourCode'])->first();
  
-    $totalTourAmount = $tour->tourPrice * ($this->bookingData['noOfAdult'] + $this->bookingData['noOfChild']);
+    $totalTourAmount = $tour->tourPrice * ($this->bookingData['noOfAdult'] + $this->bookingData['noOfChild'] + $this->bookingData['noOfInfant']);
 
     $deposit = 0.3 * $totalTourAmount;
 
@@ -155,7 +155,7 @@ class BookingConversation extends Conversation
     $totalRoomAmount = $this->calculateRoomAmount($suitableRooms);
 
  
-    $totalTourAmount = $tour->tourPrice * ($this->bookingData['noOfAdult'] + $this->bookingData['noOfChild']);
+    $totalTourAmount = $tour->tourPrice * ($this->bookingData['noOfAdult'] + $this->bookingData['noOfChild'] + $this->bookingData['noOfInfant']);
 
     $totalAmount = $totalRoomAmount + $totalTourAmount;
 

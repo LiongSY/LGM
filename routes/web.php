@@ -137,6 +137,7 @@ Route::get('/staff/booking/{booking}', [BookingController::class, 'show'])->name
 Route::delete('/staff/booking/{booking}', [BookingController::class, 'destroy'])->name('booking.destroy');
 Route::get('/booking/edit/{id}', [BookingController::class, 'edit'])->name('booking.edit');
 Route::put('/booking/{id}', [BookingController::class, 'update'])->name('booking.update');
+Route::patch('/booking/{booking}/updateStatus',  [BookingController::class, 'updateStatus'])->name('booking.updateStatus');
 
 //Currency
 Route::post('/currency', [CurrencyController::class, 'convert'])->name('currency.update');
