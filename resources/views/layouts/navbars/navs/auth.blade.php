@@ -39,15 +39,16 @@
                 <li class="nav-item btn-rotate dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="nc-icon nc-bell-55"></i>
-                        <p>
-                            <span class="d-lg-none d-md-block">{{ __('Some Actions') }}</span>
-                        </p>
+                        <i data-count="0" class="nc-icon nc-bell-55"></i>
+                        <span class="notif-count">0</span>
                     </a>
+
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">{{ __('Action') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Another action') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Something else here') }}</a>
+                    <div class="dropdown-toolbar-actions">
+					<a href="#">Mark all as read</a>
+				  </div>                        
+                        <ul class="dropdown-menu">
+				        </ul>
                     </div>
                 </li>
                 <li class="nav-item btn-rotate dropdown">

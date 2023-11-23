@@ -1,15 +1,12 @@
 @extends('layouts.customers.app')
 
 @section('content')
-    <div class="container" >
-        <section id="page-title" class="text-light" style="background-image:url(images/newHeader.jpg);
-            background-size: cover; background-position: center center;">
-            <div class="container">
+
+    <div class="container" style="margin-top:9%">
+
                 <div class="page-title">
                     <h1>Packages</h1>
                 </div>
-            </div>
-        </section>
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">

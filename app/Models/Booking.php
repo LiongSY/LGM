@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+    protected $guarded = [];
+
     protected $fillable = [
-        'bookingDate', 'noOfAdult', 'noOfChild', 'noOfInfant', 'noOfRoom', 'typesOfRoom', 'additionalDays', 'additionalActivities',
+        'bookingID','bookingDate', 'noOfAdult', 'noOfChild', 'noOfInfant', 'noOfRoom', 'typesOfRoom', 
         'bookingAmount', 'bookingDeposit', 'bookingStatus', 'bookingRemarks', 'tourCode', 'customerID'
     ];}

@@ -8,6 +8,7 @@
         "php": "^8.1",
         "botman/botman": "^2.8",
         "botman/driver-web": "^1.5",
+        "everapi/currencyapi-php": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
         "haruncpi/laravel-id-generator": "^1.1",
         "laravel-frontend-presets/paper": "^1.0",

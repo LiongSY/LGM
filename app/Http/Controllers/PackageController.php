@@ -6,7 +6,7 @@ use App\Models\Flight;
 use App\Models\Itinerary;
 use App\Models\Package;
 use App\Models\Tour;
-
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
@@ -311,17 +311,57 @@ class PackageController extends Controller
         {
             
             $query = Package::query();
-            
+
             if ($request->has('search')) {
                 $searchTerm = $request->input('search');
                 $query->where('packageID', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('packageName', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('destination', 'like', '%' . $searchTerm . '%');
+                    ->orWhere('packageName', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('destination', 'like', '%' . $searchTerm . '%');
             }
         
-            $packages = $query->paginate(10); 
-            return view('packages', compact('packages'));
+            $packages = $query->paginate(10);
+            $packageIds = $packages->pluck('packageID')->toArray();
+            
+            $allTours = DB::table('tours')
+                ->whereIn('packageID', $packageIds)
+                ->select('packageID', 'tourCode', 'tourPrice', 'flightID')
+                ->get()
+                ->groupBy('packageID');
+        
+            $flightIds = $allTours->flatten()->pluck('flightID')->toArray();
+            $departureDates = DB::table('flights')
+                ->whereIn('flightID', $flightIds)
+                ->pluck('departureDate', 'flightID');
+        
+            return view('packages', compact('packages', 'allTours', 'departureDates'));
         }
+
+        public function displayTrendingPackage(Request $request)
+        {
+            
+            $query = Package::query();
+
+            if ($request->has('search')) {
+                $searchTerm = $request->input('search');
+                $query->where('packageID', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('packageName', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('destination', 'like', '%' . $searchTerm . '%');
+            }
+        
+            $packages = $query->paginate(3);
+            $packageIds = $packages->pluck('packageID')->toArray();
+            
+            $allTours = DB::table('tours')
+                ->whereIn('packageID', $packageIds)
+                ->select('packageID', 'tourCode', 'tourPrice', 'flightID')
+                ->get()
+                ->groupBy('packageID');
+        
+        
+            return view('homePage', compact('packages', 'allTours'));
+        }
+
+
 
 
         public function displayItinerary (Request $request, $id)
