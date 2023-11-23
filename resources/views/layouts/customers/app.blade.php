@@ -20,7 +20,7 @@
     <title>LGM Tour & Travel</title>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/news.css"> 
+
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
@@ -66,7 +66,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about-us">
+                    <a class="nav-link" href="{{ route('aboutUs') }}">
                         About Us
                     </a>
                 </li>
@@ -87,9 +87,7 @@
                 </li>
                 <!-- End Currency Dropdown -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#login-profile">
-                        Login/Profile
-                    </a>
+                    <a class="nav-link" href="#login-profile">Profile</a>
                 </li>
             </ul>
         </div>
@@ -113,10 +111,10 @@
                 </p>
                 <div class="mt-4 d-flex justify-content-around">
     <!-- Social media icons -->
-    <a type="button" class="btn btn-floating btn-warning btn-md"><i class="fab fa-facebook-f"></i></a>
-    <a type="button" class="btn btn-floating btn-warning btn-md"><i class="fab fa-dribbble"></i></a>
-    <a type="button" class="btn btn-floating btn-warning btn-md"><i class="fab fa-twitter"></i></a>
-    <a type="button" class="btn btn-floating btn-warning btn-md"><i class="fab fa-google-plus-g"></i></a>
+    <a href="https://www.facebook.com/LGMTravel" class="btn btn-floating btn-warning btn-md"><i class="fab fa-facebook-f"></i></a>
+    <a href="mailto:lgmtravel88@gmail.com" class="btn btn-floating btn-warning btn-md"><i class="far fa-envelope"></i></a>
+    <a href="https://wa.me/60178186906" class="btn btn-floating btn-warning btn-md"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://www.google.com/search?q=lgm+tour+%26+travel+sdn+bhd&source=lmns&bih=707&biw=1536&rlz=1C1CHBF_enMY1013MY1013&hl=en&sa=X&ved=2ahUKEwjl8byUm9mCAxWaa2wGHYqtDeQQ_AUoAHoECAEQAA" target="_blank" class="btn btn-floating btn-warning btn-md"><i class="fab fa-google"></i></a>
 </div>
 
             </div>

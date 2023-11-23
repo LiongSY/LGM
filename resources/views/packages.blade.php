@@ -54,6 +54,8 @@
         <button type="submit" class="btn btn-primary">Apply</button>
     </form>
     </div>
+
+    @if(count($packages) > 0)
     @foreach ($packages as $package)
     <div class="col-sm-9" >
     <a href="{{ route('itinerary', [$package->packageID]) }}">
@@ -84,7 +86,12 @@
 
         </a>
     </div>
-</div>
+    @endforeach
+    @else
+    <div class="col-sm-9">
+                    <p>Opps sorry, there are no packages found for the given search criteria.</p>
+                </div>
+                @endif
 </div>
 </div>
 </div>
