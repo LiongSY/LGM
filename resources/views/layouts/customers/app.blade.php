@@ -23,73 +23,79 @@
     <link rel="stylesheet" href="css/news.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script><!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-
+<!--   Core JS Files   -->
+    <script src="{{ asset('paper') }}/js/core/jquery.min.js"></script>
+    <script src="{{ asset('paper') }}/js/core/popper.min.js"></script>
+    <script src="{{ asset('paper') }}/js/core/bootstrap.min.js"></script>
+    <script src="{{ asset('paper') }}/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+   
 </head>
 <body>
 
 
+<nav class="navbar navbar-expand-lg navbar-absolute fixed-top" >
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            
+            <a class="navbar-brand" href="#">
+                <img src="images/LGM.png" width="100" height="100" class="d-inline-block align-top" alt="Logo">
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+            aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#packages">
+                        Packages
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about-us">
+                        About Us
+                    </a>
+                </li>
 
-<!-- navigation -->
-
-
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="#"  >
-        <img src="images/LGM.png" width="80px" height="auto" margin-right="50px;" class="d-inline-block align-top" alt="#">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="packagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Packages
-                </a>
-                <div class="dropdown-menu" aria-labelledby="packagesDropdown">
-                    <a class="dropdown-item" href="#">Itinerary</a>
-                    <a class="dropdown-item" href="#">Booking</a>
-                    <a class="dropdown-item" href="#">Comparison</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="mediaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Media
-                </a>
-                <div class="dropdown-menu" aria-labelledby="mediaDropdown">
-                    <a class="dropdown-item" href="#">News & Blog</a>
-                    <a class="dropdown-item" href="#">Gallery</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="moreDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    More
-                </a>
-                <div class="dropdown-menu" aria-labelledby="moreDropdown">
-                    <a class="dropdown-item" href="#">About Us</a>
-                    <a class="dropdown-item" href="#">Contact Us</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-user"></i> Profile
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
-            </li>
-        </ul>
+                <li class="nav-item btn-rotate dropdown">
+                        <a class="nav-link dropdown-toggle" href="" id="currencyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Currency
+                        </a>
+                        <form action="{{ route('currency.update')}}" method="post">
+                        @csrf
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="currencyDropdown">
+                            <button type="submit" class="dropdown-item" name="selectedCurrency" value="MYR">MYR</button>
+                            <button type="submit" class="dropdown-item" name="selectedCurrency" value="SGD">SGD</button>
+                            <button type="submit" class="dropdown-item" name="selectedCurrency" value="USD">USD</button>
+                            <button type="submit" class="dropdown-item" name="selectedCurrency" value="BND">BND</button>
+                        </div>
+                    </form>
+                </li>
+                <!-- End Currency Dropdown -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#login-profile">
+                        Login/Profile
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
+
+
 
 @yield('content')
 
@@ -175,7 +181,7 @@
 
   <script>
      var botmanWidget = {
-         introMessage: "Hi ✋! I'm LilyBot from LGM Tour & Travel. <br> Please select the option below:<br><br>1. Booking Assistance.<br>2. Destination Information.<br>3. Feedback and Reviews.<br>4. Chat with agent.",
+         introMessage: "Hi ✋! I'm Lily from LGM Tour & Travel. <br> Please select the option below:<br><br>1. Booking Assistance.<br>2. Destination Information.<br>3. Feedback and Reviews.<br>4. Chat with agent.",
          title:'LGM Tour & Travel',
         mainColor:'#1F4E7A',
         background:'#f1f1f1',

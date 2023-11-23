@@ -17,8 +17,8 @@ return new class extends Migration
             $table->integer('noOfAdult');
             $table->integer('noOfChild');
             $table->integer('noOfInfant');
-            $table->integer('noOfRoom');
-            $table->integer('typesOfRoom');
+            $table->longText('noOfRoom');
+            $table->longText('typesOfRoom');
             $table->float('bookingAmount');
             $table->float('bookingDeposit');
             $table->string('bookingStatus');

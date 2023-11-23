@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeneficiaryController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BotManController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PackageController;
@@ -27,9 +29,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('homePage');
-})->name('homePage');
+Route::get('/', [PackageController::class, 'displayTrendingPackage'])->name('homePage');
+
 
 // Route::get('/', function () {
 //     return view('booking');
@@ -68,7 +69,7 @@ Route::get('/news', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
@@ -82,7 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index'])->where('page', 'dashboard');
 });
 
-
+//package
 Route::get('/packages/create', [PackageController::class, 'create'])->name('packages.create');
 Route::post('/packages', [PackageController::class, 'store'])->name('pages.store');
 Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
@@ -111,7 +112,6 @@ Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
 Route::get('/customers', [CustomerController::class, 'index'])->name('users.customers');
 
-
 //passport
 Route::post('/passports', [PassportController::class, 'store'])->name('passport.store');
 Route::get('/passports/edit/{passportNo}', [PassportController::class, 'edit'])->name('passport.edit');
@@ -126,6 +126,17 @@ Route::put('/beneficiary/update/{benID}', [BeneficiaryController::class, 'update
 //botman
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 
+//booking
+Route::get('/staff/booking/create', [BookingController::class, 'create'])->name('booking.create');
+Route::post('/staff/booking', [BookingController::class, 'store'])->name('booking.store');
+Route::get('/staff/booking', [BookingController::class, 'index'])->name('booking.index');
+Route::get('/staff/booking/{booking}', [BookingController::class, 'show'])->name('booking.show');
+Route::delete('/staff/booking/{booking}', [BookingController::class, 'destroy'])->name('booking.destroy');
+Route::get('/booking/edit/{id}', [BookingController::class, 'edit'])->name('booking.edit');
+Route::put('/booking/{id}', [BookingController::class, 'update'])->name('booking.update');
+
+//Currency
+Route::post('/currency', [CurrencyController::class, 'convert'])->name('currency.update');
 
 //booking
 // Route::post('/booking', [NotificationController::class, 'store'])->name('booking');

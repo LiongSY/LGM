@@ -56,7 +56,6 @@
 }
 
 .blog {
-    background-color: #fff;
     padding-top: 90px;
 }
 .titlepage {
@@ -1041,13 +1040,9 @@ a.list-group-item.active.active {
 }
 
 
-.navbar-dark {
-    background-color: #001f3f; /* Dark blue color */
-}
-
 /* Customize the color of the links in the navigation bar */
 .navbar-dark .navbar-nav .nav-link {
-    color: #ffffff; /* White color */
+    color: #003049; /* White color */
 }
 
 /* Customize the color of the active link in the navigation bar */

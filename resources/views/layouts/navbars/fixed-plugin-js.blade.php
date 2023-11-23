@@ -206,4 +206,62 @@
             }, 1000);
         });
     });
+
+
+    //pusher
+    console.log('Script executed');
+
+     var notificationsWrapper = $('.dropdown');
+ var notificationsToggle = notificationsWrapper.find('a[data-toggle]');
+ var notificationsCountElem = notificationsToggle.find('i[data-count]');
+ var notificationsCount = parseInt(notificationsCountElem.data('count'));
+ var notifications = notificationsWrapper.find('ul.dropdown-menu');
+ console.log(notificationsToggle);
+ console.log(notificationsCountElem);
+ console.log(notificationsCount);
+ console.log(notifications);
+
+
+// if (notificationsCount <= 0) {
+//     notificationsWrapper.hide();
+// }
+
+var pusher = new Pusher('4d6494a325726a01c5d3', {
+    encrypted: true
+});
+
+console.log(pusher);
+
+// var channel = pusher.subscribe('my-channel');
+
+// channel.bind('App\\Events\\MadeBooking', function (data) {
+//     console.log('Received Pusher event:', data);
+
+//     var existingNotifications = notifications.html();
+//     var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
+//     var newNotificationHtml = `<li class="notification active">
+//         <div class="media">
+//             <div class="media-left">
+//                 <div class="media-object">
+//                     <img src="https://api.adorable.io/avatars/71/${avatar}.png" class="img-circle" alt="50x50"
+//                         style="width: 50px; height: 50px;">
+//                 </div>
+//             </div>
+//             <div class="media-body">
+//                 <strong class="notification-title">${data.message}</strong>
+//                 <div class="notification-meta">
+//                     <small class="timestamp">about a minute ago</small>
+//                 </div>
+//             </div>
+//         </div>
+//     </li>`;
+
+//     notifications.html(newNotificationHtml + existingNotifications);
+
+//     notificationsCount += 1;
+//     notificationsCountElem.attr('data-count', notificationsCount);
+//     notificationsWrapper.find('.notif-count').text(notificationsCount);
+//     notificationsWrapper.show();
+// });
+
 </script>

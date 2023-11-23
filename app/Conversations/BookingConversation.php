@@ -1,15 +1,19 @@
 <?php
 
-// app/Conversations/BookTourConversation.php
 
 namespace App\Conversations;
 
+use App\Http\Controllers\BotManController;
+use App\Models\Booking;
 use App\Models\Flight;
 use App\Models\Itinerary;
+use App\Models\Customer;
 use App\Models\Package;
 use App\Models\Tour;
+use App\Conversations\MenuConversation;
 use BotMan\BotMan\Messages\Conversations\Conversation;
-
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Carbon\Carbon;
 class BookingConversation extends Conversation
 {
     protected $bookingData;
@@ -51,13 +55,7 @@ class BookingConversation extends Conversation
         $this->ask('How many adults will be joining?', function ($answer) {
             $noOfAdult = strtoupper($answer->getText());
 
-            // if($noOfAdult === 'NO') {
-            //     $this->askTourCode();
-            // }elseif($noOfAdult <= 0){
-            //     $this->repeat('Must have atleast 1 adult to join the tour!');
-            // }elseif(!is_numeric($noOfAdult)) {
-            //     $this->repeat('Please insert the number of adults or NO to reselect the tour.');
-            // }
+       
 
 
             if ($this->validateNumberOfAdults($noOfAdult)) {
@@ -107,7 +105,7 @@ class BookingConversation extends Conversation
                 $this->bookingData['typesOfRoom'] = serialize($suitableRooms);
                 $this->bookingData['noOfRoom'] = serialize($noOfRooms);
                 $this->calculateTotalAmount($suitableRooms);
-                $this->askRemarks();
+                $this->askRemarks($suitableRooms);
             } else if($roomAns === 'NO'){
                 $suitableRooms = $this->alternativeRooms($this->bookingData['noOfAdult'], $this->bookingData['noOfChild'], $this->bookingData['noOfInfant']);
                 $noOfRooms = $this->displayRoom($suitableRooms);
@@ -120,14 +118,14 @@ class BookingConversation extends Conversation
                         $this->bookingData['typesOfRoom'] = serialize($suitableRooms);
                         $this->bookingData['noOfRoom'] = serialize($noOfRooms);
                         $this->calculateTotalAmount($suitableRooms);
-                        $this->askRemarks();
+                        $this->askRemarks($suitableRooms);
                     } else if($newRoomAns === 'NO'){
                         $this->bookingData['bookingStatus'] = "Room Pending";
                         $this->bookingData['typesOfRoom'] = serialize($suitableRooms);
                         $this->bookingData['noOfRoom'] = serialize($noOfRooms);
                         $this->calculateTourAmount();    
                         $this->say('Your room(s) will be reassigned by admin/staff.<br><br> Please state your choice in the REMARKS.<br><br> Your tour price is <b>EXCLUSIVE</b> of room price. ');
-                        $this->askRemarks();
+                        $this->askRemarks($suitableRooms);
                     }else{
                         $this->repeat('Sorry I don\'t understand '.$newRoomAns.'.<br>Please only type (YES/NO)');
                     }
@@ -152,7 +150,6 @@ class BookingConversation extends Conversation
 
     public function calculateTotalAmount($suitableRooms)
 {
-       // Retrieve tour details based on the provided tour code (implement your logic here)
        $tour = Tour::where('tourCode', $this->bookingData['tourCode'])->first();
 
     $totalRoomAmount = $this->calculateRoomAmount($suitableRooms);
@@ -164,7 +161,6 @@ class BookingConversation extends Conversation
 
     $deposit = 0.3 * $totalAmount;
 
-    // Access the total amount and deposit
    $this->bookingData['bookingAmount'] = $totalAmount;
     $this->bookingData['bookingDeposit'] = $deposit;
 }
@@ -197,27 +193,18 @@ class BookingConversation extends Conversation
        
     }
 
-    public function askRemarks(){
+    public function askRemarks($suitableRooms){
 
-        $this->ask('Thanks ! <br>Any remarks for the booking ?<br>If YES, please write the remarks.<br> If NO just type NO</br>', function ($answer) {
+        $this->ask('Thanks ! <br><br>Any remarks for the booking ?<br>If YES, please write the remarks.<br> If NO just type NO</br>', function ($answer) use ($suitableRooms){
             $remarks = strtoupper($answer->getText());
-            // if($remarks != null){
-                 $this->bookingData['bookingRemarks'] = $remarks;
-            //     $this->displayFinalDetails();
-            // }
-            $message = $this->bookingData['noOfChild'].','.$this->bookingData['noOfAdult'].','.$this->bookingData['noOfInfant'].
-            ','.$this->bookingData['tourCode'].','.$this->bookingData['noOfRoom']
-            .','.$this->bookingData['typesOfRoom'].','.$this->bookingData['bookingAmount']
-            .','.$this->bookingData['bookingRemarks'].','.$this->bookingData['bookingDeposit'].','.$this->bookingData['bookingStatus'];
-             $this->say($message);
-            //  $this->say($this->bookingData['noOfInfant']);
-            //  $this->say($this->bookingData['noOfRoom']);
-            // $this->say($this->bookingData['typesOfRoom']);
-            // $this->say($this->bookingData['bookingAmount']);
-            // $this->say($this->bookingData['bookingRemarks']);
-            // $this->say($this->bookingData['bookingDeposit']);
-            // $this->say($this->bookingData['bookingStatus']);
-            // $this->say($this->bookingData['tourCode']);
+             if($remarks === 'NO'){
+            $this->bookingData['bookingRemarks'] = "No remarks";
+            $this->displayFinalDetails($suitableRooms);
+             }else{
+                $this->bookingData['bookingRemarks'] = $remarks;
+                $this->displayFinalDetails($suitableRooms);
+             }
+
            
            
 
@@ -227,23 +214,97 @@ class BookingConversation extends Conversation
 
      }
 
-     public function displayFinalDetails(){
+     public function displayFinalDetails($suitableRooms ){
 
-        $this->say($this->bookingData['noOfAdult']);
-        $this->say($this->bookingData['noOfChild']);
-        $this->say($this->bookingData['noOfInfant']);
-        $this->say($this->bookingData['noOfRoom']);
-        $this->say($this->bookingData['typesOfRoom']);
-        $this->say($this->bookingData['bookingAmount']);
-        $this->say($this->bookingData['bookingRemarks']);
-        $this->say($this->bookingData['bookingDeposit']);
-        $this->say($this->bookingData['bookingStatus']);
-        $this->say($this->bookingData['tourCode']);
+        $tour = Tour::where('tourCode', $this->bookingData['tourCode'])->first();
+    
+        $package = Package::where('packageID', $tour->packageID)->first();
+        $flight = Flight::where('flightID', $tour->flightID)->first();
+
+        if($this->bookingData['bookingStatus'] === 'Room Pending'){
+
+            $message = "Below are the booking details.<br> Kindly check before proceed.<br><br>".
+            '<br><b>Tour Details:</b><br>' . '<b>Package:</b> ' . $package->packageName . '<br><b>Country:</b> ' . $package->destination . '<br><b>Tour:</b> ' . $tour->tourCode . '<br><b>Tour Price:</b> RM'.$tour->tourPrice.'/pax'. '<br><b>Departure Date:</b> ' . $flight->departureDate . '<br><br>'.
+            '<b>Adults:</b> '.$this->bookingData['noOfAdult'].'<br>'.
+            '<b>Children:</b> '.$this->bookingData['noOfChild'].'<br>'.
+            '<b>Infant:</b> '.$this->bookingData['noOfInfant'].'<br>'.
+            '<br><b>Total Amount: </b>RM '.$this->bookingData['bookingAmount'].
+            '<br><b>Booking Deposit:</b> RM '.$this->bookingData['bookingDeposit'].'<br><br><p style="color:red"><b>The total amount is EXCLUSIVE room(s) amount.</b></p>';
+            
+             $this->say($message);
+
+        }else{
+            $roomCounts = ['Single Room' => 0, 'Double Room' => 0, 'Triple Room' => 0];
+
+            $roomDetails = "<b>Room Details:</b><br>";
+    
+            foreach ($suitableRooms as $room) {
+                $roomCounts[$room]++;
+            }
+            foreach ($roomCounts as $roomType => $count) {
+    
+                if ($count > 0) {
+                    $roomDetails .= "{$roomType} x {$count}<br>";
+                }
+            }
+    
+          
+                    
+            $message = "Below are the booking details.<br> Kindly check before proceed.<br><br>".
+            '<br><b>Tour Details:</b><br>' . '<b>Package:</b> ' . $package->packageName . '<br><b>Country:</b> ' . $package->destination . '<br><b>Tour:</b> ' . $tour->tourCode . '<br><b>Tour Price:</b> RM'.$tour->tourPrice.'/pax'. '<br><b>Departure Date:</b> ' . $flight->departureDate . '<br><br>'.
+            '<b>Adults:</b> '.$this->bookingData['noOfAdult'].'<br>'.
+            '<b>Children:</b> '.$this->bookingData['noOfChild'].'<br>'.
+            '<b>Infant:</b> '.$this->bookingData['noOfInfant'].'<br><br>'.
+            $roomDetails.'<br><b>Total Amount: </b>RM '.$this->bookingData['bookingAmount'].
+            '<br><b>Booking Deposit:</b> RM '.$this->bookingData['bookingDeposit'].'<br><br><p style="color:red"><b>The total amount is INCLUDED room(s) amount.</b></p>';
+            
+             $this->say($message);
+        }
+
+        $this->askBookingConfirmation();
 
 
 
 
 
+     }
+
+     protected function askBookingConfirmation(){
+        $this->ask('Do you want to proceed with the booking? If NO, type EXIT', function ($answer) {
+            $bookingConfirmation = strtoupper($answer->getText());
+
+        if($bookingConfirmation === 'YES'){
+            $loggedInUser = auth()->user();
+            $customer = Customer::where('userID', $loggedInUser->userID)->first();
+
+
+            $bookingID = IdGenerator::generate(['table'=> 'bookings','field' => 'bookingID','length' => 6, 'prefix' => 'BK']);
+            $currentDate = today();
+
+             $booking = Booking::create([
+                 'bookingID' => $bookingID,
+                 'bookingDate' => $currentDate,
+                 'noOfAdult'=> $this->bookingData['noOfAdult'],
+                 'noOfChild'=> $this->bookingData['noOfChild'],
+                 'noOfInfant'=>$this->bookingData['noOfInfant'],
+                 'noOfRoom'=> $this->bookingData['noOfRoom'],
+                 'typesOfRoom'=> $this->bookingData['typesOfRoom'],
+                 'bookingAmount'=> $this->bookingData['bookingAmount'],
+                 'bookingDeposit'=> $this->bookingData['bookingDeposit'],
+                 'bookingStatus'=> $this->bookingData['bookingStatus'],
+                 'bookingRemarks'=> $this->bookingData['bookingRemarks'],
+                 'tourCode'=> $this->bookingData['tourCode'],
+                 'customerID'=> $customer->customerID,
+             ]);
+
+             $this->say('Great ! Thanks for booking from us ~<br> Your booking ('.$booking->bookingID.') is pending for approval.<br><br>Type EXIT to back to menu');
+
+
+        }else{
+            $this->repeat('Please insert only YES or EXIT.');
+        }
+
+        });
      }
 
     // Validation methods
@@ -269,8 +330,13 @@ class BookingConversation extends Conversation
     }
     protected function validateNumberOfAdults($noOfAdult)
     {
-        // Implement your validation logic for the number of adults
-        // For example, check if the number is positive and within a certain range
+             // if($noOfAdult === 'NO') {
+            //     $this->askTourCode();
+            // }elseif($noOfAdult <= 0){
+            //     $this->repeat('Must have atleast 1 adult to join the tour!');
+            // }elseif(!is_numeric($noOfAdult)) {
+            //     $this->repeat('Please insert the number of adults or NO to reselect the tour.');
+            // }
         return $noOfAdult > 0;
     }
 

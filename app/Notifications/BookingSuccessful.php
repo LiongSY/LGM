@@ -10,13 +10,14 @@ use Illuminate\Notifications\Notification;
 class BookingSuccessful extends Notification
 {
     use Queueable;
+    protected $booking; 
 
     /**
      * Create a new notification instance.
      */
     public function __construct($booking)
     {
-        $this->amount=$booking;
+        $this->booking=$booking;
     }
 
     /**

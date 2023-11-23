@@ -72,6 +72,7 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="{{ asset('paper') }}/demo/demo.js"></script>
     <!-- Share libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     
     @stack('scripts')
 
