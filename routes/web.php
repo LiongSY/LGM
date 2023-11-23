@@ -11,6 +11,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PassportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AboutUsController;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 
@@ -36,9 +37,9 @@ Route::get('/booking', function () {
     return view('booking');
 })->name('booking');
 
-// Route::get('/customerProfile', function () {
-//     return view('profile');
-// })->name('customerProfile');
+Route::get('/customerProfile', function () {
+    return view('profile');
+})->name('customerProfile');
 
 
 // Route::middleware(['auth'])->group(function () {
@@ -64,6 +65,12 @@ Route::post('/compare-packages', [PackageController::class, 'compare'])->name('c
 Route::get('/news', function () {
     return view('news');
 })->name('news');
+
+//about us
+Route::get('/aboutUs', function () {
+    return view('aboutUs');
+})->name('aboutUs');
+
 
 // Route::get('/itinerary', function () {
 //     return view('itinerary');
