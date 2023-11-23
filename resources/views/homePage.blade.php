@@ -108,6 +108,13 @@
 <!-- service -->
 
 <div class="container">
+<div class="row" style="margin-top:30px">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>Our Services</h2>
+                    </div>
+                </div>
+            </div>   
     <div class="row">
         <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
             <div class="services-block-three">
@@ -344,8 +351,36 @@
     </section>
 </div>
 
+<<<<<<< HEAD
 
 </button>
 
 
 @endsection
+=======
+<!-- Subscribe -->
+<section class="bg-img text-center" style="padding: 4%; height:30%; background: url(images/newHeader.jpg);">
+    <div class="container">
+        <h2 style="color: #e6e6e6; margin-bottom:40px;">
+            <strong>Subscribe</strong>
+        </h2>
+        <div class="modal-body text-center" style="padding:20px; margin-top:-40px;">
+    <h4 style="margin-bottom:10px; color:blue;">Subscribe to our newsletter</h4>
+    <p style="margin:10px; color:white;">Subscribe to keep up with fresh news and exciting updates.</p>
+    <div class="input-group">
+        <input type="email" class="form-control" placeholder="Enter your email address" name="email">
+        <div class="input-group-append">
+            <input type="submit" class="btn" value="Subscribe">
+        </div>
+    </div>
+</div>
+    </div>      
+</section>
+
+<br><br>
+ 
+        @endsection
+
+        
+       
+>>>>>>> d837a4d7a81e8355d12ba8764455726ee8f9089e

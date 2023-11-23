@@ -32,13 +32,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PackageController::class, 'displayTrendingPackage'])->name('homePage');
 
 
-// Route::get('/', function () {
-//     return view('booking');
-// })->name('booking');
+Route::get('/booking', function () {
+    return view('booking');
+})->name('booking');
 
-Route::get('/customerProfile', function () {
-    return view('profile');
-})->name('customerProfile');
+// Route::get('/customerProfile', function () {
+//     return view('profile');
+// })->name('customerProfile');
 
 
 // Route::middleware(['auth'])->group(function () {

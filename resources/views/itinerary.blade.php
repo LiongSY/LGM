@@ -10,17 +10,17 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="itinerary-tab" data-bs-toggle="tab" data-bs-target="#itinerary-tab-pane" type="button" role="tab" aria-controls="itinerary-tab-pane" aria-selected="true">ITINERARY</button>
+                <button class="nav-link active" id="itinerary-tab" data-bs-toggle="tab" data-bs-target="#itinerary-tab-pane" type="button" role="tab" aria-controls="itinerary-tab-pane" aria-selected="true" ><b>ITINERARY</b></button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="room-tab" data-bs-toggle="tab" data-bs-target="#room-tab-pane" type="button" role="tab" aria-controls="room-tab-pane" aria-selected="false">ROOM TYPE</button>
+                <button class="nav-link" id="room-tab" data-bs-toggle="tab" data-bs-target="#room-tab-pane" type="button" role="tab" aria-controls="room-tab-pane" aria-selected="false"><b>ROOM TYPE</b></button> <br>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="remark-tab" data-bs-toggle="tab" data-bs-target="#remark-tab-pane" type="button" role="tab" aria-controls="remark-tab-pane" aria-selected="false">REMARK</button>
+                <button class="nav-link" id="remark-tab" data-bs-toggle="tab" data-bs-target="#remark-tab-pane" type="button" role="tab" aria-controls="remark-tab-pane" aria-selected="false"><b>REMARK</b></button>
             </li>
 
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="departure-tab" data-bs-toggle="tab" data-bs-target="#departuredate-tab-pane" type="button" role="tab" aria-controls="departuredate-tab-pane" aria-selected="false">DEPARTURE DATE</button>
+                <button class="nav-link" id="departure-tab" data-bs-toggle="tab" data-bs-target="#departuredate-tab-pane" type="button" role="tab" aria-controls="departuredate-tab-pane" aria-selected="false"><b>DEPARTURE DATE</b></button>
             </li>
         </ul>
 
@@ -92,7 +92,8 @@
                 <!-- REMARK CONTENT -->
                 <div>
                   <br>
-                <p><b>Remarks: </b></p> {!! nl2br(e($package->remarks)) !!}
+                <p><b style="color:red;">Remarks: </b>
+            </p> {!! nl2br(e($package->remarks)) !!}
                </div>
                <br>
             </div>
@@ -107,9 +108,9 @@
                 <thead>
                     <tr>
                         <th class="text-center">Tour Details</th>
-                        <th>Flight Number</th>
-                        <th>Sector</th>
-                        <th>Date</th>
+                        <th class="text-center">Flight Number</th>
+                        <th class="text-center">Sector</th>
+                        <th class="text-center">Date</th>
                     </tr>
                 </thead>
               <tbody>
@@ -123,16 +124,16 @@
                 <strong>No. of Seats:</strong> {{ $tour->noOfSeats }}
             </td>
             <td>
-                <b>Outbound:</b> {{ $flightDetails[$key]->flightNumber }}<br>
-                Return: {{ $flightDetails[$key]->returnFlightNumber}}
+                <b style="color:red;">Outbound:</b> {{ $flightDetails[$key]->flightNumber }}<br>
+                <b style="color:blue;">Return:</b> {{ $flightDetails[$key]->returnFlightNumber}}
             </td>
             <td>
-                Outbound : {{ $flightDetails[$key]->sector }}<br>
-                Return : {{ $flightDetails[$key]->returnSector }}
+            <b style="color:red;">Outbound:</b> {{ $flightDetails[$key]->sector }}<br>
+            <b style="color:blue;">Return:</b> {{ $flightDetails[$key]->returnSector }}
             </td>
 
             <td>
-                <b>Outbound:</b><br>
+                <b style="color:red;">Outbound:</b><br>
                 <div style="display: flex; flex-direction: row;">
                     <div style="margin-right: 10px;">
                     <div>
@@ -142,7 +143,7 @@
                     </div>
                     </div>
                 </div><br>
-                <b>Return:</b><br>
+                <b style="color:blue;">Return:</b><br>
                 <div style="display: flex; flex-direction: row;">
                     <div style="margin-right: 10px;">
                     <div>
@@ -153,6 +154,10 @@
                     </div>
                 </div>
                
+                <div style="margin-top: 10px;">
+                <a href="{{ route('booking')}}">
+                <button class="btn btn-primary" style="color:white; background-color:deepblue; transition:background-color 0.3s;">Book Now</button>
+            </div>
             </td>
         </tr>
     @endforeach
