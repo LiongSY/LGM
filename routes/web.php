@@ -12,6 +12,7 @@ use App\Http\Controllers\PassportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\BookingHistoryController;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,8 @@ Route::get('/displayPackages', [PackageController::class, 'displayPackages'])->n
 Route::get('/search-packages', [PackageController::class, 'search'])->name('search-packages');
 Route::post('/compare-packages', [PackageController::class, 'compare'])->name('compare-packages');
 
+// bookinghistory
+Route::get('/bookingHistory', [BookingHistoryController::class, 'index'])->name('bookingHistory');
 // Route::get('/tourPackages', function () {
 //     return view('packages');
 // })->name('tourPackages');
