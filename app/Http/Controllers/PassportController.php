@@ -23,7 +23,7 @@ class PassportController extends Controller
 
         $imageName = time().'.'.$request->passportImage->extension();  
 
-        $request->passportImage->storeAs('images', $imageName, 'public'); // Store image in 'public/storage/images' directory
+        $request->passportImage->storeAs('images', $imageName, 'public'); 
 
         Passport::create([
             'passportNo' => $request->passportNo,

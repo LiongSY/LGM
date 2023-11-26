@@ -44,7 +44,7 @@
         <div class="navbar-wrapper">
             
             <a class="navbar-brand" href="#">
-                <img src="images/LGM.png" width="100" height="100" class="d-inline-block align-top" alt="Logo">
+                <img src="{{ asset('images/LGM.png') }}" width="100" height="100" class="d-inline-block align-top" alt="Logo">
             </a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"

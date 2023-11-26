@@ -6,6 +6,7 @@ use App\Models\Flight;
 use App\Models\Itinerary;
 use App\Models\Package;
 use App\Models\Tour;
+use App\Models\Booking;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -41,16 +42,32 @@ class PackageController extends Controller
 
     // Array to store flight details
     $flightDetails = [];
-
+    $joinedPeople = [];    
     foreach ($tours as $tour) {
         $flight = Flight::where('flightID', $tour->flightID)->first();
 
         $flightDetails[] = $flight;
+
+
+        $bookings = Booking::where('tourCode', $tour->tourCode)->get();
+
+       
+    
+        foreach ($bookings as $booking) {
+            $tourCode = $booking->tourCode;
+    
+            if (!isset($joinedPeople[$tourCode])) {
+                $joinedPeople[$tourCode] = 0;
+            }
+    
+            $joinedPeople[$tourCode] += $booking->noOfAdult + $booking->noOfChild;
+        }
+        
     }
 
     $itineraries = Itinerary::where('packageID', $id)->get();
 
-    return view('pages.viewPackage', compact('package', 'tours', 'itineraries','flightDetails'));
+    return view('pages.viewPackage', compact('package', 'tours', 'itineraries','flightDetails','joinedPeople'));
 
 
     }
@@ -120,13 +137,17 @@ class PackageController extends Controller
         $meals = $request->input('meals'); // This will be an array of arrays
         $information = $request->input('information'); // This will be an array
     
+        $imageName = time().'.'.$request->packageImage->extension();  
+
+        $request->packageImage->storeAs('images', $imageName, 'public'); 
+
         $packageID = IdGenerator::generate(['table'=> 'packages','field' => 'packageID','length' => 6, 'prefix' => 'P']);
 
                 //create a packageID
                 $package = Package::create([
                     'packageID' => $packageID,
                     'packageName' => $packageName,
-                    'packageImage'=> "no image",
+                    'packageImage'=> $imageName,
                     'highlight'=> $packageHighlight,
                     'itineraryPdf'=>"no pdf",
                     'destination'=> $destination,
@@ -364,24 +385,7 @@ class PackageController extends Controller
 
 
 
-        public function displayItinerary (Request $request, $id)
-        {
 
-            $package = Package::where('packageID', $id)->first();
-            $tours = Tour::where('packageID',$id)->get();
-            $flightDetails =[];
-
-            foreach($tours as $tour){
-                $flight = Flight::where('flightID', $tour->flightID)->first();
-
-                $flightDetails[]=$flight;
-            }
-
-            $itineraries = Itinerary::where('packageID', $id)->get();
-
-            return view('itinerary', compact('package', 'tours', 'itineraries', 'flightDetails'));
-
-        }
 
 
         public function generateItinerary(Request $request, $id){

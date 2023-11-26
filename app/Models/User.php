@@ -31,6 +31,20 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function staffMessages()
+    {
+        return $this->hasMany(Message::class, 'staffID');
+    }
+
+    public function customerMessages()
+    {
+        return $this->hasMany(Message::class, 'customerID');
+    }
+
+    public function getIsStaffAttribute()
+    {
+        return $this->role === 'staff';
+    }
     /**
      * The attributes that should be cast.
      *

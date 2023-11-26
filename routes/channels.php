@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+// Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+//     return (int) $user->id === (int) $id;
+// });
+Broadcast::channel('private-chat.{recipientUserId}', function ($user, $recipientUserId) {
+    // Add your logic here to check if the user can access the private channel
+    return $user->id == $recipientUserId;
 });

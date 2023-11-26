@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Flight;
 use App\Models\Itinerary;
 use App\Models\Package;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 
 
@@ -37,11 +38,118 @@ class BookingController extends Controller
         return view('pages.booking', compact('bookings'));
     }
 
+    public function create(string $id){
+
+        $tour = Tour::where('tourCode', $id)->first();
+
+        $package = Package::where('packageID', $tour->packageID)->first();
+
+    
+        $flight = Flight::where('flightID', $tour->flightID)->first();
+    
+        return view('booking', compact('flight', 'tour','package'));
+
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+
+        
+        $request->validate([
+            'noOfAdult' => 'required|integer|min:1',
+            'noOfChild' => 'required|integer|min:0',
+            'noOfInfant' => 'required|integer|min:0',
+            'noOfRoom.Single Room' => 'required|integer|min:0',
+            'noOfRoom.Double Room' => 'required|integer|min:0',
+            'noOfRoom.Triple Room' => 'required|integer|min:0',
+        ]);
+
+        $bookingRemarks = $request->input('bookingRemarks');
+
+        if ($bookingRemarks === null) {
+            $bookingRemarks = "No remarks";
+
+        }
+
+        
+        
+        $tour = Tour::where('tourCode', $request->tourCode)->first();
+        $package = Package::where('packageID', $tour->packageID)->first();
+
+        $totalTourAmount = $tour->tourPrice * ($request->noOfAdult + $request->noOfChild + $request->noOfInfant);
+    
+        $roomPrices = [
+            'Single Room' => $package->singleRoom,
+            'Double Room' => $package->doubleRoom,
+            'Triple Room' => $package->tripleRoom,
+        ];
+
+        $roomCounts = ['Single Room' => 0, 'Double Room' => 0, 'Triple Room' => 0];
+
+        foreach ($request->noOfRoom as $roomType => $quantity) {
+            $roomCounts[$roomType] += $quantity;
+        }
+    
+        $noOfRooms = [];
+    $typesOfRooms = [];
+
+    for ($i = 0; $i < $roomCounts['Triple Room']; $i++) {
+        $typesOfRooms[] = 'Triple Room';
+    }
+
+    for ($i = 0; $i < $roomCounts['Double Room']; $i++) {
+        $typesOfRooms[] = 'Double Room';
+    }
+
+    for ($i = 0; $i < $roomCounts['Single Room']; $i++) {
+        $typesOfRooms[] = 'Single Room';
+    }
+
+
+        $totalRoomAmount = 0;
+
+        foreach ($roomCounts as $roomType => $quantity) {
+            $noOfRooms[$roomType] = $quantity;
+
+        }
+
+        foreach ($typesOfRooms as $room) {
+            $totalRoomAmount += $roomPrices[$room];
+
+        }
+
+
+        $totalAmount = $totalRoomAmount + $totalTourAmount;
+        $deposit = 0.3 * $totalAmount;
+
+
+
+        $customer = Customer::where('userID', auth()->user()->userID)->first();
+
+
+        $bookingID = IdGenerator::generate(['table'=> 'bookings','field' => 'bookingID','length' => 6, 'prefix' => 'BK']);
+        $currentDate = today();
+
+         $booking = Booking::create([
+             'bookingID' => $bookingID,
+             'bookingDate' => $currentDate,
+             'noOfAdult' => $request->input('noOfAdult'),
+            'noOfChild' => $request->input('noOfChild'),
+            'noOfInfant' => $request->input('noOfInfant'),
+            'noOfRoom' => serialize($noOfRooms),
+            'typesOfRoom' => serialize($typesOfRooms),
+             'bookingAmount'=> $request->input('bookingAmount'),
+             'bookingDeposit'=> $request->input('bookingDeposit'),
+             'bookingStatus'=> "Pending Approval",
+             'bookingRemarks'=> $bookingRemarks,
+             'tourCode'=> $request->input('tourCode'),
+             'customerID'=> $customer->customerID,
+         ]);
+
+
         // $customer = Customer::where('userID', $loggedInUser->userID)->first();
 
 
@@ -110,6 +218,7 @@ class BookingController extends Controller
 
     public function update(Request $request, string $id)
     {
+
         $request->validate([
             'noOfAdult' => 'required|integer|min:1',
             'noOfChild' => 'required|integer|min:0',

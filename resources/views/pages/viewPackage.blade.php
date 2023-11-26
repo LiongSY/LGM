@@ -30,11 +30,10 @@
     </tr>
     <tr>
         <th scope="row">Package Image</th>
-        <td>{{ $package->packageImage }}</td>
-    </tr>
-    <tr>
-        <th scope="row">Itinerary(PDF)</th>
-        <td>{{ $package->itineraryPdf }}</td>
+        
+        <td>
+            <img src="{{ url('storage/images/'.$package->packageImage) }}" width='300' height='300' />
+        </td>
     </tr>
     <tr>
         <th scope="row">Highlight</th>
@@ -87,7 +86,20 @@
                     <td>{{ $tour->tourCode }}</td>
                     <td>{{ $tour->tourLanguages }}</td>
                     <td>{{ $tour->tourPrice }}</td>
-                    <td>{{ $tour->noOfSeats }}</td>
+                    
+                    <td>
+                    @if (isset($joinedPeople[$tour->tourCode]))
+                    {{$joinedPeople[$tour->tourCode]}}
+                    
+                
+                    @elseif(!isset($joinedPeople[$tour->tourCode]))
+                    0
+
+                    @endif
+                    / {{ $tour->noOfSeats }}
+
+                
+                    </td>
                     <td>
                     <a href="{{ route('editTour', $tour->tourCode) }}" class="btn btn-danger">Edit Tour</a>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#tourModal{{ $key }}">Flight Details</button>
@@ -165,7 +177,7 @@
                 <!-- Add more itinerary details as needed -->
                 @endforeach
                 <a href="{{ route('editItinerary', $package->packageID) }}" style="float:right"class="btn btn-danger">Edit Itinerary</a>
-                <a href="{{ route('generateItinerary', $package->packageID) }}" style="float:left"class="btn btn-warning">View Itinerary</a>
+                <a href="{{ route('generateItinerary', $package->packageID) }}" style="float:left"class="btn btn-warning">DOWNLOAD Itinerary</a>
 
     </div>
 
