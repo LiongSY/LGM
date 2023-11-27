@@ -82,10 +82,9 @@ Route::get('/aboutUs', function () {
 // })->name('itinerary');
 
 
-Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();
+
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
@@ -93,10 +92,16 @@ Route::group(['middleware' => 'auth'], function () {
 	// Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 });
+Route::get('/dashboard', [PusherController::class, 'index']);
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index'])->where('page', 'dashboard');
 });
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/'); // Redirect to the desired page after logout
+})->name('logout');
 
 //package
 Route::get('/packages/create', [PackageController::class, 'create'])->name('packages.create');
@@ -157,6 +162,9 @@ Route::post('/currency', [CurrencyController::class, 'convert'])->name('currency
 //Chat
 
 Route::get('/chat', [PusherController::class, 'index'])->name('chat.index');
+Route::get('/chat/{userID}', [PusherController::class, 'show'])->name('chat.show');
+// Route::get('/liveChat/{id}', [PusherController::class, 'liveChat'])->name('chat.liveChat');
+
 Route::post('/broadcast', [PusherController::class, 'broadcast']);
 Route::post('/receive', [PusherController::class, 'receive']);
 

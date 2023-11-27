@@ -11,79 +11,103 @@
   <!-- End JavaScript -->
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
+
   <!-- End CSS -->
 
 </head>
 
 <body>
-  
 <div class="chat">
-
-  <!-- Header -->
-  <div class="top">
-    <img src="https://assets.edlin.app/images/rossedlin/03/rossedlin-03-100.jpg" alt="Avatar">
-    <div>
-      <p>Ross Edlin</p>
-      <small>Online</small>
+    <!-- Header -->
+    <div class="top">
+        <img src="https://assets.edlin.app/images/rossedlin/03/rossedlin-03-100.jpg" alt="Avatar">
+        <div>
+            <p>Live Chat</p>
+        </div>
     </div>
-  </div>
-  <!-- End Header -->
+    <!-- End Header -->
 
-  <!-- Chat -->
-  <div class="messages">
-    @include('receive', ['message' => "Hey! What's up!  👋"])
-  </div>
-  <!-- End Chat -->
+    <!-- Display Messages -->
+    <div class="messages">
+        @if ($messages->isEmpty())
+        
+        @if(auth()->user()->role == 'customer')
+        @include('receive', ['message' => 'Hi, How can I help you'])
+        @else
+        @include('broadcast', ['message' => 'Hi, How can I help you'])
 
-  <!-- Footer -->
-  <div class="bottom">
-    <form>
-      <input type="text" id="message" name="message" placeholder="Enter message..." autocomplete="off">
-      <button type="submit"></button>
-    </form>
-  </div>
-  <!-- End Footer -->
+        @endif
+        @else
+        
+            @foreach ($messages as $message)
+                @if ($message->userID == auth()->user()->userID)
+                  @if ($message->sender == auth()->user()->userID)
+                    @include('broadcast', ['message' => $message->message, 'position' => 'right'])
+                  @else
+                      @include('broadcast', ['message' => $message->message, 'position' => 'left'])
 
+                  @endif
+                @else
+                    @include('receive', ['message' => $message->message, 'position' => 'left'])
+                @endif
+            @endforeach
+        @endif
+    </div>
+    <!-- End Display Messages -->
+
+    <!-- Footer -->
+    <div class="bottom">
+        <form id="chat-form">
+        @csrf
+
+            <input type="text" id="message" name="message" placeholder="Enter message..." autocomplete="off">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <!-- End Footer -->
 </div>
+
 </body>
 
 <script>
   const pusher  = new Pusher('{{config('broadcasting.connections.pusher.key')}}', {cluster: 'ap1'});
   const channel = pusher.subscribe('public');
 
-  //Receive messages
   channel.bind('chat', function (data) {
+    console.log("Received data:", data);
     $.post("/receive", {
-      _token:  '{{csrf_token()}}',
-      message: data.message,
-    })
-     .done(function (res) {
-       $(".messages > .message").last().after(res);
-       $(document).scrollTop($(document).height());
-     });
-  });
-
-  //Broadcast messages
-  $("form").submit(function (event) {
-    event.preventDefault();
-
-    console.log(channel)
-    $.ajax({
-      url:     "/broadcast",
-      method:  'POST',
-      headers: {
-        'X-Socket-Id': pusher.connection.socket_id
-      },
-      data:    {
-        _token:  '{{csrf_token()}}',
-        message: $("form #message").val(),
-      }
+        _token: '{{csrf_token()}}',
+        message: data.message,
     }).done(function (res) {
       $(".messages > .message").last().after(res);
-      $("form #message").val('');
-      $(document).scrollTop($(document).height());
+        $(document).scrollTop($(document).height());
+    }).fail(function (error) {
+        console.error("Error in receiving message:", error);
     });
-  });
+});
+
+  //Broadcast messages
+  $("#chat-form").submit(function (event) {
+    event.preventDefault();
+
+    $.ajax({
+        url: "/broadcast",
+        method: 'POST',
+        headers: {
+            'X-Socket-Id': pusher.connection.socket_id
+        },
+        data: {
+            _token: '{{csrf_token()}}',
+            message: $("#message").val(),
+        }
+    }).done(function (res) {
+      $(".messages > .message").last().append(res);
+        $("#message").val('');
+        $(document).scrollTop($(document).height());
+    }).fail(function (error) {
+        console.error("Error in broadcasting message:", error);
+    });
+});
 </script>
 </html>
