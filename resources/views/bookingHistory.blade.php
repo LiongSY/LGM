@@ -7,43 +7,43 @@
     <div class="row">
         <div class="col-12">
             <div class="list-group mb-5">
+                @foreach($bookings as $booking)
                 <div class="list-group-item p-3 bg-snow" style="position: relative;">
                     <div class="row w-100 no-gutters">
                         <div class="col-6 col-md">
-                            <h6 class="text-charcoal mb-0 w-100">Package Name</h6>
-                            <a href="" class="text-pebble mb-0 w-100 mb-2 mb-md-0">Here</a>
+                        <h6 class="text-green mb-0"><b style="color:blue;">Booking Date</b></h6>
+                                <p class="text-green hidden-sm-down mb-0">{{ $booking->bookingDate}}</p>
                         </div>
                         <div class="col-6 col-md">
-                            <h6 class="text-charcoal mb-0 w-100">Destination</h6>
-                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">Aug 5th, 2017</p>  
+                            <h6 class="text-charcoal mb-0 w-100">Tour Code</h6>
+                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0"></p>  
                         </div>
                         <div class="col-6 col-md"> 
-                            <h6 class="text-charcoal mb-0 w-100">Tour Price</h6>
-                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">$19.54</p> 
+                            <h6 class="text-charcoal mb-0 w-100">Booking Status</h6>
+                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">{{$booking->bookingStatus}}</p> 
                         </div>
                         <div class="col-6 col-md"> 
-                            <h6 class="text-charcoal mb-0 w-100">Booking Amount</h6>
-                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">Late M. Night</p> 
+                            <h6 class="text-charcoal mb-0 w-100">Booking Amount (RM)</h6>
+                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">RM {{$booking->bookingAmount}}</p> 
                         </div>
                         <div class="col-6 col-md"> 
-                            <h6 class="text-charcoal mb-0 w-100">Booking Deposit</h6>
-                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">Late M. Night</p> 
+                            <h6 class="text-charcoal mb-0 w-100">Booking Deposit (RM)</h6>
+                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">RM {{$booking->bookingDeposit}}</p> 
                         </div>
                     </div>
                 </div>
-
+                @endforeach
+<!-- 
                 <div class="list-group-item p-3 bg-white">
                     <div class="row no-gutters">
                         <div class="col-12 col-md-9 pr-0 pr-md-3">
                             <div class="alert p-2 alert-success w-100 mb-0">
-                            @foreach($bookings as $booking)
                                 <h6 class="text-green mb-0"><b>Booking Date</b></h6>
                                 <p class="text-green hidden-sm-down mb-0">{{ $booking->bookingDate}}</p>
-                                @endforeach
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

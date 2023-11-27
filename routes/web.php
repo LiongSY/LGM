@@ -6,17 +6,14 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\ItineraryController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PassportController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PusherController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\BookingHistoryController;
 use App\Models\Customer;
-use App\Models\Itinerary;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,9 +33,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PackageController::class, 'displayTrendingPackage'])->name('homePage');
 
-Route::get('/booking/{id}', [BookingController::class,'create'])->name('booking');
-Route::post('/booking', [BookingController::class, 'store'])->name('customerBooking');
 
+Route::get('/booking', function () {
+    return view('booking');
+})->name('booking');
 
 Route::get('/customerProfile', function () {
     return view('profile');
@@ -52,7 +50,7 @@ Route::post('/customerProfile/update', [CustomerController::class,'update'])->na
 // });
 //customer side packages
 Route::get('/tourPackages', [PackageController::class, 'displayPackages'])->name('packages');
-Route::get('/itinerary/{id}', [ItineraryController::class, 'displayItineraries'])->name('itinerary');
+Route::get('/itinerary/{id}', [PackageController::class, 'displayItinerary'])->name('itinerary');
 
 //search
 Route::get('/displayPackages', [PackageController::class, 'displayPackages'])->name('displayPackages');
@@ -82,10 +80,12 @@ Route::get('/aboutUs', function () {
 // })->name('itinerary');
 
 
-Auth::routes();
+Auth::routes(['verify'=> true]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
@@ -153,12 +153,6 @@ Route::patch('/booking/{booking}/updateStatus',  [BookingController::class, 'upd
 
 //Currency
 Route::post('/currency', [CurrencyController::class, 'convert'])->name('currency.update');
-
-//Chat
-
-Route::get('/chat', [PusherController::class, 'index'])->name('chat.index');
-Route::post('/broadcast', [PusherController::class, 'broadcast']);
-Route::post('/receive', [PusherController::class, 'receive']);
 
 //booking
 // Route::post('/booking', [NotificationController::class, 'store'])->name('booking');

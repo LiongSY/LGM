@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+
+
+
 class RegisterController extends Controller
 {
     /*
@@ -90,6 +93,8 @@ class RegisterController extends Controller
             'userID' => $user->userID,
         ]);
     
+      
+
         return $user;
     }
     
