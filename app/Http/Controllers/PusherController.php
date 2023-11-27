@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversation;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\Message;
 use App\Models\Staff;
 use App\Events\PusherBroadcast;
+use Illuminate\Support\Facades\Log; 
+
 class PusherController extends Controller
 {
     /**
@@ -42,23 +45,56 @@ class PusherController extends Controller
 
     public function index()
     {
-        return view('chat/index');
+        $customerConversation = Conversation::all();
+    
+        $customerIDs = $customerConversation->pluck('userID')->unique();
+    
+        $customerList = User::whereIn('userID', $customerIDs)->get();
+    
+        return view('pages.dashboard', compact('customerList'));
     }
+    
+    // public function liveChat(string $id)
+    // {
+
+    //     $customerConversation = Conversation::all();
+
+    //     $customerList = [];
+
+    //     foreach($customerConversation as $conversation){
+
+    //         $customerList[] = $conversation;
+    //     }
+
+    //     return view('pages.dashboard', compact('customerConversation','customerList'));
+    // }
 
     public function broadcast(Request $request)
     {
         $user = auth()->user();
-
+        $sender = "staff";
         $message = new Message();
-
+    
+        if ($user->role == 'customer') {
+            $newConversation = Conversation::where('userID', $user->userID)->first();
+    
+            Log::info( $newConversation);
+            if (!$newConversation) {
+                $newConversation = new Conversation();
+                $newConversation->userID = $user->userID;
+                $newConversation->save();
+            }
+    
+            $sender = $user->userID;
+        }
+    
         $message->userID = $user->userID;
+        $message->sender = $sender;
         $message->message = $request->get('message');
         $message->save();
-        
-       
+    
         broadcast(new PusherBroadcast($request->get('message')))->toOthers();
-
-
+    
         return view('broadcast', ['message' => $request->get('message')]);
     }
 
@@ -78,9 +114,14 @@ class PusherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $userID)
     {
-        //
+
+        $messages = Message::all();
+
+        return view('chat.index', compact('messages'));
+
+
     }
 
     /**
