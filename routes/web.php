@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\PusherController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BookingController;
@@ -80,29 +80,20 @@ Route::get('/aboutUs', function () {
 // })->name('itinerary');
 
 
-Auth::routes(['verify'=> true]);
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 	// Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 });
+
 Route::get('/dashboard', [PusherController::class, 'index']);
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index'])->where('page', 'dashboard');
 });
 
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect('/'); // Redirect to the desired page after logout
-})->name('logout');
+
 
 //package
 Route::get('/packages/create', [PackageController::class, 'create'])->name('packages.create');

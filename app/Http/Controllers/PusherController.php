@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Log;
 
 class PusherController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      */
