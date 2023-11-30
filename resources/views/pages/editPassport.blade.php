@@ -1,4 +1,4 @@
-@extends('layouts.app', ['class' => '', 'elementActive' => 'map'])
+@extends('layouts.app', ['class' => '', 'elementActive' => 'customer'])
 
 @section('content')
 

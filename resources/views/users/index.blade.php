@@ -1,6 +1,6 @@
 @extends('layouts.app', [
 'class' => '',
-'elementActive' => 'tables'
+'elementActive' => 'staff'
 ])
 
 @section('content')
@@ -50,19 +50,16 @@
             <tbody>
                 @foreach ($users as $staff)
                 <tr>
-                    <td>{{ $staff->name }}</td>
+                    <td>{{ $staff->staffID }}</td>
                     <td>{{ $staff->lastSeen }}</td>
                     <td>{{ $staff->status }}</td>
                     <td>
                     <a href="mailto:{{ $staff->email }}" class="btn btn-warning">Email</a>
-                    <a href="#" class="btn btn-info" data-toggle="modal" data-target="#viewStaffModal{{ $staff->staffID }}">View</a>
-                        <form action="{{ route('admin.destroy', [$staff->staffID]) }}" method="POST"style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Are you sure you want to delete this staff?')">Delete</button>
-                        </form>
-
+                    <form action="{{ route('staff.destroy', 'abc') }}" method="POST" style="display: inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this staff?')">Delete</button>
+</form>
                     </td>
                 </tr>
                 <div class="modal fade" id="viewStaffModal{{ $staff->staffID }}" tabindex="-1" role="dialog" aria-labelledby="viewStaffModalLabel{{ $staff->staffID }}" aria-hidden="true">

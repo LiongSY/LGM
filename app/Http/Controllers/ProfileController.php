@@ -26,10 +26,21 @@ class ProfileController extends Controller
      */
     public function update(Request $request,$id)
     {
+        $customMessages = [
+            'name.regex' => 'The name field should only contain letters.',
+            'identityNo.regex' => 'The IC number must be in the format XXXXXX-XX-XXXX.',
+            'nationality.regex' => 'Nationality field should only contain letters.',
+            'benContact.regex' => 'The contact number should be xxx-xxxxxxx',
+        ];
+
         $request->validate([
             'name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/'], 
             'phoneNo' => ['required', 'regex:/^(01)[0-9]-*[0-9]{7,8}$/'], 
-        ]);
+            'nationality' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/'], 
+            'identityNo' => ['required','regex:/^\d{6}-\d{2}-\d{4}$/'],
+            'gender' => 'required',
+            'address' => 'required',
+        ],$customMessages);
          
          auth()->user()->update($request->all());
 

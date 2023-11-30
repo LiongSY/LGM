@@ -21,6 +21,12 @@ class PassportController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'passportNo' => 'required',
+            'expiryDate' => ['required', 'date', 'after_or_equal:today'],
+            'passportImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
         $imageName = time().'.'.$request->passportImage->extension();  
 
         $request->passportImage->storeAs('images', $imageName, 'public'); 

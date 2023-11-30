@@ -1,6 +1,6 @@
 @extends('layouts.app', [
 'class' => '',
-'elementActive' => 'tables'
+'elementActive' => 'booking'
 ])
 
 @section('content')
@@ -69,8 +69,7 @@
                         <a href="{{ route('booking.show', [$booking->bookingID]) }}" class="btn btn-info">View</a>
                         <a href="{{ route('booking.edit', [$booking->bookingID]) }}" class="btn btn-warning">Edit</a>
 
-                        <form action="{{ route('booking.destroy', [$booking->bookingID]) }}" method="POST"
-                            style="display:inline;">
+                        <form action="{{ route('booking.destroy', [$booking->bookingID]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"

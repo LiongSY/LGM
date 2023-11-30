@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Chat Laravel Pusher | Edlin App</title>
+  <title>LIVE CHAT</title>
   <link rel="icon" href="https://assets.edlin.app/favicon/favicon.ico"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,32 +12,64 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
+  <link href="{{ asset('paper') }}/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
 
   <!-- End CSS -->
 
 </head>
 
-<body>
+<body style="background-color:#1F4E7A">
 <div class="chat">
     <!-- Header -->
     <div class="top">
-        <img src="https://assets.edlin.app/images/rossedlin/03/rossedlin-03-100.jpg" alt="Avatar">
+        @if(auth()->user()->role == 'customer')
+        <img src="{{ asset('images/804949.png') }}" style="width:50px" alt="Avatar">
+        @else
+        @php
+                $sender = \App\Models\User::where('userID', $user->userID)->first();
+
+                @endphp
+            @if($sender->gender == 'Male')
+            <img src="{{ asset('images/804951.png') }}" style="width:50px" alt="Avatar">
+            @else
+            <img src="{{ asset('images/403023.png') }}" style="width:50px" alt="Avatar">
+            @endif
+        @endif
         <div>
-            <p>Live Chat</p>
+            @if(auth()->user()->role == 'customer')
+            <p>Live Agent</p>
+            @else
+            <p>{{$user->name}}</p>
+            @endif
+
         </div>
     </div>
     <!-- End Header -->
 
     <!-- Display Messages -->
     <div class="messages">
-        @if ($messages->isEmpty())
-        
-        @if(auth()->user()->role == 'customer')
-        @include('receive', ['message' => 'Hi, How can I help you'])
-        @else
-        @include('broadcast', ['message' => 'Hi, How can I help you'])
+    @php
+    $conversation = \App\Models\Conversation::where('userID', $user->userID)->first();
 
-        @endif
+    $conversationID = 0;
+
+    if ($conversation === null || $conversation->userID === null) {
+        $conversationID = 0;
+    } else {
+        $conversationID = $conversation->userID;
+        $messages = \App\Models\Message::where('userID', $conversation->userID)->get();
+
+    }
+
+    @endphp
+        @if (!$conversation)
+        
+            @if(auth()->user()->role == 'customer')
+            @include('receive', ['message' => 'Hi, How can I help you'])
+            @else
+            @include('broadcast', ['message' => 'Hi, How can I help you'])
+
+            @endif
         @else
         
             @foreach ($messages as $message)
@@ -45,11 +77,16 @@
                   @if ($message->sender == auth()->user()->userID)
                     @include('broadcast', ['message' => $message->message, 'position' => 'right'])
                   @else
-                      @include('broadcast', ['message' => $message->message, 'position' => 'left'])
+                      @include('receive', ['message' => $message->message, 'position' => 'left'])
 
                   @endif
                 @else
-                    @include('receive', ['message' => $message->message, 'position' => 'left'])
+                @if ($message->sender == 'staff')
+                    @include('broadcast', ['message' => $message->message, 'position' => 'right'])
+                  @else
+                      @include('receive', ['message' => $message->message, 'position' => 'left'])
+
+                  @endif
                 @endif
             @endforeach
         @endif
@@ -61,8 +98,8 @@
         <form id="chat-form">
         @csrf
 
-            <input type="text" id="message" name="message" placeholder="Enter message..." autocomplete="off">
-            <button type="submit"></button>
+            <input type="text" id="message" name="message" placeholder="Enter message..." autocomplete="off" style="float:left">
+            <button type="submit" class="btn btn-secondary"style="float:right; margin:0px"></btton>
         </form>
     </div>
     <!-- End Footer -->
@@ -100,6 +137,8 @@
         data: {
             _token: '{{csrf_token()}}',
             message: $("#message").val(),
+            conversationID: '{{$conversationID}}'
+
         }
     }).done(function (res) {
       $(".messages > .message").last().append(res);

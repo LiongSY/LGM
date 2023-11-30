@@ -209,6 +209,7 @@ class PackageController extends Controller
         }
 
 
+        return redirect()->route('packages.index')->with('success', 'Successfully added a new package.');    
 
        
     }
@@ -308,55 +309,103 @@ class PackageController extends Controller
 
     }
 
+    public function search(Request $request)
+    {
+        $destination = $request->input('destination');
+        $date = $request->input('date');
+        $sortOrder = $request->input('sort', 'price_asc'); 
+
+        $packagesQuery = Package::query()
+            ->with(['tours.flight']); // Eager load tours along with their associated flight
+    
+        if ($destination) {
+            $packagesQuery->where('destination', 'like', '%' . $destination . '%');
+        }
+    
+        if ($date) {
+            $packagesQuery->whereHas('tours.flight', function ($flightQuery) use ($date) {
+                $formattedDate = Carbon::createFromFormat('Y-m', $date);
+                $flightQuery->whereYear('departureDate', $formattedDate->year)
+                ->whereMonth('departureDate', $formattedDate->month);            });
+        }
+    
+
+
+        $packages = $packagesQuery->get();
+        $allTours = $packages->flatMap->tours;
+
+   
+        $minTourPrices = $allTours->groupBy('packageID')->map(function ($tours) {
+            return $tours->min('tourPrice');
+        });
+
+
+
+        $packages = $this->sortPackages($packages, $minTourPrices, $sortOrder);
+
+    
+        
+
+        $departureDates = $allTours->flatMap(function ($tour) {
+            return [$tour->flight->flightID => $tour->flight->departureDate];
+        });
+    
+        return view('packages', compact('packages', 'allTours', 'departureDates','minTourPrices'));
+    }
+
+    private function sortPackages($packages, $minTourPrices, $sortOrder)
+{
+    return $packages->sortBy(function ($package) use ($minTourPrices) {
+        return $minTourPrices[$package->packageID];
+    }, null, $sortOrder === 'price_desc');
+}
+
 
     public function updatePackage(Request $request, $id){
-        // Find the package by ID
-        Package::where('packageID', $id)->update([
-            'packageName' => $request->input('packageName'),
-            'destination' => $request->input('destination'),
-            'highlight' => $request->input('packageHighlight'),
-            'singleRoom' => $request->input('singleRoom'),
-            'doubleRoom' => $request->input('doubleRoom'),
-            'tripleRoom' => $request->input('tripleRoom'),
-            'remarks' => $request->input('packageRemarks'),
-        ]);
+
+        $request->validate([
+            'packageImage' => 'image'
+            ]);
+
+        $package = Package::where('packageID', $id)->first();
+
+      
+        if($request->packageImage != null && ($request->packageImage !== $package->packageImage)){
+
+            $imageName = time().'.'.$request->packageImage->extension();  
+
+            $request->packageImage->storeAs('images', $imageName, 'public');
+
+            Package::where('packageID', $id)->update([
+                'packageName' => $request->input('packageName'),
+                'packageImage' => $imageName,
+                'destination' => $request->input('destination'),
+                'highlight' => $request->input('packageHighlight'),
+                'singleRoom' => $request->input('singleRoom'),
+                'doubleRoom' => $request->input('doubleRoom'),
+                'tripleRoom' => $request->input('tripleRoom'),
+                'remarks' => $request->input('packageRemarks'),
+            ]); 
+        
+        }else{
+            Package::where('packageID', $id)->update([
+                'packageName' => $request->input('packageName'),
+                'destination' => $request->input('destination'),
+                'highlight' => $request->input('packageHighlight'),
+                'singleRoom' => $request->input('singleRoom'),
+                'doubleRoom' => $request->input('doubleRoom'),
+                'tripleRoom' => $request->input('tripleRoom'),
+                'remarks' => $request->input('packageRemarks'),
+            ]);
+
+        }
+        
         // Redirect back to the show page with a success message
         return redirect()->route('packages.show', $id)->with('success', 'Package updated successfully!');    }
 
 
 
-
-
-          //customer
-        public function displayPackages(Request $request)
-        {
-            
-            $query = Package::query();
-
-            if ($request->has('search')) {
-                $searchTerm = $request->input('search');
-                $query->where('packageID', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('packageName', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('destination', 'like', '%' . $searchTerm . '%');
-            }
         
-            $packages = $query->paginate(10);
-            $packageIds = $packages->pluck('packageID')->toArray();
-            
-            $allTours = DB::table('tours')
-                ->whereIn('packageID', $packageIds)
-                ->select('packageID', 'tourCode', 'tourPrice', 'flightID')
-                ->get()
-                ->groupBy('packageID');
-        
-            $flightIds = $allTours->flatten()->pluck('flightID')->toArray();
-            $departureDates = DB::table('flights')
-                ->whereIn('flightID', $flightIds)
-                ->pluck('departureDate', 'flightID');
-        
-            return view('packages', compact('packages', 'allTours', 'departureDates'));
-        }
-
         public function displayTrendingPackage(Request $request)
         {
             
@@ -408,16 +457,7 @@ class PackageController extends Controller
             return view('pages.generateItinerary', compact('package', 'tours', 'itineraries','flightDetails'));
         }
 
-      public function search(Request $request)
-      {
-        $request->validate([
-            'destination' => 'required|string',
-        ]);
 
-        $searchResults = Package::where('destination', 'like', '%' . $request->input('destination') . '%')->get();
-        
-        return view('search',['searchResults'=> $searchResults]);
-      }
 
     }
 

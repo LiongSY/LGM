@@ -22,7 +22,22 @@ class BeneficiaryController extends Controller
     public function store(Request $request)
     {
         $benID = IdGenerator::generate(['table'=> 'beneficiary','field' => 'benID','length' => 6, 'prefix' => 'BEN']);
-
+        $customMessages = [
+            'benName.regex' => 'The name field should only contain letters.',
+            'benIC.regex' => 'The IC number must be in the format XXXXXX-XX-XXXX.',
+            'benRelationship.regex' => 'The relationship field should only contain letters.',
+            'benContact.regex' => 'The contact number should only contain numbers, +, or -.',
+            'benAddress.max' => 'The address field cannot be more than 150 characters.',
+        ];
+        $request->validate([
+            'benTitle' => 'required',
+            'benName' => 'required|regex:/^[a-zA-Z\s]+$/',
+            'benIC' => 'required|regex:/^\d{6}-\d{2}-\d{4}$/',
+            'benRelationship' => 'required|regex:/^[a-zA-Z]+$/',
+            'benContact' => 'required|regex:/^[0-9\-\+]+$/',
+            'benAddress' => 'required|string|max:150',
+        ], $customMessages);
+        
        Beneficiary::create([
         "benID"=> $benID,
         "benName"=>$request->benName,

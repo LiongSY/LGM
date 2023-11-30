@@ -149,6 +149,7 @@ class BookingController extends Controller
              'customerID'=> $customer->customerID,
          ]);
 
+         return redirect()->route('bookingHistory')->with('success', 'Thank you for booking with us ! Your booking is pending for approval.');    
 
         // $customer = Customer::where('userID', $loggedInUser->userID)->first();
 

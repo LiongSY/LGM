@@ -1,52 +1,64 @@
 @extends('layouts.customers.app')
 
 @section('content')
+@php
+$selectedCurrency = Session::get('selectedCurrency', 'MYR');
+$usdRate = Session::get('USDRate', 1);
+$sgdRate = Session::get('SGDRate', 1);
+$bndRate = Session::get('BNDrate', 1);
+@endphp
+<div style="margin-top:9%;margin-right:30px; margin-left:30px">
+<div class="container">
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
-<div class="container mt-3 mt-md-5">
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
     <h2 class="text-charcoal hidden-sm-down">Your Booking History</h2>
-    <div class="row">
-        <div class="col-12">
-            <div class="list-group mb-5">
-                @foreach($bookings as $booking)
-                <div class="list-group-item p-3 bg-snow" style="position: relative;">
-                    <div class="row w-100 no-gutters">
-                        <div class="col-6 col-md">
-                        <h6 class="text-green mb-0"><b style="color:blue;">Booking Date</b></h6>
-                                <p class="text-green hidden-sm-down mb-0">{{ $booking->bookingDate}}</p>
-                        </div>
-                        <div class="col-6 col-md">
-                            <h6 class="text-charcoal mb-0 w-100">Tour Code</h6>
-                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0"></p>  
-                        </div>
-                        <div class="col-6 col-md"> 
-                            <h6 class="text-charcoal mb-0 w-100">Booking Status</h6>
-                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">{{$booking->bookingStatus}}</p> 
-                        </div>
-                        <div class="col-6 col-md"> 
-                            <h6 class="text-charcoal mb-0 w-100">Booking Amount (RM)</h6>
-                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">RM {{$booking->bookingAmount}}</p> 
-                        </div>
-                        <div class="col-6 col-md"> 
-                            <h6 class="text-charcoal mb-0 w-100">Booking Deposit (RM)</h6>
-                            <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">RM {{$booking->bookingDeposit}}</p> 
-                        </div>
-                    </div>
+    <div class="booking-container" style="margin-top:20px; margin-bottom:20px">
+    @foreach($bookings as $booking)
+        <div class="booking-card">
+            <div class="booking-header">
+                <h5 class="booking-title">Booking #{{$booking->bookingID}}</h5>
+                <span class="booking-date">{{ $booking->bookingDate}}</span>
+            </div>
+            <div class="booking-details">
+                <div class="booking-info">
+                    <p><strong>Tour Code:</strong> {{ $booking->tourCode}}</p>
+                    <p><strong>Status:</strong> {{ $booking->bookingStatus}}</p>
                 </div>
-                @endforeach
-<!-- 
-                <div class="list-group-item p-3 bg-white">
-                    <div class="row no-gutters">
-                        <div class="col-12 col-md-9 pr-0 pr-md-3">
-                            <div class="alert p-2 alert-success w-100 mb-0">
-                                <h6 class="text-green mb-0"><b>Booking Date</b></h6>
-                                <p class="text-green hidden-sm-down mb-0">{{ $booking->bookingDate}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                <div class="booking-amounts">
+                    <p><strong>Total Amount :</strong> @if($selectedCurrency === 'USD')
+                                USD {{ number_format($booking->bookingAmount * $usdRate, 2) }}
+                            @elseif($selectedCurrency === 'SGD')
+                                SGD {{ number_format($booking->bookingAmount * $sgdRate, 2) }}
+                            @elseif($selectedCurrency === 'BND')
+                                BND {{ number_format($booking->bookingAmount * $bndRate, 2) }}
+                            @else
+                                RM {{ number_format($booking->bookingAmount, 2) }}
+                            @endif</p>
+                    <p><strong>Deposit:</strong> @if($selectedCurrency === 'USD')
+                                USD {{ number_format($booking->bookingDeposit * $usdRate, 2) }}
+                            @elseif($selectedCurrency === 'SGD')
+                                SGD {{ number_format($booking->bookingDeposit * $sgdRate, 2) }}
+                            @elseif($selectedCurrency === 'BND')
+                                BND {{ number_format($booking->bookingDeposit * $bndRate, 2) }}
+                            @else
+                                RM {{ number_format($booking->bookingDeposit, 2) }}
+                            @endif</p>
+                </div>
             </div>
         </div>
-    </div>
+    @endforeach
+</div>
+
+</div>
 </div>
 
 @endsection

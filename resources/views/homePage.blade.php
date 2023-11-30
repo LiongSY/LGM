@@ -2,119 +2,108 @@
 
 @section('content')
 @php
-    $selectedCurrency = Session::get('selectedCurrency', 'MYR');
-    $usdRate = Session::get('USDRate', 1);
-    $sgdRate = Session::get('SGDRate', 1);
-    $bndRate = Session::get('BNDrate', 1);
+$selectedCurrency = Session::get('selectedCurrency', 'MYR');
+$usdRate = Session::get('USDRate', 1);
+$sgdRate = Session::get('SGDRate', 1);
+$bndRate = Session::get('BNDrate', 1);
 @endphp
-
-<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
-        <div class="carousel-item">
-            <img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="500"
-                src="images/winter.jpeg" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <div class="carousel-item ">
+            <img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="710"
+                src="images/ads3.png" preserveAspectRatio="xMidYMid slice" focusable="false">
         </div>
         <div class="carousel-item">
-            <img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="500"
-                src="images/summer.jpeg" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <video width="100%" height="100%" autoplay muted loop>
+                <source src="images/LGMTRAVEL.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
         <div class="carousel-item active">
-            <img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="500"
-                src="images/autumn.jpeg" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <video width="100%" height="100%" autoplay muted loop>
+                <source src="images/adsVid.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
         </div>
     </div>
-    <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button> -->
 </div>
-
-
-<!-- Search -->
 <div class="container mt-3">
-    <form>
-        <div class="row justify-content-center" style="margin-top:30px">
+<form action="{{ route('search') }}" method="GET">
+        <div class="row justify-content-center">
             <div class="col-md-3">
-                <div class="card" style="border:none;">
-                    <!-- <h3 class="text-center">Location <i class="bi bi-geo-alt"></i></h3> -->
-                    <input class="form-control" type="text" placeholder="Enter your destination">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card" style="border:none;">
-                    <!-- <h3 class="text-center">Date <i class="bi bi-caret-down-fill"></i></h3> -->
-                    <input class="form-control" type="date">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card" style="border:none; border-radius:10px;">
-                    <button class="btn btn-primary btn-block">Explore Now</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-
-<div class="container">
-<div class="row" style="margin-top:30px">
-        <div class="col-md-12">
-            <div class="titlepage">
-                <h2>Trending Packages</h2>
-            </div>
-        </div>
-    </div>
-
-<div class="card-wrapper container-sm d-flex flex-wrap justify-content-around">
-@foreach ($packages as $package)
-    <a href="{{ route('itinerary', [$package->packageID]) }}" style="text-decoration: none; color: inherit;">
-        <div class="card mb-4"
-            style="width: 20rem; border:none; overflow:hidden;  transition: transform 0.3s ease-in-out;">
-            <img src="images/tour1.jpg" class="card-img-top" >
-            <div class="card-body">
-                <h5 class="card-title font-weight-bold">{{ $package->packageName }}</h5>
-                @php
-        $lowestTourPrice = $allTours[$package->packageID]->min('tourPrice');
-    @endphp
-    <h6>
-    @if($selectedCurrency === 'USD')
-        USD {{ number_format($lowestTourPrice * $usdRate, 2) }}
-    @elseif($selectedCurrency === 'SGD')
-        SGD {{ number_format($lowestTourPrice * $sgdRate, 2) }}
-    @elseif($selectedCurrency === 'BND')
-        BND {{ number_format($lowestTourPrice * $bndRate, 2) }}
-    @else
-        RM {{ number_format($lowestTourPrice, 2) }}
-    @endif
-</h6>                <i class="icon-location"></i><p class="font-weight-normal">{{ $package->destination }}</p>
-            </div>
-        </div>
-    </a>
-    @endforeach
-
-    
-</div>
-</div>
-
-
-
-
-
-<!-- service -->
-
-<div class="container">
-<div class="row" style="margin-top:30px">
-                <div class="col-md-12">
-                    <div class="titlepage">
-                        <h2>Our Services</h2>
+                <div class="card border shadow mb-4">
+                    <div class="card-body"style="border-radius:14px;">
+                        <label for="destination" class="form-label">Destination <i class="bi bi-geo-alt"></i></label>
+                        <input id="destination" name="destination" class="form-control border-0" type="text" placeholder="Enter your destination">
                     </div>
                 </div>
-            </div>   
+            </div>
+            <div class="col-md-3">
+                <div class="card border shadow mb-4">
+                    <div class="card-body"style="border-radius:15px;">
+                        <label for="date" class="form-label">Date <i class="bi bi-calendar3" ></i></label>
+                        <input id="date" name="date" class="form-control border-0" min="{{ date('Y-m') }}" type="month">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-4" style="border-radius:10px;margin-top:13px">
+                    <div class="card-body">
+                    <button type="submit" class="btn btn-primary btn-block">Explore Now <i class="bi bi-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+<div class="container">
+    <div class="row" style="margin-top:30px">
+        <div class="col-md-12">
+            <div class="titlepage">
+                <h2 class="text-center">Trending Packages</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-wrapper container-sm d-flex flex-wrap justify-content-around">
+        @foreach ($packages as $package)
+            <a href="{{ route('itinerary', [$package->packageID]) }}" style="text-decoration: none; color: inherit;">
+                <div class="card mb-4 package-card" style="width: 20rem; border: none; overflow: hidden; transition: transform 0.3s ease-in-out;">
+                    <img src="{{ url('storage/images/'.$package->packageImage) }}" class="card-img-top" alt="{{ $package->packageName }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title font-weight-bold">{{ $package->packageName }}</h5>
+                        @php
+                            $lowestTourPrice = $allTours[$package->packageID]->min('tourPrice');
+                        @endphp
+                        <h6 class="package-price">
+                            @if($selectedCurrency === 'USD')
+                                USD {{ number_format($lowestTourPrice * $usdRate, 2) }}
+                            @elseif($selectedCurrency === 'SGD')
+                                SGD {{ number_format($lowestTourPrice * $sgdRate, 2) }}
+                            @elseif($selectedCurrency === 'BND')
+                                BND {{ number_format($lowestTourPrice * $bndRate, 2) }}
+                            @else
+                                RM {{ number_format($lowestTourPrice, 2) }}
+                            @endif
+                        </h6>
+                        <p class="font-weight-normal package-location"><i class="icon-location"></i> {{ $package->destination }}</p>
+                    </div>
+                </div>
+            </a>
+        @endforeach
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row" style="margin-top:30px">
+        <div class="col-md-12">
+            <div class="titlepage">
+                <h2>Our Services</h2>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
             <div class="services-block-three">
@@ -197,11 +186,8 @@
 
 
 
-<!-- amazing -->
-<div class="amazing">
-    <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 " >
                 <div class="amazing-box">
                     <h2>Make A Amazing Memory</h2>
                     <span>Escape to your dream destination today! Book your next adventure with us and create
@@ -212,11 +198,9 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 <!-- our blog -->
-<div id="blog" class="blog">
+<div id="blog" class="blog" style="margin-top:10px">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -327,28 +311,6 @@
 
         </div>
     </div>
-</div>
-
-
-<div class="subscribe" style="margin:70px;">
-    <section class="bg-img text-center" style="padding:4%; background:#7e8890;">
-        <div class="container">
-            <h2 style="color:#e6e6e6;">
-                <strong>Subscribe</strong>
-            </h2>
-            <h6 class="font-alt" style="color:#e6e6e6;">Get weekly top new jobs delivered to your inbox</h6>
-            <br><br>
-            <form class="form-subscribe" action="#">
-                <div class="input-group">
-                    <input type="text" class="form-control input-lg" placeholder="Your email address">
-
-                    <span class="input-group-btn">
-                        <button class="btn btn-success btn-lg" type="submit">Subscribe</button>
-                    </span>
-                </div>
-            </form>
-        </div>
-    </section>
 </div>
 
 

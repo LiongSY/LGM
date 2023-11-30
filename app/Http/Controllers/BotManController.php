@@ -17,7 +17,7 @@ class BotManController extends Controller
         $botman->fallback(function($bot) {
 
             $message = $bot->getMessage();
-            $commandsMessage = "Sorry,<br>Please select the option below:<br><br>1. Booking Assistance.<br>2. Destination Information.<br>3. Feedback and Reviews.<br>4. Chat with agent.";
+            $commandsMessage = "Sorry,<br>Please select the option below:<br><br>1. Booking Assistance.<br>2. Chat with agent.";
             $bot->reply($commandsMessage);
 
         });
@@ -32,15 +32,18 @@ class BotManController extends Controller
                     return $bot->reply('Please make sure that you are logged in');
                 }
 
-            }elseif ($message == 2) {
-                $bot->reply('2');
-                // $bot->destination($bot);            
-            }elseif ($message == 3) {
-                $bot->feedback($bot);
-            }elseif ($message == 4) {
-                $bot->chatAgent($bot);
+            }
+            elseif ($message == 2) {
+                if(auth()->check() && auth()->user()->role == 'customer'){
+                    $userID = auth()->user()->userID;
+                    $url = route('chat.show', ['userID' => $userID]);
+
+                    return $bot->reply("<a href='$url' class='btn btn-primary' style='text-decoration: none;'target='_blank'>CHAT WITH AGENT</a>");
+                }else{
+                    return $bot->reply('Please make sure that you are logged in');
+                }
             }elseif (preg_match('/\b(hello*|hi*)\b/i', $message) === 1) {
-                $bot->reply('Hello ~<br>Please select the option below:<br><br>1. Booking Assistance.<br>2. Destination Information.<br>3. Feedback and Reviews.<br>4. Chat with agent.');
+                $bot->reply('Hello ~<br>Please select the option below:<br><br>1. Booking Assistance.<br>2.Chat with agent.');
             }elseif(strtoupper($message) !== 'EXIT'){
                 return $bot->reply('Sorry I don\'t understand '.$message.'.<br>Please choose 1,2,3 or 4.');
             }

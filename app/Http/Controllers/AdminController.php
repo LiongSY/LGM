@@ -17,7 +17,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        
+        User::where('role','staff')->get();
+        return view('pages.addStaff');
+
     }
 
     public function create()

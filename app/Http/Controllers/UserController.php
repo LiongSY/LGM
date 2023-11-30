@@ -20,7 +20,7 @@ class UserController extends Controller
 {
     
     $query = User::query()
-        ->select('users.*', 'staff.lastSeen', 'staff.status','staffID') 
+        ->select('users.*', 'staff.lastSeen', 'staff.status','staff.staffID') 
         ->leftJoin('staff', 'users.userID', '=', 'staff.userID')
         ->whereIn('users.role', ['admin', 'staff']);
 

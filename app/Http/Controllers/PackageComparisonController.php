@@ -12,6 +12,6 @@ class PackageComparisonController extends Controller
         $package1Details = Package::where('packageID', $request->input('package1'))->first();
         $package2Details = Package::where('packageID', $request->input('package2'))->first();
 
-        return view('comparison', compact('package1Details', 'package2Details'));
+        return view('compare', compact('package1Details', 'package2Details'));
     }
 }

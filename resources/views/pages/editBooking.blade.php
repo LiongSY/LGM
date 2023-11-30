@@ -1,4 +1,4 @@
-@extends('layouts.app', ['class' => '', 'elementActive' => 'map'])
+@extends('layouts.app', ['class' => '', 'elementActive' => 'booking'])
 
 @section('content')
 
@@ -29,8 +29,8 @@
                     <hr>
                     <div class="form-row">                    
                         <div class="form-group col-md-6">
-                            <label for="destination">Booking Date:</label>
-                            <input type="text" class="form-control" id="bookingID" value="{{ $booking->bookingDate }}" name="bookingID" readonly>
+                            <label for="bookingDate">Booking Date:</label>
+                            <input type="text" class="form-control" id="bookingDate" value="{{ $booking->bookingDate }}" name="bookingDate" readonly>
                         </div>
                     
                     <div class="form-group col-md-6">
@@ -138,6 +138,9 @@
                     <div class="form-group">
                         <label for="remarks">Remarks for the booking:</label>
                         <textarea class="form-control long-textarea" id="bookingRemarks" name="bookingRemarks" >{{$booking->bookingRemarks}}</textarea>
+                        @error('bookingRemarks')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
                     </div>
 
                     

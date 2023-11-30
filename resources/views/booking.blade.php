@@ -1,6 +1,12 @@
 @extends('layouts.customers.app')
 
 @section('content')
+@php
+$selectedCurrency = Session::get('selectedCurrency', 'MYR');
+$usdRate = Session::get('USDRate', 1);
+$sgdRate = Session::get('SGDRate', 1);
+$bndRate = Session::get('BNDrate', 1);
+@endphp
 <div style="margin-top:9%; margin-right:30px; margin-left:30px">
 <form  action="{{ route('customerBooking') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -9,13 +15,17 @@
     <main>
         <div class="row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
-    <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="badge bg-primary rounded-pill">Booking Summary</span>
-    </h4>
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+    <span class="font-weight-bold text-uppercase" >
+        Booking Summary
+    </span>
+</h4>
     <ul id="bookingSummaryList" class="list-group mb-3"></ul>
     <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="badge bg-primary rounded-pill">Remarks</span>
-    </h4>
+    <span class="font-weight-bold text-uppercase" >
+        Remarks
+    </span>
+</h4>
     <textarea class="form-control long-textarea" id="bookingRemarks" placeholder="Please write your remarks here ..." name="bookingRemarks" style="overflow:hidden; padding:5px; height:200px;margin-bottom:15px"></textarea>
 </div>
 
@@ -66,7 +76,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="room-type col-md-2">
+                                <div class="room-type col-md-2" id="noOfRoom" name="noOfRoom">
                                     <label for="singleRoom"><strong>Single Room:</strong></label>
                                     <div class="input-group">
                                         <button type="button" onclick="updateQuantity('singleRoom', -1)">-</button>
@@ -75,6 +85,9 @@
                                         <button type="button" onclick="updateQuantity('singleRoom', 1)">+</button>
                                     </div>
                                     @error('noOfRoom.singleRoom')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                    @error('noOfRoom')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -121,7 +134,7 @@
 
         </ol>
     </div>
-    <button type="submit" class="btn btn-primary" style="float:right">Submit</button>
+    <button type="submit" class="btn btn-primary" style="float: right; margin-bottom: 20px;margin-top:10px">Submit</button>
 
             </div>
 
@@ -155,66 +168,97 @@
     }
     function updateBookingSummary() {
         var noOfAdult = parseInt(document.getElementById('noOfAdult').value);
-        var noOfChild = parseInt(document.getElementById('noOfChild').value);
-        var noOfInfant = parseInt(document.getElementById('noOfInfant').value);
-        var singleRoom = parseInt(document.getElementById('singleRoom').value);
-        var doubleRoom = parseInt(document.getElementById('doubleRoom').value);
-        var tripleRoom = parseInt(document.getElementById('tripleRoom').value);
+    var noOfChild = parseInt(document.getElementById('noOfChild').value);
+    var noOfInfant = parseInt(document.getElementById('noOfInfant').value);
+    var singleRoom = parseInt(document.getElementById('singleRoom').value);
+    var doubleRoom = parseInt(document.getElementById('doubleRoom').value);
+    var tripleRoom = parseInt(document.getElementById('tripleRoom').value);
 
-        var roomDetails = {
-            'Adult': { quantity: noOfAdult, price: {{$tour->tourPrice}} },
-            'Child': { quantity: noOfChild, price: {{$tour->tourPrice}} }, 
-            'Infant': { quantity: noOfInfant, price: 0 }, 
-            'Single<br>Room(s)': { quantity: singleRoom, price: {{$package->singleRoom}} },
-            'Double<br>Room(s)': { quantity: doubleRoom, price:  {{$package->doubleRoom}} },
-            'Triple<br>Room(s)': { quantity: tripleRoom, price: {{$package->tripleRoom}} }
-        };
+    // Assume these are the exchange rates from RM to other currencies
+    var usdRate = {{ $usdRate }};
+    var sgdRate = {{ $sgdRate }};
+    var bndRate = {{ $bndRate }};
 
-        var bookingSummaryList = document.getElementById('bookingSummaryList');
-        bookingSummaryList.innerHTML = '';
+    var currencySymbol = '';
+    var lowestTourPrice = {{ $tour->tourPrice }};
+    var singleRoomPrice = {{ $package->singleRoom }};
+    var doubleRoomPrice = {{ $package->doubleRoom }};
+    var tripleRoomPrice = {{ $package->tripleRoom }};
 
-        var totalAmount = 0;
+    // Set the currency symbol and adjust prices based on the selected currency
+    @if($selectedCurrency === 'USD')
+        currencySymbol = 'USD';
+        lowestTourPrice *= usdRate;
+        singleRoomPrice *= usdRate;
+        doubleRoomPrice *= usdRate;
+        tripleRoomPrice *= usdRate;
+    @elseif($selectedCurrency === 'SGD')
+        currencySymbol = 'SGD';
+        lowestTourPrice *= sgdRate;
+        singleRoomPrice *= sgdRate;
+        doubleRoomPrice *= sgdRate;
+        tripleRoomPrice *= sgdRate;
+    @elseif($selectedCurrency === 'BND')
+        currencySymbol = 'BND';
+        lowestTourPrice *= bndRate;
+        singleRoomPrice *= bndRate;
+        doubleRoomPrice *= bndRate;
+        tripleRoomPrice *= bndRate;
+    @else
+        currencySymbol = 'RM';
+    @endif
 
-        for (var roomType in roomDetails) {
-            var quantity = roomDetails[roomType].quantity;
-            var price = roomDetails[roomType].price;
+    var roomDetails = {
+        'Adult': { quantity: noOfAdult, price: lowestTourPrice },
+        'Child': { quantity: noOfChild, price: lowestTourPrice }, 
+        'Infant': { quantity: noOfInfant, price: 0 }, 
+        'Single<br>Room(s)': { quantity: singleRoom, price: singleRoomPrice },
+        'Double<br>Room(s)': { quantity: doubleRoom, price: doubleRoomPrice },
+        'Triple<br>Room(s)': { quantity: tripleRoom, price: tripleRoomPrice }
+    };
 
-            if (quantity > 0) {
-                var subtotal = quantity * price;
-                totalAmount += subtotal;
+    var bookingSummaryList = document.getElementById('bookingSummaryList');
+    bookingSummaryList.innerHTML = '';
 
-                var listItem = document.createElement('li');
-                listItem.className = 'list-group-item d-flex justify-content-between lh-sm';
-                listItem.innerHTML = `
-                    <div>
-                        <h6 class="my-0">${roomType}</h6>
-                        
-                        <span class="text-muted">RM${price.toFixed(2)} X <b>${quantity}<b></span>
+    var totalAmount = 0;
 
-                    </div>
-                    <span class="text-muted">RM${subtotal.toFixed(2)}</span>
-                `;
+    for (var roomType in roomDetails) {
+        var quantity = roomDetails[roomType].quantity;
+        var price = roomDetails[roomType].price;
 
-                bookingSummaryList.appendChild(listItem);
-            }
+        if (quantity > 0) {
+            var subtotal = quantity * price;
+            totalAmount += subtotal;
+
+            var listItem = document.createElement('li');
+            listItem.className = 'list-group-item d-flex justify-content-between lh-sm';
+            listItem.innerHTML = `
+                <div>
+                    <h6 class="my-0">${roomType}</h6>
+                    
+                    <span class="text-muted">${currencySymbol} ${price.toFixed(2)} X <b>${quantity}</b></span>
+                </div>
+                <span class="text-muted">${currencySymbol} ${subtotal.toFixed(2)}</span>
+            `;
+
+            bookingSummaryList.appendChild(listItem);
         }
-
-        var totalAmountElement = document.createElement('li');
-        totalAmountElement.className = 'list-group-item d-flex justify-content-between';
-        totalAmountElement.innerHTML = `
-            <strong>Deposit</strong>
-            <span style="color:red" id="totalAmount"><b>RM${(0.3 * totalAmount).toFixed(2)}</b></span><br>
-            <strong>Total</strong>
-            <span style="color:red" id="totalAmount"><b>RM${totalAmount.toFixed(2)}</b></span>
-            <input type="hidden" name="bookingAmount" value="${totalAmount.toFixed(2)}">
-            <input type="hidden" name="bookingDeposit" value="${(0.3 * totalAmount).toFixed(2)}">
-
-
-        `;
-
-        bookingSummaryList.appendChild(totalAmountElement);
     }
 
-    updateBookingSummary(); 
+    var totalAmountElement = document.createElement('li');
+    totalAmountElement.className = 'list-group-item d-flex justify-content-between';
+    totalAmountElement.innerHTML = `
+        <strong>Deposit</strong>
+        <span style="color:red" id="totalAmount"><b>${currencySymbol} ${(0.3 * totalAmount).toFixed(2)}</b></span><br>
+        <strong>Total</strong>
+        <span style="color:red" id="totalAmount"><b>${currencySymbol} ${totalAmount.toFixed(2)}</b></span>
+        <input type="hidden" name="bookingAmount" value="${totalAmount.toFixed(2)}">
+        <input type="hidden" name="bookingDeposit" value="${(0.3 * totalAmount).toFixed(2)}">
+    `;
+
+    bookingSummaryList.appendChild(totalAmountElement);
+}
+
+updateBookingSummary();
 </script>
 @endsection

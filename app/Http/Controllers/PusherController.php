@@ -76,9 +76,9 @@ class PusherController extends Controller
         $user = auth()->user();
         $sender = "staff";
         $message = new Message();
-    
+        $newConversation = Conversation::where('userID', $user->userID)->first();
+
         if ($user->role == 'customer') {
-            $newConversation = Conversation::where('userID', $user->userID)->first();
     
             Log::info( $newConversation);
             if (!$newConversation) {
@@ -86,11 +86,18 @@ class PusherController extends Controller
                 $newConversation->userID = $user->userID;
                 $newConversation->save();
             }
-    
+            $user = auth()->user();
+
             $sender = $user->userID;
         }
-    
-        $message->userID = $user->userID;
+
+        $conversationID = $request->get('conversationID');
+        if($request->get('conversationID') == 0){
+        $conversationID = $newConversation->userID;
+
+        }
+
+        $message->userID = $conversationID;
         $message->sender = $sender;
         $message->message = $request->get('message');
         $message->save();
@@ -119,9 +126,13 @@ class PusherController extends Controller
     public function show(int $userID)
     {
 
-        $messages = Message::all();
 
-        return view('chat.index', compact('messages'));
+
+        $user = User::where('userID', $userID)->first();
+
+
+
+        return view('chat.index', compact('user'));
 
 
     }
