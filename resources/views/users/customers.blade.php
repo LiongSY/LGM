@@ -207,7 +207,7 @@
                                                     <div class="form-group">
                                                         <label for="passportNo">Passport Number</label>
                                                         <input type="text" class="form-control" id="passportNo"
-                                                            name="passportNo">
+                                                            name="passportNo" required>
                                                         @error('passportNo')
                                                         <span class="text-danger">{{ $message }}</span>
                                                         @enderror
@@ -215,7 +215,7 @@
                                                     <div class="form-group">
                                                         <label for="expiryDate">Expiry Date</label>
                                                         <input type="date" class="form-control" id="expiryDate"
-                                                            name="expiryDate">
+                                                            name="expiryDate" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required>
                                                             @error('expiryDate')
             <span class="text-danger">{{ $message }}</span>
         @enderror
@@ -225,7 +225,7 @@
                                                         <div class="custom-file">
                                                             <input type="file" class="form-control-file"
                                                                 id="passportImage" name="passportImage" accept="image/*"
-                                                                onchange="displayImageName(this)">
+                                                                onchange="displayImageName(this)" required>
                                                             <label class="custom-file-label" for="passportImage">Choose
                                                                 file</label>
                                                         </div>
@@ -268,7 +268,6 @@
                                                         <label for="title">Title</label>
                                                         <select class="form-control" id="benTitle" name="benTitle"
                                                             required>
-                                                            <option value="">Select Title</option>
                                                             <option value="Mr.">Mr.</option>
                                                             <option value="Mrs.">Mrs.</option>
                                                             <option value="Miss">Miss</option>
@@ -280,25 +279,40 @@
                                                         <label for="benName">Name</label>
                                                         <input type="text" class="form-control" id="benName"
                                                             name="benName">
+                                                            @error('benName')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="benIC">IC Number</label>
-                                                        <input type="text" class="form-control" id="benIC" name="benIC">
+                                                        <input type="text" class="form-control" placeholder="xxxxxx-xx-xxxx" id="benIC" name="benIC">
+                                                        @error('benIC')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="benRelationship">Relationship</label>
                                                         <input type="text" class="form-control" id="benRelationship"
                                                             name="benRelationship">
+                                                            @error('benRelationship')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="benContact">Contact Number</label>
                                                         <input type="text" class="form-control" id="benContact"
                                                             name="benContact">
+                                                            @error('benContact')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="benAddress">Address</label>
                                                         <textarea class="form-control" id="benAddress" name="benAddress"
                                                             rows="3"></textarea>
+                                                            @error('benAddress')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Add
                                                         Beneficiary</button>

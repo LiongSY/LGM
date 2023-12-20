@@ -23,7 +23,6 @@ return new class extends Migration
             $table->float('bookingDeposit');
             $table->string('bookingStatus');
             $table->longText('bookingRemarks');
-            //foreign key
             $table->string('tourCode');
             $table->string('customerID');
             $table->timestamps();

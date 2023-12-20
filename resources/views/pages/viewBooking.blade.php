@@ -34,7 +34,7 @@
     </tr>
     <tr>
         <th scope="row">Tour Code</th>
-        <td>{{ $tour->tourCode }}</td>
+        <td><a href="{{ route('editTour', $tour->tourCode) }}" class="btn btn-danger">{{ $tour->tourCode }}</a></td>
     </tr>
     <tr>
         <th scope="row">No of Adult</th>
@@ -99,11 +99,11 @@
 
     <tr>
         <th scope="row">Booking Amount</th>
-        <td>RM {{ $booking->bookingAmount }}</td>
+        <td>RM {{ number_format($booking->bookingAmount, 2, '.', '') }}</td>
     </tr>
     <tr>
         <th scope="row">Booking Deposit</th>
-        <td>RM {{ $booking->bookingDeposit }}</td>
+        <td>RM {{ number_format($booking->bookingDeposit, 2, '.', '') }}</td>
     </tr>
 
     

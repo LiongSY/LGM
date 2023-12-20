@@ -35,11 +35,11 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: #565b61;
-    border-color: #4a4e52;
+    background-color: #1e3092;
+    border-color: #1e3092;
 }
 .custom-navbar-bg {
-    background-color: #57768d; 
+    background-color: rgba(255, 255, 255, 0.5); 
 }
 
 .navbar-nav .nav-link {
@@ -47,7 +47,7 @@ body {
 }
 
 .navbar-nav .nav-link:hover {
-    color: #617782; /* Text color on hover - replace with your desired hover color */
+    color: #1e3092; /* Text color on hover - replace with your desired hover color */
 }
 
 

@@ -66,13 +66,30 @@ $bndRate = Session::get('BNDrate', 1);
 
         <div class="col-sm-9">
         @if(count($packages) > 0)
+        @php
+        $today = \Carbon\Carbon::now();
+        @endphp
+
+                        
     @foreach ($packages as $package)
+    @php
+        $expiredTour = 0;
+        $totalTours = count($package->tours);
+        @endphp
+    @foreach($package->tours as $tour)
+          @if( $tour->flight->departureDate < $today)
+          @php
+            $expiredTour+=1;
+        @endphp          
+        @endif
+    @endforeach      
+    @if($expiredTour != $totalTours)
         <a href="{{ route('itinerary', [$package->packageID]) }}" style="text-decoration: none; color: inherit;">
             <div class="row" style="margin-bottom: 20px;">
                 <div class="col-md-10" style="border: 1px solid white; border-radius: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                    <div class="row">
+                    <div class="row"  style="height:250px">
                         <div class="col-md-4">
-                            <img src="{{ url('storage/images/'.$package->packageImage) }}" style="height:100%;width:100%" alt="{{ $package->packageName }}" class="img-fluid">
+                            <img src="{{ url('storage/images/'.$package->packageImage) }}" style="height:240px;width:200px" alt="{{ $package->packageName }}" class="img-fluid">
                         </div>
                         <div class="col-md-8" style="padding:10px">
                             <h2 style="font-size: 16px; color:blue;"><strong>{{ $package->packageName }}</strong></h2>
@@ -97,8 +114,14 @@ $bndRate = Session::get('BNDrate', 1);
                             <ul class="add_info" style="color: grey;">
                                 <b>Departure Date(s)</b>
                                 <div class="date_display"><br>
+                                @php
+                                $today = \Carbon\Carbon::now();
+                                @endphp
+
                                     @foreach($package->tours as $tour)
+                                        @if( $tour->flight->departureDate > $today)
                                         <span class="date">{{ $tour->flight->departureDate }}</span>
+                                        @endif
                                     @endforeach
                                 </div>
                             </ul>
@@ -107,6 +130,7 @@ $bndRate = Session::get('BNDrate', 1);
                 </div>
             </div>
         </a>
+        @endif
     @endforeach
 @else
     <div class="col-md-10">

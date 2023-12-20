@@ -100,7 +100,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
         $staff = Staff::where('staffID', $id)->first();
         $user = User::where('userID', $staff->userID)->first();

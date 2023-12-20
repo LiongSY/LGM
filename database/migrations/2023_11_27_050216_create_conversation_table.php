@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('conversation', function (Blueprint $table) {
             $table->unsignedInteger('userID');
+            $table->integer('messageStatus');
             $table->timestamps();
 
             $table->foreign('userID')->references('userID')->on('users')->onDelete('cascade');

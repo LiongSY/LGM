@@ -138,7 +138,19 @@
         <td>{{ $customer->name }}</td>
         <td>{{ $customer->email }}</td>
         <td>
-            <a href="{{ route('chat.show', $customer->userID) }}" class="btn btn-info">Chat</a>
+
+        @php
+
+        $conversation = App\Models\Conversation::where('userID', $customer->userID)->first();
+
+        @endphp
+
+        @if($conversation->messageStatus == 1)
+        <a href="{{ route('chat.show', $customer->userID) }}" class="btn btn-danger">REPLY</a>
+            @else
+            <a href="{{ route('chat.show', $customer->userID) }}" class="btn btn-info">REPLIED</a>
+            @endif
+
         </td>
     </tr>
 @endforeach
@@ -156,7 +168,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
             demo.initChartsPages();
         });
     </script>

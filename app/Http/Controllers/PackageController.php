@@ -7,11 +7,13 @@ use App\Models\Itinerary;
 use App\Models\Package;
 use App\Models\Tour;
 use App\Models\Booking;
+use App\Models\UserPreference;
+
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Http;
 class PackageController extends Controller
 {
 
@@ -159,7 +161,11 @@ class PackageController extends Controller
         
         for ($i = 0; $i < count($numberOfDays); $i++) {
 
-            $mealsString = implode('|', $meals[$i]);
+            $mealsString = "no meals";
+
+            if (!empty($meals[$i])) {
+                $mealsString = implode('|', $meals[$i]);
+            }
 
 
             Itinerary::create([
@@ -408,27 +414,76 @@ class PackageController extends Controller
         
         public function displayTrendingPackage(Request $request)
         {
-            
-            $query = Package::query();
 
-            if ($request->has('search')) {
-                $searchTerm = $request->input('search');
-                $query->where('packageID', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('packageName', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('destination', 'like', '%' . $searchTerm . '%');
-            }
         
-            $packages = $query->paginate(3);
-            $packageIds = $packages->pluck('packageID')->toArray();
+            if (auth()->check() && auth()->user()->userID != null && auth()->user()->role == "customer" ) {
+
+                $userPreference = UserPreference::where('userID', auth()->user()->userID)->first();
+
+                if(empty($userPreference)){
+                    return view('userPreferences');
+                }
+                
+                $response = Http::post('http://127.0.0.1:5000/recommend', [
+                    'season' => $userPreference->season,
+                    'activity' => $userPreference->activity,
+                    'accomodation' => $userPreference->accomodation,
+                    'destination' => $userPreference->destination,
+                    'travelGroup' => $userPreference->travelGroup,
+                ]);
+
+    
+            // Check if the request was successful
+            if ($response->successful()) {
+                // Decode the JSON response
+                $recommendations = $response->json()['recommendations'];
+
+                $allPackages = [];
+                    foreach ($recommendations as $recommendation) {
+                        $allIds[] = $recommendation['id'];
+                    }
+
+                    $allTours = DB::table('tours')
+                    ->whereIn('packageID', $allIds)
+                    ->select('packageID', 'tourCode', 'tourPrice', 'flightID')
+                    ->get()
+                    ->groupBy('packageID');
             
-            $allTours = DB::table('tours')
-                ->whereIn('packageID', $packageIds)
-                ->select('packageID', 'tourCode', 'tourPrice', 'flightID')
-                ->get()
-                ->groupBy('packageID');
-        
-        
-            return view('homePage', compact('packages', 'allTours'));
+                $packages = Package::whereIn('packageID', $allIds)->get();
+
+                return view('homePage', compact('packages', 'allTours'));             
+
+            } else {
+                // Handle the error
+                return response()->json(['error' => 'Failed to get recommendations'], $response->status());
+            }
+    
+            }else{
+
+                $query = Package::query();
+
+                if ($request->has('search')) {
+                    $searchTerm = $request->input('search');
+                    $query->where('packageID', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('packageName', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('destination', 'like', '%' . $searchTerm . '%');
+                }
+            
+                $packages = $query->paginate(3);
+                $packageIds = $packages->pluck('packageID')->toArray();
+                
+                $allTours = DB::table('tours')
+                    ->whereIn('packageID', $packageIds)
+                    ->select('packageID', 'tourCode', 'tourPrice', 'flightID')
+                    ->get()
+                    ->groupBy('packageID');
+            
+            
+                return view('homePage', compact('packages', 'allTours'));
+
+            }
+            
+
         }
 
 

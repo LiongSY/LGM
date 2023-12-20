@@ -127,12 +127,12 @@
                                         <div class="form-group col-md-6">
                                             <label for="departureDate">Departure Date:</label>
                                             <input type="date" class="form-control" id="departureDate"
-                                                name="departureDate[]" required>
+                                                name="departureDate[]" required min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="returnDate">Arrival Date:</label>
                                             <input type="date" class="form-control" id="returnDate" name="arrivalDate[]"
-                                                required>
+                                                required min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -171,12 +171,12 @@
                                         <div class="form-group col-md-6">
                                             <label for="departureDate">Return Departure Date:</label>
                                             <input type="date" class="form-control" id="departureDate"
-                                                name="returnDepartureDate[]" required>
+                                                name="returnDepartureDate[]" required min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="returnDate"> Return Arrival Date:</label>
                                             <input type="date" class="form-control" id="returnDate"
-                                                name="returnArrivalDate[]" required>
+                                                name="returnArrivalDate[]" required min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -237,17 +237,6 @@
                                         </div>
 
                                     </div>
-                                    <!-- <div class="form-group col-md-6">
-                            <label for="images">Images:</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="images_0" name="images[0][]" multiple>
-                                <label class="custom-file-label" for="images">Choose file</label>
-                            </div>
-                              </div>
-                             <div class="form-group">
-                             <div id="uploadedFiles_0" class="border-success p-2"></div>
-                            </div> -->
-
                                 </div>
                                 <div class="form-group">
                                     <label for="information">Information:</label>
@@ -286,32 +275,66 @@ label.textContent = fileName;
         var packageHighlight = document.getElementById("packageHighlight").value;
         var destination = document.getElementById("destination").value;
         var packageRemarks = document.getElementById("packageRemarks").value;
-        var departureDates = document.getElementsByName("departureDate[]");
-        var returnDates = document.getElementsByName("returnDate[]");
-        var hotelNames = document.getElementsByName("hotelName[]");
+        var packageImage = document.getElementById("packageImage").files[0];
+        var singleRoom = document.getElementById("singleRoom").value;
+        var doubleRoom = document.getElementById("doubleRoom").value;
+        var tripleRoom = document.getElementById("tripleRoom").value;
+
         var tourLanguages = document.getElementsByName("tourLanguages[]");
-        var sector = document.getElementsByName("sector[]");
+        var tourPrice = document.getElementsByName("tourPrice[]");
+        var noOfSeats = document.getElementsByName("noOfSeats[]");
+
+        var sectors = document.getElementsByName("sector[]");
+        var airlines = document.getElementsByName("airlines[]");
+        var flightNumbers = document.getElementsByName("flightNumber[]");
+        var departureDates = document.getElementsByName("departureDate[]");
+        var arrivalDates = document.getElementsByName("arrivalDate[]");
+        var departureTimes = document.getElementsByName("departureTime[]");
+        var arrivalTimes = document.getElementsByName("arrivalTime[]");
+        var returnSectors = document.getElementsByName("returnSector[]");
+        var returnAirlines = document.getElementsByName("returnAirlines[]");
+        var returnFlightNumbers = document.getElementsByName("returnFlightNumber[]");
+        var returnDepartureDates = document.getElementsByName("returnDepartureDate[]");
+        var returnArrivalDates = document.getElementsByName("returnArrivalDate[]");
+        var returnDepartureTimes = document.getElementsByName("returnDepartureTime[]");
+        var returnArrivalTimes = document.getElementsByName("returnArrivalTime[]");
+
+
+        var noOfDays = document.getElementsByName("noOfDays[]");
+        var remarks = document.getElementsByName("remarks[]");
+        var hotelNames = document.getElementsByName("hotelName[]");
+        var information = document.getElementsByName("information[]");
 
         var hasError = false;
         var malaysiaTimezoneOffset = 8 * 60; // Malaysia is UTC+8
         var malaysiaCurrentTime = new Date(new Date() - malaysiaTimezoneOffset * 60 * 1000);
+        var regex = /^[a-zA-Z\s]+$/;
 
-        for (var i = 0; i < departureDates.length; i++) {
-            var departureDate = new Date(departureDates[i].value);
-            var returnDate = new Date(returnDates[i].value);
-
-            if (departureDate < malaysiaCurrentTime) {
-                var errorMessage = "Tour " + (i + 1) + ": Departure Date cannot be before the current date.<br>";
+        if (packageName.length > 50) {
+            var errorMessage = "Package Name cannot exceed 50 characters.<br>";
                 document.getElementById("errorMessages").innerHTML += errorMessage;
                 hasError = true;
-            }
+           }
 
-            if (departureDate >= returnDate) {
-                var errorMessage = "Tour " + (i + 1) + ": Arrival Date must be after Departure Date.<br>";
+        if (destination.length > 30) {
+        var errorMessage = "Country Name cannot exceed 30 characters.<br>";
                 document.getElementById("errorMessages").innerHTML += errorMessage;
                 hasError = true;
+         }
+
+         if (!regex.test(destination.trim())) {
+            var errorMessage = "Country Name only can have characters.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+         }
+
+
+        if (singleRoom <= 0 || doubleRoom <= 0 || tripleRoom <= 0) {
+            var errorMessage = "Room prices cannot be 0 or below 0.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;    
             }
-        }
+
 
         for (var i = 0; i < hotelNames.length; i++) {
             if (hotelNames[i].value.length > 60) {
@@ -321,21 +344,138 @@ label.textContent = fileName;
             }
         }
 
+        for (var i = 0; i < tourPrice.length; i++) {
+        if (parseFloat(tourPrice[i].value) <= 0) {
+            var errorMessage = "Tour " + (i + 1) + ": Tour price must be greater than 0.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;            
+        }
+    }
+
+    for (var i = 0; i < noOfSeats.length; i++) {
+        if (parseFloat(noOfSeats[i].value) <= 0) {
+            var errorMessage = "Tour " + (i + 1) + ": No of seats must be greater than 0.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;            
+        }
+    }
+
+    for (var i = 0; i < tourLanguages.length; i++) {
+        if (!regex.test(tourLanguages[i].value.trim())) {
+            var errorMessage = "Tour " + (i + 1) + ": Tour Languages must be alphabets.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+        }
+    }
+
         for (var i = 0; i < tourLanguages.length; i++) {
             if (tourLanguages[i].value.length > 60) {
-                var errorMessage = "Tour " + (i + 1) + ": Languages must not exceed 30 characters.<br>";
+                var errorMessage = "Tour " + (i + 1) + ": Tour Languages must not exceed 30 characters.<br>";
                 document.getElementById("errorMessages").innerHTML += errorMessage;
                 hasError = true;
             }
         }
 
-        for (var i = 0; i < sector.length; i++) {
-            if (sector[i].value.length > 60) {
+        for (var i = 0; i < sectors.length; i++) {
+            if (sectors[i].value.length > 60) {
                 var errorMessage = "Tour " + (i + 1) + ": Sector must not exceed 50 characters.<br>";
                 document.getElementById("errorMessages").innerHTML += errorMessage;
                 hasError = true;
             }
+
+            if (returnSectors[i].value.length > 60) {
+                var errorMessage = "Tour " + (i + 1) + ": Return sector must not exceed 50 characters.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+            }
         }
+
+        for (var i = 0; i < airlines.length; i++) {
+            if (airlines[i].value.length > 60) {
+                var errorMessage = "Tour " + (i + 1) + ": Airline name must not exceed 50 characters.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+            }
+        }
+
+        for (var i = 0; i < returnAirlines.length; i++) {
+            if (returnAirlines[i].value.length > 60) {
+                var errorMessage = "Tour " + (i + 1) + ": Return airline name must not exceed 50 characters.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+            }
+        }
+
+        for (var i = 0; i < flightNumbers.length; i++) {
+            if (flightNumbers[i].value.length > 30) {
+                var errorMessage = "Tour " + (i + 1) + ": Flight numbers must not exceed 30 characters.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+            }
+        }
+
+        for (var i = 0; i < returnFlightNumbers.length; i++) {
+            if (returnFlightNumbers[i].value.length > 30) {
+                var errorMessage = "Tour " + (i + 1) + ": Return flight numbers must not exceed 30 characters.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+            }
+        }
+
+        for (var i = 0; i < remarks.length; i++) {
+            if (remarks[i].value.length > 150) {
+                var errorMessage = "Day " + (i + 1) + ": remarks must not exceed 150 characters.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+            }
+        }
+
+
+        for (var i = 0; i < departureDates.length; i++) {
+
+
+        if (arrivalDates[i].value < departureDates[i].value ) {
+            var errorMessage = "Tour " + (i + 1) + ": Arrival date must be after the departure date.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+        }
+
+        if(returnDepartureDates[i].value < departureDates[i].value){
+            var errorMessage = "Tour " + (i + 1) + ": Return departure date must be after the departure date.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+        }
+
+        if(returnDepartureDates[i].value < arrivalDates[i].value){
+            var errorMessage = "Tour " + (i + 1) + ": Return departure date must be after the arrival date.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+        }
+
+        if(returnArrivalDates[i].value < departureDates[i].value){
+            var errorMessage = "Tour " + (i + 1) + ": Return arrival date must be after the departure date.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+        }
+
+        if(returnArrivalDates[i].value < arrivalDates[i].value){
+            var errorMessage = "Tour " + (i + 1) + ": Return arrival date must be after the arrival date.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+        }
+
+        if(returnArrivalDates[i].value < returnDepartureDates[i].value  ){
+            var errorMessage = "Tour " + (i + 1) + ": Return arrival date must be after the return departure date.<br>";
+                document.getElementById("errorMessages").innerHTML += errorMessage;
+                hasError = true;
+        }
+
+
+    }
+
+        
+
+
 
 
         // if (destination.length > 40) {
@@ -518,11 +658,11 @@ label.textContent = fileName;
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="departureDate">Departure Date:</label>
-                            <input type="date" class="form-control" id="departureDate" name="departureDate[]" required>
+                            <input type="date" class="form-control" id="departureDate" name="departureDate[]" required min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="returnDate">Arrival Date:</label>
-                            <input type="date" class="form-control" id="arrivalDate" name="arrivalDate[]" required>
+                            <input type="date" class="form-control" id="arrivalDate" name="arrivalDate[]" required min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                         </div>
                     </div>
                     <div class="form-row">
@@ -554,11 +694,11 @@ label.textContent = fileName;
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="departureDate">Return Departure Date:</label>
-                            <input type="date" class="form-control" id="departureDate" name="returnDepartureDate[]" required>
+                            <input type="date" class="form-control" id="departureDate" name="returnDepartureDate[]" required min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="returnDate"> Return Arrival Date:</label>
-                            <input type="date" class="form-control" id="returnDate" name="returnArrivalDate[]" required>
+                            <input type="date" class="form-control" id="returnDate" name="returnArrivalDate[]" required min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                         </div>
                     </div>
                     <div class="form-row">

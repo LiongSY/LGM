@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Passport;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PassportController extends Controller
 {
@@ -22,7 +23,7 @@ class PassportController extends Controller
     {
 
         $request->validate([
-            'passportNo' => 'required',
+            'passportNo' => 'required|unique:passports,passportNo|max:15',
             'expiryDate' => ['required', 'date', 'after_or_equal:today'],
             'passportImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -62,14 +63,19 @@ class PassportController extends Controller
     public function update(Request $request, string $id)
     {
 
+        
         $request->validate([
-        'passportNo' => 'required|alpha_num', 
-        'expiryDate' => 'required|date|after_or_equal:today', 
-        'passportImage' => 'image'
+        'passportNo' => 'required|max:15', 
+        'expiryDate' => ['required', 'date', 'after_or_equal:today'], 
+        'passportImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
+        $passportNo = $request->passportNo;
+        if($request->passportNo != $request->oldPassportNo){
+            $passportNo = $request->oldPassportNo;
+        }
 
-        $passport = Passport::where('passportNo', $id)->first();
+        $passport = Passport::where('passportNo', $passportNo)->first();
 
         if($request->passportImage != null && ($request->passportImage !== $passport->passportImage)){
 

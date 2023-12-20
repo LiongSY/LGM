@@ -22,7 +22,7 @@ class UserController extends Controller
     $query = User::query()
         ->select('users.*', 'staff.lastSeen', 'staff.status','staff.staffID') 
         ->leftJoin('staff', 'users.userID', '=', 'staff.userID')
-        ->whereIn('users.role', ['admin', 'staff']);
+        ->whereIn('users.role', ['staff']);
 
 
     if ($request->has('search')) {

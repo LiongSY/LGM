@@ -15,6 +15,7 @@
 
     @csrf
     @method('PUT')
+    <input type="hidden" name="oldPassportNo" value="{{ $passport->passportNo }}">
     <div class="form-group">
         <label for="passportNo">Passport Number</label>
         <input type="text" class="form-control" id="passportNo" name="passportNo" value="{{ $passport->passportNo }}" required>
@@ -24,7 +25,7 @@
     </div>
     <div class="form-group">
         <label for="expiryDate">Expiry Date</label>
-        <input type="date" class="form-control" id="expiryDate" name="expiryDate" value="{{ $passport->expiryDate }}" required>
+        <input type="date" class="form-control" id="expiryDate" name="expiryDate" value="{{ $passport->expiryDate }}"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required>
         @error('expiryDate')
             <span class="text-danger">{{ $message }}</span>
         @enderror

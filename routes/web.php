@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\ItineraryController;
+use App\Http\Controllers\ItineraryGenerationController;
 use App\Http\Controllers\PackageComparisonController;
 use App\Http\Controllers\PusherController;
 use App\Http\Controllers\AdminController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\UserPreferencesController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PassportController;
@@ -33,8 +35,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [PackageController::class, 'displayTrendingPackage'])->name('homePage');
+Route::get('/home', [PackageController::class, 'displayTrendingPackage'])->name('homePage');
 
+Route::get('/', [PackageController::class, 'displayTrendingPackage']);
 
 // Route::get('/booking', function () {
 //     return view('booking');
@@ -44,8 +47,11 @@ Route::get('/customerProfile', function () {
     return view('profile');
 })->name('customerProfile');
 
+Route::get('/itinerary_form', [ItineraryGenerationController::class, 'index'])->name('searchItinerary');
 
-
+Route::post('/generateItinerary', [ItineraryGenerationController::class, 'generate'])->name('generateItineraryAI');
+Route::get('user-preference/create', [UserPreferencesController::class, 'create'])->name('user-preference.create');
+Route::post('user-preference/store', [UserPreferencesController::class, 'store'])->name('user-preference.store');
 
 // Route::middleware(['auth'])->group(function () {
 // Route::get('/customerProfile/{id}', [CustomerController::class,'view'])->name('customerProfile.view');
@@ -95,7 +101,7 @@ Auth::routes();
 Route::group(['middleware' => 'admin'], function () {
     //admin
     
-Route::delete('/staff/{staff}', [AdminController::class, 'destroy'])->name('staff.destroy');
+Route::delete('/staff/{id}', [AdminController::class, 'destroy'])->name('staff.destroy');
 Route::get('/admin/addStaff', [AdminController::class, 'create'])->name('admin.addStaff');
 Route::post('/admin', [AdminController::class, 'store'])->name('admin.store');
 Route::get('/staff', [UserController::class, 'index'])->name('users.index');

@@ -54,7 +54,7 @@ class BotManController extends Controller
         });
 
         $botman->hears('exit', function($bot) {
-                $bot->reply('Please select the option below:<br><br>1. Booking Assistance.<br>2. Destination Information.<br>3. Feedback and Reviews.<br>4. Chat with agent.');
+                $bot->reply('Please select the option below:<br><br>1. Booking Assistance.<br>2. Chat with agent.');
         })->stopsConversation(); 
 
       

@@ -31,6 +31,6 @@ class ResetPasswordController extends Controller
 
     protected function redirectTo()
     {
-        return route('login'); // Redirect to the login page after password reset
+        return route('customerProfile') . '?status=Password+has+been+reset!';
     }
 }

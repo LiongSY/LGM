@@ -2,10 +2,12 @@
 
 
 namespace App\Conversations;
-
+use App\Mail\BookingReceipt;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\BotManController;
 use App\Models\Booking;
 use App\Models\Flight;
+use App\Models\Log;
 use App\Models\Itinerary;
 use App\Models\Customer;
 use App\Models\Package;
@@ -24,7 +26,6 @@ class BookingConversation extends Conversation
     ];
 
     
-
     public function run()
     {
         $this->askTourCode();
@@ -37,15 +38,47 @@ class BookingConversation extends Conversation
             // Retrieve tour details based on the provided tour code (implement your logic here)
             $tour = Tour::where('tourCode', $this->bookingData['tourCode'])->first();
 
-
-
             if ($tour) {
-                $package = Package::where('packageID', $tour->packageID)->first();
-                $flight = Flight::where('flightID', $tour->flightID)->first();
-                $this->say('Great !<br>Please check the tour details:<br><br>' . 'Package: ' . $package->packageName . '<br>Tour: ' . $tour->tourCode . '<br>Tour Price: RM'.$tour->tourPrice.'/pax'. '<br>Departure Date: ' . $flight->departureDate . '<br><br>Insert NO if you want to reselect.'); // Display tour details
-                $this->askNumberOfPeople();
+                $bookings = Booking::where('tourCode', $this->bookingData['tourCode'])->get();
+
+                $joinedPeople = [];    
+        
+                foreach ($bookings as $booking) {
+                    $tourCode = $booking->tourCode;
+            
+                    if (!isset($joinedPeople[$tourCode])) {
+                        $joinedPeople[$tourCode] = 0;
+                    }
+            
+                    $joinedPeople[$tourCode] += $booking->noOfAdult + $booking->noOfChild;
+                }
+        
+                $joinedPeopleTotal = array_sum($joinedPeople);
+        
+                $availableSeats = $tour->noOfSeats - $joinedPeopleTotal;
+                if($availableSeats < 1){
+
+                $this->repeat('We are sorry ! The tour is <span style="color:red">FULL</span> !<br>Please contact us, 087-453888 or choose another tour.');
+
+                }else{
+                    $today = Carbon::now();
+
+                    if( $tour->flight->departureDate > $today){
+                        $this->bookingData['availableSeats'] = $availableSeats;
+                        $package = Package::where('packageID', $tour->packageID)->first();
+                        $this->bookingData['packageID'] = $package->packageID;
+                        $flight = Flight::where('flightID', $tour->flightID)->first();
+                        $this->say('Great !<br>Please check the tour details:<br><br>' . 'Package: ' . $package->packageName . '<br>Tour: ' . $tour->tourCode . '<br>Tour Price: RM'.$tour->tourPrice.'/pax'. '<br>Departure Date: ' . $flight->departureDate . '<br><br>Insert NO if you want to reselect.<br><br><p style="color:red"> There are '.$availableSeats.' seat(s) left.');
+                        $this->askNumberOfPeople();
+                    }else{
+                        $this->repeat('Tour is not available anymore!<br>Please check the tour code from the DEPARTURE DATE tab in the package and insert again.');
+
+                    }
+                   
+                }
+               
             } else {
-                $this->repeat('Tour is not available !<br>Please check the tour code from the DEPARTURE DATE tab in the package.');
+                $this->repeat('Tour is not available !<br>Please check the tour code from the DEPARTURE DATE tab in the package and insert again.');
             }
         });
     }
@@ -54,36 +87,65 @@ class BookingConversation extends Conversation
     {
         $this->ask('How many adults will be joining?', function ($answer) {
             $noOfAdult = strtoupper($answer->getText());
-
-       
-
-
-            if ($this->validateNumberOfAdults($noOfAdult)) {
+            if ($noOfAdult>0 && $noOfAdult < 13 && is_numeric($noOfAdult) && $noOfAdult <= $this->bookingData['availableSeats']) {
                 $this->bookingData['noOfAdult'] = $noOfAdult;
-                $this->ask('How many children will be joining?', function ($answer) {
-                    $this->bookingData['noOfChild'] = (int) $answer->getText();
+                $newAvailableSeats = $this->bookingData['availableSeats'] - $this->bookingData['noOfAdult'];
 
-                    if ($this->validateNumberOfChildren($this->bookingData['noOfChild'], $this->bookingData['noOfAdult'])) {
-                        $this->ask('How many infants will be joining?', function ($answer) {
-                            $this->bookingData['noOfInfant'] = (int) $answer->getText();
+                
+                $this->ask('How many children will be joining?', function ($answer) use ($newAvailableSeats,$noOfAdult){
+                    $this->bookingData['noOfChild'] = $answer->getText();
 
-                            if ($this->validateNumberOfInfants($this->bookingData['noOfInfant'], $this->bookingData['noOfAdult'])) {
-                                $this->askRoomSelection();
 
-                            } else {
-                                $this->say('Invalid number of infants. Please try again.');
-                                $this->askNumberOfPeople();
-                            }
-                        });
-                    } else {
-                        $this->say('Invalid number of children. Please try again.');
-                        $this->askNumberOfPeople();
+                    if (is_numeric($this->bookingData['noOfChild']) && $this->bookingData['noOfChild'] >= 0 && $this->bookingData['noOfChild'] < 13 && $this->bookingData['noOfChild'] <= $newAvailableSeats ) {
+
+
+                            $this->ask('How many infants will be joining?', function ($answer) {
+                                $this->bookingData['noOfInfant'] = $answer->getText();
+    
+                                if (is_numeric($this->bookingData['noOfInfant']) && $this->bookingData['noOfInfant'] >= 0 && $this->bookingData['noOfInfant'] < 4) {
+                                    $this->askRoomSelection();
+    
+                                }  elseif(!is_numeric($this->bookingData['noOfInfant'])) {
+                                    $this->repeat('I don\'t understand "'.$this->bookingData['noOfInfant'].'" .<br> Please only insert the number of infant in (digit).');
+                                }elseif($this->bookingData['noOfInfant']<0){
+                                    $this->repeat('Your input cannot lower than 0.<br> Please insert 0 for no infant. ');
+                                }
+                                elseif($this->bookingData['noOfInfant']>3){
+                                    $this->repeat('No of infant cannot more than 3 in a booking.<br> If you have more infant, please state the number in the remarks.');
+                                }
+                                else {
+                                    $this->repeat('I don\'t understand "'.$this->bookingData['noOfInfant'].'" .<br> Please only insert the number of infant in (digit).');
+                                }
+                            });
+                      
+                    }elseif(!is_numeric($this->bookingData['noOfChild'])){
+                        $this->repeat('I don\'t understand "'.$this->bookingData['noOfChild'].'" .<br> Please only insert the number of children in (digit).');
+                    }elseif(($noOfAdult+$this->bookingData['noOfChild'])>12){
+                        $this->repeat('Only a maximum of 12 person are allowed for each booking.');
+                    }elseif($this->bookingData['noOfChild'] > $newAvailableSeats){
+                        $this->repeat('We are sorry ! There are only '. $newAvailableSeats. ' seat(s) left.');
+                    }elseif($this->bookingData['noOfChild']<0){
+                        $this->repeat('Your input cannot lower than 0.<br> Please insert 0 for no children. ');
+                    }
+                    else {
+                        $this->repeat('I don\'t understand "'.$this->bookingData['noOfChild'].'" .<br> Please only insert the number of children in (digit).');
                     }
                 });
-            } else {
+            }elseif(strtoupper($noOfAdult) === 'NO'){
+                $this->askTourCode();
+            }elseif(!is_numeric($noOfAdult)) {
+                $this->repeat('Please insert the number of adults or NO to reselect the tour.');
+            }elseif($noOfAdult>$this->bookingData['availableSeats']){
+                $this->repeat('We are sorry ! There are only '. $this->bookingData['availableSeats']. ' seat(s) left.');
+            
+            }elseif($noOfAdult > 12 &&  $noOfAdult <= $this->bookingData['availableSeats']){
+                $this->repeat('Only a maximum of 12 person are allowed for each booking.');
+            }elseif($noOfAdult <= 0){
+                $this->repeat('Must have atleast 1 adult to join the tour!');
+            }else{
                 $this->say('Invalid number of adults. Please try again.');
                 $this->askNumberOfPeople();
-            }
+            } 
 
 
         });
@@ -140,7 +202,7 @@ class BookingConversation extends Conversation
     public function calculateTourAmount(){
         $tour = Tour::where('tourCode', $this->bookingData['tourCode'])->first();
  
-    $totalTourAmount = $tour->tourPrice * ($this->bookingData['noOfAdult'] + $this->bookingData['noOfChild'] + $this->bookingData['noOfInfant']);
+    $totalTourAmount = $tour->tourPrice * ($this->bookingData['noOfAdult'] + $this->bookingData['noOfChild'] );
 
     $deposit = 0.3 * $totalTourAmount;
 
@@ -155,7 +217,7 @@ class BookingConversation extends Conversation
     $totalRoomAmount = $this->calculateRoomAmount($suitableRooms);
 
  
-    $totalTourAmount = $tour->tourPrice * ($this->bookingData['noOfAdult'] + $this->bookingData['noOfChild'] + $this->bookingData['noOfInfant']);
+    $totalTourAmount = $tour->tourPrice * ($this->bookingData['noOfAdult'] + $this->bookingData['noOfChild']);
 
     $totalAmount = $totalRoomAmount + $totalTourAmount;
 
@@ -297,6 +359,9 @@ class BookingConversation extends Conversation
                  'customerID'=> $customer->customerID,
              ]);
 
+             Mail::to(auth()->user()->email)->send(new BookingReceipt($booking));
+
+
              $this->say('Great ! Thanks for booking from us ~<br> Your booking ('.$booking->bookingID.') is pending for approval.<br><br>Type EXIT to back to menu');
 
 
@@ -307,7 +372,8 @@ class BookingConversation extends Conversation
         });
      }
 
-    // Validation methods
+
+
 
     protected function calculateRoomAmount($rooms)
     {
@@ -328,29 +394,12 @@ class BookingConversation extends Conversation
 
         return $totalRoomAmount;
     }
-    protected function validateNumberOfAdults($noOfAdult)
-    {
-             // if($noOfAdult === 'NO') {
-            //     $this->askTourCode();
-            // }elseif($noOfAdult <= 0){
-            //     $this->repeat('Must have atleast 1 adult to join the tour!');
-            // }elseif(!is_numeric($noOfAdult)) {
-            //     $this->repeat('Please insert the number of adults or NO to reselect the tour.');
-            // }
-        return $noOfAdult > 0;
-    }
 
-    protected function validateNumberOfChildren($noOfChild, $noOfAdult)
-    {
-        // Implement your validation logic for the number of children
-        // For example, ensure there is at least one adult for children
-        return $noOfChild >= 0 && $noOfChild <= $noOfAdult;
-    }
+
 
     protected function validateNumberOfInfants($noOfInfant, $noOfAdult)
     {
-        // Implement your validation logic for the number of infants
-        // For example, ensure there is at least one adult for infants
+
         return $noOfInfant >= 0 && $noOfInfant <= $noOfAdult;
     }
 
@@ -360,25 +409,20 @@ class BookingConversation extends Conversation
         $totalCustomers = $noOfAdult + $noOfChild;
         $suitableRooms = [];
 
-        // Try to fit triple rooms first
         $tripleRoomCount = floor($totalCustomers / $this->roomConfigurations['Triple Room']['adults']);
         $remainingCustomers = $totalCustomers % $this->roomConfigurations['Triple Room']['adults'];
 
-        // Try to fit double rooms with the remaining customers
         $doubleRoomCount = floor($remainingCustomers / $this->roomConfigurations['Double Room']['adults']);
         $remainingCustomers %= $this->roomConfigurations['Double Room']['adults'];
 
-        // Add triple rooms to the list
         for ($i = 0; $i < $tripleRoomCount; $i++) {
             $suitableRooms[] = 'Triple Room';
         }
 
-        // Add double rooms to the list
         for ($i = 0; $i < $doubleRoomCount; $i++) {
             $suitableRooms[] = 'Double Room';
         }
 
-        // Add single rooms to the list (updated logic)
         for ($i = 0; $i < $remainingCustomers; $i++) {
             $suitableRooms[] = 'Single Room';
         }
@@ -392,25 +436,20 @@ class BookingConversation extends Conversation
 
         $suitableRooms = [];
     
-        // Try to fit double rooms first
         $doubleRoomCount = floor($totalCustomers / $this->roomConfigurations['Double Room']['adults']);
         $remainingCustomers = $totalCustomers % $this->roomConfigurations['Double Room']['adults'];
     
-        // Try to fit triple rooms with the remaining customers
         $tripleRoomCount = floor($remainingCustomers / $this->roomConfigurations['Triple Room']['adults']);
         $remainingCustomers %= $this->roomConfigurations['Triple Room']['adults'];
     
-        // Add double rooms to the list
         for ($i = 0; $i < $doubleRoomCount; $i++) {
             $suitableRooms[] = 'Double Room';
         }
     
-        // Add triple rooms to the list
         for ($i = 0; $i < $tripleRoomCount; $i++) {
             $suitableRooms[] = 'Triple Room';
         }
     
-        // Add single rooms to the list (updated logic)
         for ($i = 0; $i < $remainingCustomers; $i++) {
             $suitableRooms[] = 'Single Room';
         }

@@ -47,7 +47,7 @@ class PusherController extends Controller
 
     public function index()
     {
-        $customerConversation = Conversation::all();
+        $customerConversation = Conversation::get();
     
         $customerIDs = $customerConversation->pluck('userID')->unique();
     
@@ -75,6 +75,7 @@ class PusherController extends Controller
     {
         $user = auth()->user();
         $sender = "staff";
+        $messageStatus = 0;
         $message = new Message();
         $newConversation = Conversation::where('userID', $user->userID)->first();
 
@@ -84,8 +85,11 @@ class PusherController extends Controller
             if (!$newConversation) {
                 $newConversation = new Conversation();
                 $newConversation->userID = $user->userID;
+                $newConversation->messageStatus = 1;
                 $newConversation->save();
             }
+             $messageStatus = 1;
+            
             $user = auth()->user();
 
             $sender = $user->userID;
@@ -97,11 +101,17 @@ class PusherController extends Controller
 
         }
 
+
         $message->userID = $conversationID;
         $message->sender = $sender;
         $message->message = $request->get('message');
         $message->save();
-    
+
+        Conversation::where('userID', $conversationID)
+        ->update([
+            'messageStatus' =>$messageStatus,
+        ]);
+
         broadcast(new PusherBroadcast($request->get('message')))->toOthers();
     
         return view('broadcast', ['message' => $request->get('message')]);

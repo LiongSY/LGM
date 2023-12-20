@@ -38,7 +38,7 @@
             Name
             </th>
         <th>
-            Last Seen
+            Contact
             </th>
         <th>
             Status
@@ -50,16 +50,19 @@
             <tbody>
                 @foreach ($users as $staff)
                 <tr>
-                    <td>{{ $staff->staffID }}</td>
-                    <td>{{ $staff->lastSeen }}</td>
+                    <td>{{ $staff->name }}</td>
+                    <td>{{ $staff->phoneNo }}</td>
                     <td>{{ $staff->status }}</td>
                     <td>
                     <a href="mailto:{{ $staff->email }}" class="btn btn-warning">Email</a>
-                    <form action="{{ route('staff.destroy', 'abc') }}" method="POST" style="display: inline;">
+                    <form action="{{ route('staff.destroy', ['id' => $staff->staffID]) }}" method="POST" style="display: inline;">
     @csrf
     @method('DELETE')
     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this staff?')">Delete</button>
 </form>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewStaffModal{{ $staff->staffID }}">
+    View Details
+</button>
                     </td>
                 </tr>
                 <div class="modal fade" id="viewStaffModal{{ $staff->staffID }}" tabindex="-1" role="dialog" aria-labelledby="viewStaffModalLabel{{ $staff->staffID }}" aria-hidden="true">

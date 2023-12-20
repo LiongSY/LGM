@@ -10,5 +10,5 @@ class Conversation extends Model
 
     protected $table = 'conversation';
 
-    protected $fillable = ['userID'];
+    protected $fillable = ['userID','messageStatus'];
 }

@@ -20,7 +20,7 @@
 
 <body style="background-color:#1F4E7A">
 <div class="chat">
-    <!-- Header -->
+
     <div class="top">
         @if(auth()->user()->role == 'customer')
         <img src="{{ asset('images/804949.png') }}" style="width:50px" alt="Avatar">
@@ -104,6 +104,13 @@
     </div>
     <!-- End Footer -->
 </div>
+<div class="container">
+@if(auth()->user()->role != 'customer')
+
+<a href="{{route('dashboard')}}" style="float:right"class="btn btn-light border text-black-50 shadow-none">Back</a> 
+
+@endif
+</div>
 
 </body>
 
@@ -124,6 +131,7 @@
     });
 });
 
+
   //Broadcast messages
   $("#chat-form").submit(function (event) {
     event.preventDefault();
@@ -137,7 +145,7 @@
         data: {
             _token: '{{csrf_token()}}',
             message: $("#message").val(),
-            conversationID: '{{$conversationID}}'
+            conversationID: '{{$conversationID}}',
 
         }
     }).done(function (res) {

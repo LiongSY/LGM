@@ -9,10 +9,7 @@ $bndRate = Session::get('BNDrate', 1);
 @endphp
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-inner">
-        <div class="carousel-item ">
-            <img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="710"
-                src="images/ads3.png" preserveAspectRatio="xMidYMid slice" focusable="false">
-        </div>
+
         <div class="carousel-item">
             <video width="100%" height="100%" autoplay muted loop>
                 <source src="images/LGMTRAVEL.mp4" type="video/mp4">
@@ -61,7 +58,7 @@ $bndRate = Session::get('BNDrate', 1);
     <div class="row" style="margin-top:30px">
         <div class="col-md-12">
             <div class="titlepage">
-                <h2 class="text-center">Trending Packages</h2>
+                <h2 class="text-center">Packages recommendation</h2>
             </div>
         </div>
     </div>
@@ -70,7 +67,7 @@ $bndRate = Session::get('BNDrate', 1);
         @foreach ($packages as $package)
             <a href="{{ route('itinerary', [$package->packageID]) }}" style="text-decoration: none; color: inherit;">
                 <div class="card mb-4 package-card" style="width: 20rem; border: none; overflow: hidden; transition: transform 0.3s ease-in-out;">
-                    <img src="{{ url('storage/images/'.$package->packageImage) }}" class="card-img-top" alt="{{ $package->packageName }}">
+                    <img src="{{ url('storage/images/'.$package->packageImage) }}" style="height:330px; width:auto"class="card-img-top" alt="{{ $package->packageName }}">
                     <div class="card-body text-center">
                         <h5 class="card-title font-weight-bold">{{ $package->packageName }}</h5>
                         @php
@@ -189,18 +186,16 @@ $bndRate = Session::get('BNDrate', 1);
         <div class="row">
             <div class="col-md-12 " >
                 <div class="amazing-box">
-                    <h2>Make A Amazing Memory</h2>
-                    <span>Escape to your dream destination today! Book your next adventure with us and create
-                        unforgettable memories. Don't wait, your perfect getaway is just a click away. Secure your
-                        journey now</span>
-                    <a href="#">Book Now</a>
-                    <a href="#">Get More</a>
+                    <h2>Travel without planning ?</h2>
+                    <span>You can now generate your own itinerary for FREE !</span>
+                    <br>
+                    <a href="{{route('searchItinerary')}}">GENERATE NOW</a>
                 </div>
             </div>
         </div>
 
 <!-- our blog -->
-<div id="blog" class="blog" style="margin-top:10px">
+<div id="blog" class="blog" style="margin-top:0x; margin-bottom:20px">
     <div class="container">
         <div class="row">
             <div class="col-md-12">

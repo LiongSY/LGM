@@ -1,3 +1,4 @@
+
 @extends('layouts.customers.app')
 
 @section('content')
@@ -7,8 +8,6 @@ $usdRate = Session::get('USDRate', 1);
 $sgdRate = Session::get('SGDRate', 1);
 $bndRate = Session::get('BNDrate', 1);
 @endphp
-
-
 
 <div>
 <img class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="100%" height="700"
@@ -44,6 +43,7 @@ $bndRate = Session::get('BNDrate', 1);
             <br>
             <div class="row">
                 <div class="col-lg-12">
+
                     <p style="margin-bottom:30px">
 
                         <a class="btn btn btn-danger" href="{{ route('generateItinerary', $package->packageID) }}"
@@ -51,6 +51,12 @@ $bndRate = Session::get('BNDrate', 1);
                             <i class="icon-arrow-down-circle"></i>DOWNLOAD ITINERARY
                         </a>
                     </p>
+                    <h4 class="custom-animated-heading" style=" padding:5px; border-radius:10px" >
+                        <b>PACKAGE HIGHLIGHT</b>
+                    </h4>
+                    <div class="card animated-card" style="background:#faf9f7;">
+                        <p>{!! nl2br(e($package->highlight)) !!}</p>
+                    </div>
                     @foreach ($itineraries as $itinerary)
                     @if ($itinerary->packageID === $package->packageID)
                     <h4 class="custom-animated-heading" style="background-color:#D8F2F4; padding:5px; border-radius:10px" >
@@ -164,7 +170,12 @@ $bndRate = Session::get('BNDrate', 1);
                             </tr>
                         </thead>
                         <tbody>
+                        @php
+                                $today = \Carbon\Carbon::now();
+                                @endphp
                             @foreach($tours as $key => $tour)
+                            @if( $tour->flight->departureDate > $today)
+
                             <tr>
                                 <td>
                                     <strong>Tour Code:</strong> {{ $tour->tourCode }}<br>
@@ -178,7 +189,16 @@ $bndRate = Session::get('BNDrate', 1);
                             @else
                                 RM {{ number_format($tour->tourPrice, 2) }}
                             @endif<br>
-                                    <strong>No. of Seats:</strong> {{ $tour->noOfSeats }}
+                                    <strong>No. of Seats:</strong>                    
+                                     @if (isset($joinedPeople[$tour->tourCode]))
+                    {{$joinedPeople[$tour->tourCode]}}
+                    
+                
+                    @elseif(!isset($joinedPeople[$tour->tourCode]))
+                    0
+
+                    @endif
+                    / {{ $tour->noOfSeats }}
                                 </td>
                                 <td>
                                     <b style="color:red;">Outbound:</b> {{ $flightDetails[$key]->flightNumber }}<br>
@@ -215,12 +235,26 @@ $bndRate = Session::get('BNDrate', 1);
                                         </div>
                                     </div>
 
-                                    <div style="margin-top: 10px;">
-                                        <a href="{{ route('booking', ['id' => $tour->tourCode]) }}"
-                                            class="btn btn-info">BOOK NOW</a>
-                                    </div>
+                                    @if (isset($joinedPeople[$tour->tourCode]))
+    @if ($joinedPeople[$tour->tourCode] >= $tour->noOfSeats)
+    <div class="alert alert-danger" style="margin-top: 10px;" role="alert">
+            This tour is FULL. No more bookings are available.
+        </div>
+  @else
+        {{$joinedPeople[$tour->tourCode]}} / {{ $tour->noOfSeats }}
+        <div style="margin-top: 10px;">
+            <a href="{{ route('booking', ['id' => $tour->tourCode]) }}" class="btn btn-info">BOOK NOW</a>
+        </div>
+    @endif
+@else
+    <div style="margin-top: 10px;">
+        <a href="{{ route('booking', ['id' => $tour->tourCode]) }}" class="btn btn-info">BOOK NOW</a>
+    </div>
+@endif
+
                                 </td>
                             </tr>
+                            @endif
                             @endforeach
                         </tbody>
 

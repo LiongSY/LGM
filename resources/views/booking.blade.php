@@ -32,16 +32,21 @@ $bndRate = Session::get('BNDrate', 1);
             <div class="col-md-7 col-lg-8">
                 <h2 class="mb-3" style="border-radius:15px; text-align:center"><strong>{{$package->packageName}}</strong></h2>
                 <div style="border:1px solid #eaebeb; border-radius:10px; padding:15px">
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <div id="noOfPeople" class="row">
-                                <div class="room-type col-md-2">
+                                <div class="room-type col-md-4">
                                     <label for="noOfAdult"><strong>Adult(s):</strong></label>
 
                                     <div class="input-group">
                                         <button type="button" onclick="updateQuantity('noOfAdult', -1)">-</button>
                                         <input type="number" class="form-control" style="text-align:center"
-                                            id="noOfAdult" name="noOfAdult" value="1" readonly>
+                                            id="noOfAdult" name="noOfAdult" value="1" readonly min="1">
                                         <button type="button" onclick="updateQuantity('noOfAdult', 1)">+</button>
                                     </div>
                                     @error('noOfAdult')
@@ -49,7 +54,7 @@ $bndRate = Session::get('BNDrate', 1);
                                     @enderror
                                 </div>
 
-                                <div class="room-type col-md-2">
+                                <div class="room-type col-md-4">
                                     <label for="noOfChild"><strong>Child(s)</strong></label>
 
                                     <div class="input-group">
@@ -62,7 +67,7 @@ $bndRate = Session::get('BNDrate', 1);
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="room-type col-md-2">
+                                <div class="room-type col-md-4">
                                     <label for="noOfInfant"><strong>Infant(s):</strong></label>
 
                                     <div class="input-group">
@@ -75,13 +80,13 @@ $bndRate = Session::get('BNDrate', 1);
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-
-                                <div class="room-type col-md-2" id="noOfRoom" name="noOfRoom">
+                                <input type="hidden" class="form-control" style="text-align:center;"
+                                            id="singleRoom" name="noOfRoom[Single Room]" value="0" readonly>
+                                <!-- <div class="room-type col-md-2" id="noOfRoom" name="noOfRoom">
                                     <label for="singleRoom"><strong>Single Room:</strong></label>
                                     <div class="input-group">
                                         <button type="button" onclick="updateQuantity('singleRoom', -1)">-</button>
-                                        <input type="number" class="form-control" style="text-align:center;"
-                                            id="singleRoom" name="noOfRoom[Single Room]" value="0" readonly>
+                                        
                                         <button type="button" onclick="updateQuantity('singleRoom', 1)">+</button>
                                     </div>
                                     @error('noOfRoom.singleRoom')
@@ -90,33 +95,33 @@ $bndRate = Session::get('BNDrate', 1);
                                     @error('noOfRoom')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
-
-                                <div class="room-type col-md-2">
+                                </div> -->
+                                <input type="hidden" class="form-control" style="text-align:center;"
+                                            id="doubleRoom" name="noOfRoom[Double Room]" value="0" readonly>
+                                <!-- <div class="room-type col-md-2">
                                     <label for="doubleRoom"><strong>Double Room:</strong></label>
                                     <div class="input-group">
                                         <button type="button" onclick="updateQuantity('doubleRoom', -1)">-</button>
-                                        <input type="number" class="form-control" style="text-align:center;"
-                                            id="doubleRoom" name="noOfRoom[Double Room]" value="0" readonly>
+                                        
                                         <button type="button" onclick="updateQuantity('doubleRoom', 1)">+</button>
                                     </div>
                                     @error('noOfRoom.doubleRoom')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
-
-                                <div class="room-type col-md-2">
+                                </div> -->
+                                <input type="hidden" class="form-control" style="text-align:center"
+                                            id="tripleRoom" name="noOfRoom[Triple Room]" value="0" readonly>
+                                <!-- <div class="room-type col-md-2">
                                     <label for="tripleRoom"><strong>Triple Room:</strong></label>
                                     <div class="input-group">
                                         <button type="button" onclick="updateQuantity('tripleRoom', -1)">-</button>
-                                        <input type="number" class="form-control" style="text-align:center"
-                                            id="tripleRoom" name="noOfRoom[Triple Room]" value="0" readonly>
+                                        
                                         <button type="button" onclick="updateQuantity('tripleRoom', 1)">+</button>
                                     </div>
                                     @error('noOfRoom.tripleRoom')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
@@ -134,7 +139,7 @@ $bndRate = Session::get('BNDrate', 1);
 
         </ol>
     </div>
-    <button type="submit" class="btn btn-primary" style="float: right; margin-bottom: 20px;margin-top:10px">Submit</button>
+    <button type="submit" class="btn btn-primary" style="float: right; margin-bottom: 20px;margin-top:10px" onclick="showConfirmation()">Submit</button>
 
             </div>
 
@@ -161,18 +166,26 @@ $bndRate = Session::get('BNDrate', 1);
         const currentValue = parseInt(inputField.value, 10) || 0;
         const newValue = currentValue + delta;
 
-        if (newValue >= 0) {
+        if (newValue >= 0 && newValue <=12) {
             inputField.value = newValue;
             updateBookingSummary();
         }
     }
+
+    function showConfirmation() {
+        if (confirm("Are you sure you want to submit your booking? Please review your details carefully before confirming.")) {
+            document.querySelector('form').submit();
+        } else {
+        }
+    }
+
     function updateBookingSummary() {
         var noOfAdult = parseInt(document.getElementById('noOfAdult').value);
     var noOfChild = parseInt(document.getElementById('noOfChild').value);
     var noOfInfant = parseInt(document.getElementById('noOfInfant').value);
-    var singleRoom = parseInt(document.getElementById('singleRoom').value);
-    var doubleRoom = parseInt(document.getElementById('doubleRoom').value);
-    var tripleRoom = parseInt(document.getElementById('tripleRoom').value);
+    // var singleRoom = parseInt(document.getElementById('singleRoom').value);
+    // var doubleRoom = parseInt(document.getElementById('doubleRoom').value);
+    // var tripleRoom = parseInt(document.getElementById('tripleRoom').value);
 
     // Assume these are the exchange rates from RM to other currencies
     var usdRate = {{ $usdRate }};
@@ -181,29 +194,29 @@ $bndRate = Session::get('BNDrate', 1);
 
     var currencySymbol = '';
     var lowestTourPrice = {{ $tour->tourPrice }};
-    var singleRoomPrice = {{ $package->singleRoom }};
-    var doubleRoomPrice = {{ $package->doubleRoom }};
-    var tripleRoomPrice = {{ $package->tripleRoom }};
+    // var singleRoomPrice = {{ $package->singleRoom }};
+    // var doubleRoomPrice = {{ $package->doubleRoom }};
+    // var tripleRoomPrice = {{ $package->tripleRoom }};
 
     // Set the currency symbol and adjust prices based on the selected currency
     @if($selectedCurrency === 'USD')
         currencySymbol = 'USD';
         lowestTourPrice *= usdRate;
-        singleRoomPrice *= usdRate;
-        doubleRoomPrice *= usdRate;
-        tripleRoomPrice *= usdRate;
+        // singleRoomPrice *= usdRate;
+        // doubleRoomPrice *= usdRate;
+        // tripleRoomPrice *= usdRate;
     @elseif($selectedCurrency === 'SGD')
         currencySymbol = 'SGD';
         lowestTourPrice *= sgdRate;
-        singleRoomPrice *= sgdRate;
-        doubleRoomPrice *= sgdRate;
-        tripleRoomPrice *= sgdRate;
+        // singleRoomPrice *= sgdRate;
+        // doubleRoomPrice *= sgdRate;
+        // tripleRoomPrice *= sgdRate;
     @elseif($selectedCurrency === 'BND')
         currencySymbol = 'BND';
         lowestTourPrice *= bndRate;
-        singleRoomPrice *= bndRate;
-        doubleRoomPrice *= bndRate;
-        tripleRoomPrice *= bndRate;
+        // singleRoomPrice *= bndRate;
+        // doubleRoomPrice *= bndRate;
+        // tripleRoomPrice *= bndRate;
     @else
         currencySymbol = 'RM';
     @endif
@@ -212,9 +225,9 @@ $bndRate = Session::get('BNDrate', 1);
         'Adult': { quantity: noOfAdult, price: lowestTourPrice },
         'Child': { quantity: noOfChild, price: lowestTourPrice }, 
         'Infant': { quantity: noOfInfant, price: 0 }, 
-        'Single<br>Room(s)': { quantity: singleRoom, price: singleRoomPrice },
-        'Double<br>Room(s)': { quantity: doubleRoom, price: doubleRoomPrice },
-        'Triple<br>Room(s)': { quantity: tripleRoom, price: tripleRoomPrice }
+        // 'Single<br>Room(s)': { quantity: singleRoom, price: singleRoomPrice },
+        // 'Double<br>Room(s)': { quantity: doubleRoom, price: doubleRoomPrice },
+        // 'Triple<br>Room(s)': { quantity: tripleRoom, price: tripleRoomPrice }
     };
 
     var bookingSummaryList = document.getElementById('bookingSummaryList');
@@ -248,7 +261,7 @@ $bndRate = Session::get('BNDrate', 1);
     var totalAmountElement = document.createElement('li');
     totalAmountElement.className = 'list-group-item d-flex justify-content-between';
     totalAmountElement.innerHTML = `
-        <strong>Deposit</strong>
+        <strong>Deposit (30%)</strong>
         <span style="color:red" id="totalAmount"><b>${currencySymbol} ${(0.3 * totalAmount).toFixed(2)}</b></span><br>
         <strong>Total</strong>
         <span style="color:red" id="totalAmount"><b>${currencySymbol} ${totalAmount.toFixed(2)}</b></span>

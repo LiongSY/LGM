@@ -2,30 +2,20 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('paper') }}/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="{{ asset('paper') }}/img/favicon.png">
+    <link rel="icon" type="image/png" href="{{ asset('images/LGM.png') }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-    <!-- Extra details for Live View on GitHub Pages -->
-
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
-    <!--     Fonts and icons     -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <!-- CSS Files -->
     <link href="{{ asset('paper') }}/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <title>LGM Tour & Travel</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="css/style.css">
-<!-- Add this in the head section of your HTML -->
- 
-
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
@@ -42,6 +32,13 @@
    
 </head>
 <style>
+    .navbar-nav .nav-link {
+    color: #000000; /* Default text color */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #617782; /* Text color on hover - replace with your desired hover color */
+}
     @keyframes slideIn {
         0% {
             opacity: 0;
@@ -153,12 +150,18 @@
 .booking-amounts p {
     margin: 0;
 }
+
+@media print {
+        #botmanWidget {
+            display: none !important;
+        }
+    }
     </style>
 <body>
 
 
 
-<nav class="navbar navbar-expand-lg custom-navbar-bg fixed-top">
+<nav class="navbar navbar-expand-lg custom-navbar-bg fixed-top ">
     <div class="container">
         <a class="navbar-brand" href="#">
             <img src="{{ asset('images/LGM.png') }}" width="100" height="100" class="d-inline-block align-top" alt="Logo">
@@ -214,9 +217,9 @@
 
 
 @yield('content')
-
+</body>
 <!-- footer -->
-<footer class="text-white text-center text-lg-start" style="background-color: #23242a; padding-top: 20px;">
+<footer class="text-white text-center text-lg-start d-print-none" style="background-color: #23242a; padding-top: 20px;">
 
     <div class="container p-4">
         <div class="row mt-4">
@@ -279,22 +282,9 @@
     </div>
 
 
-
 </footer>
 
-  <script>
-     var botmanWidget = {
-         introMessage: "Hi ✋! I'm Lily from LGM Tour & Travel. <br> Please select the option below:<br><br>1. Booking Assistance.<br>2. Chat with agent.",
-         title:'LGM Tour & Travel',
-        mainColor:'#1F4E7A',
-        background:'#f1f1f1',
-        aboutText:'',
-       bubbleBackground:'#1F4E7A', //widget
-       headerTextColor: '#f1f1f1',
-       bubbleAvatarUrl: '{{ asset('images/customer-service.png') }}',
-     };
-    </script>
-</body>
+
 <!-- Remove the container if you want to extend the Footer to full width. -->
 
   
@@ -312,10 +302,10 @@
     const threshold = 100; // You can adjust this value as needed
 
     if (scrollY > threshold) {
-      navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; // Change the color and opacity as needed
+      navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // Change the color and opacity as needed
     } else {
       // Make the navigation bar transparent
-      navbar.style.backgroundColor = 'transparent';
+      navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // Change the color and opacity as needed
     }
   }
 
@@ -325,7 +315,18 @@
   // Initial call to set the initial background color
   updateNavbarBackground();
 
-  
+  var botmanWidget = {
+        introMessage: "Hi ✋! I'm Lily from LGM Tour & Travel. <br> Please select the option below:<br><br>1. Booking Assistance.<br>2. Chat with agent.",
+        title:'LGM Tour & Travel',
+        mainColor:'#1F4E7A',
+        background:'#f1f1f1',
+        aboutText:'',
+       bubbleBackground:'#1F4E7A', 
+       headerTextColor: '#f1f1f1',
+       bubbleAvatarUrl: '{{ asset('images/customer-service.png') }}',
+     };
+
+     
 </script>
 
 

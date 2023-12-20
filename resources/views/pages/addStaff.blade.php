@@ -34,8 +34,8 @@
 
     <!-- Phone Number Input -->
     <div class="form-group">
-        <label for="phoneNo">Phone Number</label>
-        <input type="tel" class="form-control @error('phoneNo') is-invalid @enderror" id="phoneNo" name="phoneNo" value="{{ old('phoneNo') }}" >
+        <label for="phoneNo">Phone Number (number only)</label>
+        <input type="tel" class="form-control @error('phoneNo') is-invalid @enderror" placeholder="01xxxxxxxxx" id="phoneNo" name="phoneNo" value="{{ old('phoneNo') }}" >
         @error('phoneNo')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -68,7 +68,7 @@
     <!-- Identity Number Input -->
     <div class="form-group">
         <label for="identityNo">Identity Number</label>
-        <input type="text" class="form-control @error('identityNo') is-invalid @enderror" id="identityNo" name="identityNo" value="{{ old('identityNo') }}" >
+        <input type="text" class="form-control @error('identityNo') is-invalid @enderror" placeholder="xxxxxx-xx-xxxx" id="identityNo" name="identityNo" value="{{ old('identityNo') }}" >
         @error('identityNo')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
