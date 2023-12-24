@@ -54,6 +54,12 @@ $bndRate = Session::get('BNDrate', 1);
                             @endif</p>
                 </div>
             </div>
+            <form action="{{ route('booking.customerDestroy', [$booking->bookingID]) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Are you sure you want to cancel this booking?')">Cancel</button>
+                        </form>
         </div>
     @endforeach
 </div>

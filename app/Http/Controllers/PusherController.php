@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Booking;
 use App\Models\Conversation;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -10,6 +10,7 @@ use App\Models\Message;
 use App\Models\Staff;
 use App\Events\PusherBroadcast;
 use Illuminate\Support\Facades\Log; 
+use Carbon\Carbon;
 
 class PusherController extends Controller
 {
@@ -47,13 +48,22 @@ class PusherController extends Controller
 
     public function index()
     {
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+        $totalBookingAmount = Booking::where('bookingStatus', '=', 'Completed')
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->sum('bookingAmount');
+
         $customerConversation = Conversation::get();
-    
+        $customers = Customer::get();
+        $customersCount = $customers->count();
+        $unreadConversations = $customerConversation->where('messageStatus', 1);
+        $unreadCount = $unreadConversations->count();
         $customerIDs = $customerConversation->pluck('userID')->unique();
     
         $customerList = User::whereIn('userID', $customerIDs)->get();
     
-        return view('pages.dashboard', compact('customerList'));
+        return view('pages.dashboard', compact('customerList','unreadCount','totalBookingAmount','customersCount'));
     }
     
     // public function liveChat(string $id)

@@ -50,7 +50,6 @@
     <div class="messages">
     @php
     $conversation = \App\Models\Conversation::where('userID', $user->userID)->first();
-
     $conversationID = 0;
 
     if ($conversation === null || $conversation->userID === null) {
@@ -58,20 +57,15 @@
     } else {
         $conversationID = $conversation->userID;
         $messages = \App\Models\Message::where('userID', $conversation->userID)->get();
-
     }
-
     @endphp
         @if (!$conversation)
-        
             @if(auth()->user()->role == 'customer')
             @include('receive', ['message' => 'Hi, How can I help you'])
             @else
             @include('broadcast', ['message' => 'Hi, How can I help you'])
-
             @endif
         @else
-        
             @foreach ($messages as $message)
                 @if ($message->userID == auth()->user()->userID)
                   @if ($message->sender == auth()->user()->userID)

@@ -54,6 +54,7 @@ $bndRate = Session::get('BNDrate', 1);
         </div>
         </form>
     </div>
+    @if(count($packages) > 0)
 <div class="container">
     <div class="row" style="margin-top:30px">
         <div class="col-md-12">
@@ -92,6 +93,7 @@ $bndRate = Session::get('BNDrate', 1);
     </div>
 </div>
 
+@endif
 
 <div class="container">
     <div class="row" style="margin-top:30px">

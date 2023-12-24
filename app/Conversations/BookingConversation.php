@@ -33,56 +33,68 @@ class BookingConversation extends Conversation
 
     public function askTourCode()
     {
-        $this->ask('Thanks, which tour you want to book ? (Please insert the tour code.)', function ($answer) {
+        // Ask the user to input the tour code
+        $this->ask('Thanks, which tour do you want to book? (Please insert the tour code.)', function ($answer) {
+            // Store the user's input (tour code) in the booking data
             $this->bookingData['tourCode'] = strtoupper($answer->getText());
-            // Retrieve tour details based on the provided tour code (implement your logic here)
+    
+            // Retrieve tour details based on the provided tour code
             $tour = Tour::where('tourCode', $this->bookingData['tourCode'])->first();
-
+    
+            // Check if the tour with the specified code exists
             if ($tour) {
+                // Retrieve existing bookings for the specified tour
                 $bookings = Booking::where('tourCode', $this->bookingData['tourCode'])->get();
-
-                $joinedPeople = [];    
-        
+    
+                $joinedPeople = [];
+    
+                // Calculate the total number of joined people for the specified tour
                 foreach ($bookings as $booking) {
                     $tourCode = $booking->tourCode;
-            
+    
                     if (!isset($joinedPeople[$tourCode])) {
                         $joinedPeople[$tourCode] = 0;
                     }
-            
+    
                     $joinedPeople[$tourCode] += $booking->noOfAdult + $booking->noOfChild;
                 }
-        
+    
                 $joinedPeopleTotal = array_sum($joinedPeople);
-        
+    
+                // Calculate the available seats for the specified tour
                 $availableSeats = $tour->noOfSeats - $joinedPeopleTotal;
-                if($availableSeats < 1){
-
-                $this->repeat('We are sorry ! The tour is <span style="color:red">FULL</span> !<br>Please contact us, 087-453888 or choose another tour.');
-
-                }else{
+    
+                // Check if there are available seats
+                if ($availableSeats < 1) {
+                    // Inform the user that the tour is full
+                    $this->repeat('We are sorry! The tour is <span style="color:red">FULL</span>!<br>Please contact us at 087-453888 or choose another tour.');
+                } else {
                     $today = Carbon::now();
-
-                    if( $tour->flight->departureDate > $today){
+    
+                    // Check if the tour's departure date is in the future
+                    if ($tour->flight->departureDate > $today) {
+                        // Store additional booking data
                         $this->bookingData['availableSeats'] = $availableSeats;
                         $package = Package::where('packageID', $tour->packageID)->first();
                         $this->bookingData['packageID'] = $package->packageID;
                         $flight = Flight::where('flightID', $tour->flightID)->first();
-                        $this->say('Great !<br>Please check the tour details:<br><br>' . 'Package: ' . $package->packageName . '<br>Tour: ' . $tour->tourCode . '<br>Tour Price: RM'.$tour->tourPrice.'/pax'. '<br>Departure Date: ' . $flight->departureDate . '<br><br>Insert NO if you want to reselect.<br><br><p style="color:red"> There are '.$availableSeats.' seat(s) left.');
+    
+                        // Display tour details to the user
+                        $this->say('Great!<br>Please check the tour details:<br><br>' . 'Package: ' . $package->packageName . '<br>Tour: ' . $tour->tourCode . '<br>Tour Price: RM' . $tour->tourPrice . '/pax' . '<br>Departure Date: ' . $flight->departureDate . '<br><br>Insert NO if you want to reselect.<br><br><p style="color:red"> There are ' . $availableSeats . ' seat(s) left.');
+                        
+                        // Proceed to ask the user for the number of people for the booking
                         $this->askNumberOfPeople();
-                    }else{
+                    } else {
+                        // Inform the user that the tour is not available anymore
                         $this->repeat('Tour is not available anymore!<br>Please check the tour code from the DEPARTURE DATE tab in the package and insert again.');
-
                     }
-                   
                 }
-               
             } else {
-                $this->repeat('Tour is not available !<br>Please check the tour code from the DEPARTURE DATE tab in the package and insert again.');
+                // Inform the user that the specified tour code is not available
+                $this->repeat('Tour is not available!<br>Please check the tour code from the DEPARTURE DATE tab in the package and insert again.');
             }
         });
     }
-
     public function askNumberOfPeople()
     {
         $this->ask('How many adults will be joining?', function ($answer) {

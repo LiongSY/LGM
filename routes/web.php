@@ -167,7 +167,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-
+Route::delete('/booking/{booking}', [BookingController::class, 'destroy'])->name('booking.customerDestroy');
 Route::get('/itinerary/generate/{id}', [PackageController::class, 'generateItinerary'])->name('generateItinerary');
 
 Route::put('profile', [ProfileController::class, 'password'])->name('editPassword');

@@ -3,9 +3,8 @@
 @section('content')
     <style>
         body {
-            /* background-image: url("{{ asset('paper/img/bg/Travel.png') }}");
-            background-size: cover; */
-            background:#edede9;
+             background-image: url("{{ asset('paper/img/bg/kl.jpg') }}");
+            background-size: cover; 
             color: black; 
         }
 
@@ -115,7 +114,7 @@
                     </div>
 
                     <div class="form-group col-md-12">
-                        <input type="number" class="form-control" placeholder="How many day(s)?" name="days" required>
+                        <input type="number" class="form-control" placeholder="How many day(s)?" name="days" min="1" required>
                         @error('days')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

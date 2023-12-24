@@ -62,8 +62,6 @@ class PassportController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
-        
         $request->validate([
         'passportNo' => 'required|max:15', 
         'expiryDate' => ['required', 'date', 'after_or_equal:today'], 

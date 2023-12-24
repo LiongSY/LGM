@@ -30,6 +30,7 @@ The above copyright notice and this permission notice shall be included in all c
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
     <!--     Fonts and icons     -->
+    <script src="https://cdn.tiny.cloud/1/n9sum0xwk0am6ysm62tfvipkk1thz3xc7udxi3d9w49culco/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <!-- CSS Files -->

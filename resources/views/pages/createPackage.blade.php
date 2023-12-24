@@ -261,6 +261,7 @@
 
 
 <script>
+
     function displayImageName() {
         var input = document.getElementById('packageImage');
 var fileName = input.files[0].name;
@@ -272,7 +273,9 @@ label.textContent = fileName;
         document.getElementById("errorMessages").innerHTML = "";
 
         var packageName = document.getElementById("packageName").value;
-        var packageHighlight = document.getElementById("packageHighlight").value;
+        // var packageHighlight = tinymce.get('packageHighlight').getContent();
+        var packageName = document.getElementById("packageName").value;
+
         var destination = document.getElementById("destination").value;
         var packageRemarks = document.getElementById("packageRemarks").value;
         var packageImage = document.getElementById("packageImage").files[0];
@@ -472,45 +475,6 @@ label.textContent = fileName;
 
 
     }
-
-        
-
-
-
-
-        // if (destination.length > 40) {
-        //     alert("Destination must not exceed 40 characters.");
-        //     return false;
-        // }
-
-        // if (sector.length > 50) {
-        //     alert("Sector must not exceed 50 characters.");
-        //     return false;
-        // }
-
-        // // Validate packageName
-        // if (packageName === "") {
-        //     displayError("packageName", errors.packageName);
-        //     return false;
-        // }
-
-        // // Validate packageHighlight
-        // if (packageHighlight === "") {
-        //     displayError("packageHighlight", errors.packageHighlight);
-        //     return false;
-        // }
-
-        // // Validate destination
-        // if (destination === "") {
-        //     displayError("destination", errors.destination);
-        //     return false;
-        // }
-
-        // if (packageRemarks === "") {
-        //     displayError("packageRemarks", errors.packageRemarks);
-        //     return false;
-        // }
-
         if (hasError) {
             // Show error messages at the top of the form
             document.getElementById("errorMessages").style.display = "block";
@@ -527,9 +491,7 @@ label.textContent = fileName;
         var numOfDays = 1;
         var counter = 0;
 
-
         $('#noOfDays').val(1);
-
 
         $('.addField').click(function () {
             counter++;
@@ -737,8 +699,9 @@ label.textContent = fileName;
 
 
 
-</script>
 
+
+</script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

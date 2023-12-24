@@ -39,9 +39,10 @@
   <a class="btn btn-light border text-black-50 shadow-none" onclick="confirmRegenerate()">Regenerate Itinerary</a>
 </div>
 <body class="container mt-5" >
-
-    <h2 class="mb-4 text-center">Travel Itinerary Generator</h2>
-    
+<div class="container" style="margin-top:10px">
+        <img id="logo" src="{{ asset('images/LGMLH.png') }}" title="LGM" alt="LGM" width="100%"/> </div>
+    </div>
+    <hr class="my-4">
     <!-- Displaying Generated Itinerary -->
     @isset($itinerary)
 

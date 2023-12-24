@@ -4,7 +4,7 @@
 ])
 
 @section('content')
-<div class="content"> <div class="col-md-12"> <!-- Package Details -->
+<div class="content"> <div class="col-md-12">
 @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
             {{ session('success') }}
@@ -65,7 +65,6 @@
     </div>
 </div>
 
-<!-- Tour Details -->
 <div class="card">
     <div class="card-body">
         <h5>Tour Details</h5>
@@ -157,7 +156,6 @@
 </div>
 
 
-<!-- Itinerary Details -->
 <div class="card">
     <div class="card-body">
         <h5>Itinerary</h5>
@@ -174,7 +172,6 @@
 
                 </div>
              </div>
-                <!-- Add more itinerary details as needed -->
                 @endforeach
                 <a href="{{ route('editItinerary', $package->packageID) }}" style="float:right"class="btn btn-danger">Edit Itinerary</a>
                 <a href="{{ route('generateItinerary', $package->packageID) }}" style="float:left"class="btn btn-warning">DOWNLOAD Itinerary</a>

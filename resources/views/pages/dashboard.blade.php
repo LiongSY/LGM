@@ -17,8 +17,8 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Capacity</p>
-                                    <p class="card-title">150GB
+                                    <p class="card-category">Chats</p>
+                                    <p class="card-title">{{$unreadCount}}
                                         <p>
                                 </div>
                             </div>
@@ -26,8 +26,8 @@
                     </div>
                     <div class="card-footer ">
                         <hr>
-                        <div class="stats">
-                            <i class="fa fa-refresh"></i> Update Now
+                        <div class="stats" onclick="refreshPage()">
+                            <i class="fa fa-refresh" ></i> Refresh
                         </div>
                     </div>
                 </div>
@@ -36,16 +36,21 @@
                 <div class="card card-stats">
                     <div class="card-body ">
                         <div class="row">
-                            <div class="col-5 col-md-4">
+                            <div class="col-3 col-md-2">
                                 <div class="icon-big text-center icon-warning">
                                     <i class="nc-icon nc-money-coins text-success"></i>
                                 </div>
                             </div>
-                            <div class="col-7 col-md-8">
+                            <div class="col-9 col-md-10">
                                 <div class="numbers">
-                                    <p class="card-category">Revenue</p>
-                                    <p class="card-title">$ 1,345
-                                        <p>
+                                    @php
+                                    use Carbon\Carbon;
+
+                                    $currentMonth = Carbon::now()->format('F');
+                                    @endphp
+                                    
+                                    <p class="card-category">Completed Revenue</p>
+                                    <p class="card-title">RM {{ number_format($totalBookingAmount, 2) }}</p>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +58,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            <i class="fa fa-calendar-o"></i> Last day
+                            <i class="fa fa-calendar-o"></i>Month: {{$currentMonth}}
                         </div>
                     </div>
                 </div>
@@ -69,7 +74,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Errors</p>
+                                    <p class="card-category">Reports</p>
                                     <p class="card-title">23
                                         <p>
                                 </div>
@@ -79,7 +84,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            <i class="fa fa-clock-o"></i> In the last hour
+                            <i class="fa fa-clock-o"></i> View Reports
                         </div>
                     </div>
                 </div>
@@ -88,15 +93,15 @@
                 <div class="card card-stats">
                     <div class="card-body ">
                         <div class="row">
-                            <div class="col-5 col-md-4">
+                            <div class="col-3 col-md-2">
                                 <div class="icon-big text-center icon-warning">
                                     <i class="nc-icon nc-favourite-28 text-primary"></i>
                                 </div>
                             </div>
-                            <div class="col-7 col-md-8">
+                            <div class="col-9 col-md-10">
                                 <div class="numbers">
-                                    <p class="card-category">Followers</p>
-                                    <p class="card-title">+45K
+                                    <p class="card-category">Registered Customers</p>
+                                    <p class="card-title">{{$customersCount}}
                                         <p>
                                 </div>
                             </div>
@@ -105,7 +110,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            <i class="fa fa-refresh"></i> Update now
+                            <i class="fa fa-refresh"></i> View Customers
                         </div>
                     </div>
                 </div>
@@ -170,5 +175,9 @@
         $(document).ready(function() {
             demo.initChartsPages();
         });
+
+        function refreshPage() {
+        location.reload(true);
+    }
     </script>
 @endpush

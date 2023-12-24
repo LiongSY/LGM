@@ -19,9 +19,7 @@
 @endif
     <div class="card-header">
     <h4 style="float:left"class="card-title">Booking</h4>
-    
-    <a href="{{ route('booking.create') }}" class="btn btn-primary" style="float:right">Create</a>
-    </div>
+        </div>
     <div class="card-body">
     <form action="{{ route('booking.index') }}" method="GET" class="mb-3">
            <div class="input-group">
@@ -73,7 +71,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Are you sure you want to delete this package?')">Delete</button>
+                                onclick="return confirm('Are you sure you want to delete this booking?')">Delete</button>
                         </form>
                         
                     </td>

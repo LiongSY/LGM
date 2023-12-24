@@ -49,7 +49,7 @@ class ItineraryController extends Controller
     
             $bookings = Booking::where('tourCode', $tour->tourCode)->get();
     
-           
+
         
             foreach ($bookings as $booking) {
                 $tourCode = $booking->tourCode;

@@ -27,6 +27,8 @@ class ProfileController extends Controller
      */
     public function update(Request $request,$id)
     {
+
+        //Custom validation message
         $customMessages = [
             'name.regex' => 'The name field should only contain letters.',
             'identityNo.regex' => 'The IC number must be in the format XXXXXX-XX-XXXX.',
@@ -34,6 +36,7 @@ class ProfileController extends Controller
             'benContact.regex' => 'The contact number should be xxx-xxxxxxx',
         ];
     
+        //Input validation
         $request->validate([
             'name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/'],
             'phoneNo' => ['required', 'regex:/^(01)[0-9]-*[0-9]{7,8}$/'],
@@ -46,11 +49,13 @@ class ProfileController extends Controller
         $user = auth()->user();
         $user->update($request->all());
     
+        //Check if the user is a male or female
         $title = $user->gender === 'Male' ? 'Mr.' : 'Ms.';
     
-        // Update the title in the user model
+        //Store the title
         Customer::where('userID', $user->userID)->update(['titles' => $title]);
 
+        //Return back with successful message
          return back()->withStatus(__('Profile successfully updated.'));
     }
 

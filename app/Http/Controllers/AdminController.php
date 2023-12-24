@@ -34,13 +34,13 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/'], // Name cannot have numbers or special characters
+            'name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/'], 
             'email' => ['required', 'email'],
-            'phoneNo' => ['required', 'regex:/^(01)[0-9]-*[0-9]{7,8}$/'], // Malaysian phone number format
+            'phoneNo' => ['required', 'regex:/^(01)[0-9]-*[0-9]{7,8}$/'], 
             'password' => ['required', 'string', 'min:8'],
             'confirm_password' => ['required', 'same:password'],
-            'identityNo' => ['required','regex:/^\d{6}-\d{2}-\d{4}$/'], // Assuming identity number is numeric
-            'address' => ['required', 'string'],
+            'identityNo' => ['required','regex:/^\d{6}-\d{2}-\d{4}$/'], 
+            'address' => ['required', 'string','max:100'],
             'role' => ['required', 'string'],
             'gender' => ['required', 'string'],
         ]);

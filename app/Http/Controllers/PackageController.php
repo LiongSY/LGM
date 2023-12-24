@@ -322,7 +322,7 @@ class PackageController extends Controller
         $sortOrder = $request->input('sort', 'price_asc'); 
 
         $packagesQuery = Package::query()
-            ->with(['tours.flight']); // Eager load tours along with their associated flight
+            ->with(['tours.flight']); 
     
         if ($destination) {
             $packagesQuery->where('destination', 'like', '%' . $destination . '%');
