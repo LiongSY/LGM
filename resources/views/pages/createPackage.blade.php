@@ -26,12 +26,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="packageName">Package Name:</label>
-                                        <input type="text" class="form-control" id="packageName" name="packageName"
+                                        <input type="text" class="form-control" id="packageName" placeholder="Package Name" name="packageName"
                                             required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="destination">Country:</label>
-                                        <input type="text" class="form-control" id="destination" name="destination"
+                                        <input type="text" class="form-control" id="destination" name="destination" placeholder="Country Name"
                                             required>
                                     </div>
 
@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <label for="packageHighlight">Highlight of the Package:</label>
                                     <textarea class="form-control long-textarea" id="packageHighlight"
-                                        name="packageHighlight" required></textarea>
+                                        name="packageHighlight" placeholder="Write the highlight here..." required></textarea>
                                 </div>
                                 <div class="form-row">
 
@@ -75,7 +75,7 @@
                                 <div class="form-group">
                                     <label for="remarks">Remarks for the Package:</label>
                                     <textarea class="form-control long-textarea" id="packageRemarks"
-                                        name="packageRemarks" required></textarea>
+                                        name="packageRemarks" placeholder="Write the package remarks here..." required></textarea>
                                 </div>
 
                                 <br>
@@ -108,7 +108,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="sector">Sector:</label>
-                                            <input type="text" class="form-control" id="sector" name="sector[]"
+                                            <input type="text" class="form-control" placeholder="From / To" id="sector" name="sector[]"
                                                 required>
                                         </div>
                                         <div class="form-group col-md-4">
@@ -118,7 +118,7 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="flightNumber">Flight Number:</label>
-                                            <input type="text" class="form-control" id="flightNumber"
+                                            <input type="text" class="form-control" id="flightNumber" 
                                                 name="flightNumber[]" required>
                                         </div>
                                     </div>
@@ -151,7 +151,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="sector">Return Sector:</label>
-                                            <input type="text" class="form-control" id="reuturnSector"
+                                            <input type="text" class="form-control" placeholder="Return From / Back To" id="reuturnSector"
                                                 name="returnSector[]" required>
                                         </div>
                                         <div class="form-group col-md-4">
@@ -240,7 +240,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="information">Information:</label>
-                                    <textarea class="form-control long-textarea" id="information" name="information[]"
+                                    <textarea class="form-control long-textarea" id="information" placeholder="Write the information here..." name="information[]"
                                         required></textarea>
                                 </div>
                             </div>
@@ -436,6 +436,18 @@ label.textContent = fileName;
 
         for (var i = 0; i < departureDates.length; i++) {
 
+        if (new Date(departureDates[i].value + ' ' + departureTimes[i].value) >= new Date(arrivalDates[i].value + ' ' + arrivalTimes[i].value) || arrivalTimes[i].value - departureTimes[i].value >= 24 * 60 * 60 * 1000) {
+        var errorMessage = "Tour " + (i + 1) + ": Departure and arrival times must be within the same date (less than 24 hours apart).<br>";
+        document.getElementById("errorMessages").innerHTML += errorMessage;
+        hasError = true;
+        }
+
+        if (new Date(returnDepartureDates[i].value + ' ' + returnDepartureTimes[i].value) >= new Date(returnArrivalDates[i].value + ' ' + returnArrivalTimes[i].value) || returnArrivalTimes[i].value - returnDepartureTimes[i].value >= 24 * 60 * 60 * 1000) {
+            var errorMessage = "Tour " + (i + 1) + ": Return departure and return arrival times must be within the same date (less than 24 hours apart).<br>";
+            document.getElementById("errorMessages").innerHTML += errorMessage;
+            hasError = true;
+        }
+
 
         if (arrivalDates[i].value < departureDates[i].value ) {
             var errorMessage = "Tour " + (i + 1) + ": Arrival date must be after the departure date.<br>";
@@ -538,7 +550,7 @@ label.textContent = fileName;
                 </div>
                 <div class="form-group">
                     <label for="information">Information:</label>
-                    <textarea class="form-control long-textarea" id="information" name="information[]" required></textarea>
+                    <textarea class="form-control long-textarea" id="information" name="information[]" placeholder="Write the information here..." required></textarea>
                 </div>
                 <button type="button" class="btn btn-danger deleteRow">Delete</button>
             </div>`;
@@ -605,7 +617,7 @@ label.textContent = fileName;
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="sector">Sector:</label>
-                            <input type="text" class="form-control" id="sector" name="sector[]" required>
+                            <input type="text" class="form-control" id="sector" name="sector[]" placeholder="From / To" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="airlines">Airlines:</label>
@@ -640,7 +652,7 @@ label.textContent = fileName;
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="sector">Return Sector:</label>
-                            <input type="text" class="form-control" id="reuturnSector" name="returnSector[]" required>
+                            <input type="text" class="form-control" id="reuturnSector" name="returnSector[]" placeholder="Return From / Back To" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="airlines">Return Airlines:</label>

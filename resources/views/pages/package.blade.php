@@ -25,7 +25,7 @@
     <div class="card-body">
     <form action="{{ route('packages.index') }}" method="GET" class="mb-3">
            <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search packages" name="search">
+            <input type="text" class="form-control" placeholder="Search packages by package code, name or country" name="search">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
                 </div>

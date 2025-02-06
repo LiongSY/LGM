@@ -131,6 +131,7 @@ $bndRate = Session::get('BNDrate', 1);
         <h5><strong>Terms and Conditions:</strong></h5>
         <ol>
             <li>If you change to other currency like <span style="color:red"><b>USD, SGD, and BND</b></span>, it is for reference purposes only. The agent will collect the money in MYR.</li>
+            <li>Room(s) will be assigned by the staff after your booking has been approved. You may state the room you want at the remarks section.<br> Kindly refer to the room's price at the ROOM TYPE's tab.</li>
             <li>Please ensure that the tour package, schedule, and flight details are correct.<br><b style="color:blue;">Package Name: {{$package->packageName}}<br>Tour Code: {{$tour->tourCode}}<br>Departure Date: {{$flight->departureDate}}</b></li>
             <li>The tour will be conducted in <b>{{ $tour->tourLanguages }}</b>.</li>
             <li>Our staff will contact you for payment after the booking has been approved.</li>

@@ -39,7 +39,6 @@ class PackageController extends Controller
         
     $package = Package::where('packageID', $id)->first();
 
-    // Retrieve associated tours, flights, and itinerary
     $tours = Tour::where('packageID', $id)->get();
 
     // Array to store flight details
@@ -349,7 +348,6 @@ class PackageController extends Controller
 
         $packages = $this->sortPackages($packages, $minTourPrices, $sortOrder);
 
-    
         
 
         $departureDates = $allTours->flatMap(function ($tour) {

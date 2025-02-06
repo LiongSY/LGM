@@ -45,7 +45,7 @@ class BotManController extends Controller
             }elseif (preg_match('/\b(hello*|hi*)\b/i', $message) === 1) {
                 $bot->reply('Hello ~<br>Please select the option below:<br><br>1. Booking Assistance.<br>2.Chat with agent.');
             }elseif(strtoupper($message) !== 'EXIT'){
-                return $bot->reply('Sorry I don\'t understand '.$message.'.<br>Please choose 1,2,3 or 4.');
+                return $bot->reply('Sorry I don\'t understand '.$message.'.<br>Please choose 1 or 2.');
             }
             
 

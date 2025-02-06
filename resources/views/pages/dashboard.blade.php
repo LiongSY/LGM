@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-globe text-warning"></i>
+                                    <i class="nc-icon nc-chat-33 text-warning"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
@@ -69,13 +69,13 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-vector text-danger"></i>
+                                    <i class="nc-icon nc-chart-bar-32 text-danger"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
                                     <p class="card-category">Reports</p>
-                                    <p class="card-title">23
+                                    <p class="card-title">3
                                         <p>
                                 </div>
                             </div>
@@ -83,9 +83,12 @@
                     </div>
                     <div class="card-footer ">
                         <hr>
+                        <a href="{{ route('booking-report') }}" style="text-decoration:none">
+
                         <div class="stats">
-                            <i class="fa fa-clock-o"></i> View Reports
+                            <i class="nc-icon nc-paper"></i> View Reports
                         </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -95,7 +98,7 @@
                         <div class="row">
                             <div class="col-3 col-md-2">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-favourite-28 text-primary"></i>
+                                    <i class="nc-icon nc-single-02 text-primary"></i>
                                 </div>
                             </div>
                             <div class="col-9 col-md-10">
@@ -109,9 +112,11 @@
                     </div>
                     <div class="card-footer ">
                         <hr>
+                        <a href="{{ route('users.customers') }}" style="text-decoration:none">
                         <div class="stats">
-                            <i class="fa fa-refresh"></i> View Customers
+                            <i class="nc-icon nc-badge"></i> View Customers
                         </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -131,7 +136,7 @@
             Customer Name            
         </th>
         <th>
-            Message
+            Email
             </th>
         <th>
             Action
@@ -168,6 +173,7 @@
         </div>
        
     </div>
+   
 @endsection
 
 @push('scripts')

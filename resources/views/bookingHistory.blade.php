@@ -54,12 +54,16 @@ $bndRate = Session::get('BNDrate', 1);
                             @endif</p>
                 </div>
             </div>
+            @if($booking->bookingStatus === 'Pending Approval')
             <form action="{{ route('booking.customerDestroy', [$booking->bookingID]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger"
+                            <div class="text-center">
+                            <button type="submit" class="btn btn-danger mx-auto" 
                                 onclick="return confirm('Are you sure you want to cancel this booking?')">Cancel</button>
+</div>
                         </form>
+                        @endif
         </div>
     @endforeach
 </div>

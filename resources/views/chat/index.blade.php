@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>LIVE CHAT</title>
-  <link rel="icon" href="https://assets.edlin.app/favicon/favicon.ico"/>
+<link rel="icon" type="image/png" href="{{ asset('images/LGM.png') }}">
+    <title>LGM Tour & Travel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- JavaScript -->

@@ -19,6 +19,7 @@ use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\BookingHistoryController;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,9 +44,7 @@ Route::get('/', [PackageController::class, 'displayTrendingPackage']);
 //     return view('booking');
 // })->name('booking');
 
-Route::get('/customerProfile', function () {
-    return view('profile');
-})->name('customerProfile');
+
 
 Route::get('/itinerary_form', [ItineraryGenerationController::class, 'index'])->name('searchItinerary');
 
@@ -70,7 +69,7 @@ Route::get('/search-packages', [PackageController::class, 'search'])->name('sear
 Route::get('/compare-packages', [PackageComparisonController::class, 'compare'])->name('compare-packages');
 
 // bookinghistory
-Route::get('/bookingHistory', [BookingHistoryController::class, 'index'])->name('bookingHistory');
+
 // Route::get('/tourPackages', function () {
 //     return view('packages');
 // })->name('tourPackages');
@@ -112,6 +111,9 @@ Route::get('/staff', [UserController::class, 'index'])->name('users.index');
 
 //STAFF OR ADMIN ROUTES
 Route::group(['middleware' => 'staff_or_admin'], function () {
+    Route::get('/booking-report/{selectedMonth?}', [BookingReportController::class, 'generateReport'])
+    ->where('selectedMonth', '[0-9]{4}-[0-9]{2}')
+    ->name('booking-report');
     // Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index'])->where('page', 'dashboard');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/dashboard', [PusherController::class, 'index'])->name('dashboard');
@@ -154,7 +156,11 @@ Route::group(['middleware' => 'staff_or_admin'], function () {
     Route::patch('/booking/{booking}/updateStatus', [BookingController::class, 'updateStatus'])->name('booking.updateStatus');
 
 });
-
+Route::get('/customerProfile', function () {
+    return view('profile');
+})->name('customerProfile');
+Route::delete('/booking/{booking}', [BookingController::class, 'destroy'])->name('booking.customerDestroy');
+Route::get('/bookingHistory', [BookingHistoryController::class, 'index'])->name('bookingHistory');
 //CUSTOMERS ROUTES
 Route::group(['middleware' => 'customer'], function () {
 
@@ -167,7 +173,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-Route::delete('/booking/{booking}', [BookingController::class, 'destroy'])->name('booking.customerDestroy');
+
 Route::get('/itinerary/generate/{id}', [PackageController::class, 'generateItinerary'])->name('generateItinerary');
 
 Route::put('profile', [ProfileController::class, 'password'])->name('editPassword');

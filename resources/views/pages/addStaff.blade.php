@@ -10,7 +10,6 @@
             <form method="POST" action="{{ route('admin.store') }}">
     @csrf
 
-    <!-- Name Input -->
     <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" >
@@ -21,7 +20,6 @@
         @enderror
     </div>
 
-    <!-- Email Input -->
     <div class="form-group">
         <label for="email">Email</label>
         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" >
@@ -32,7 +30,6 @@
         @enderror
     </div>
 
-    <!-- Phone Number Input -->
     <div class="form-group">
         <label for="phoneNo">Phone Number (number only)</label>
         <input type="tel" class="form-control @error('phoneNo') is-invalid @enderror" placeholder="01xxxxxxxxx" id="phoneNo" name="phoneNo" value="{{ old('phoneNo') }}" >

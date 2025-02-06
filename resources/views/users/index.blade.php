@@ -25,7 +25,7 @@
     <div class="card-body">
     <form action="{{ route('users.index') }}" method="GET" class="mb-3">
            <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search events" name="search">
+            <input type="text" class="form-control" placeholder="Search staff by name or email" name="search">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
                 </div>

@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <form action="{{ route('users.customers') }}" method="GET" class="mb-3">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search customers" name="search">
+                            <input type="text" class="form-control" placeholder="Search customers by name or email" name="search">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="submit">Search</button>
                             </div>

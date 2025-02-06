@@ -56,7 +56,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    background: url('/images/Amazing.jpg'); 
+    background: url('/images/newBanner.png'); 
     text-align: center;
 }
 
@@ -80,18 +80,18 @@ body {
 .amazing-box a {
     font-size: 17px;
     padding: 15px 50px;
-    background-color: #78dadb;
+    background-color: black;
     color: #fff;
     display: inline-block;
     line-height: 20px;
     border-radius: 30px;
     text-align: center;
     margin: 0 10px;
-    text-decoration: none; /* Add this to remove underlines */
+    text-decoration: none;
 }
 
 .amazing-box a:hover {
-    background: #15cfe5;
+    background: #818d8f;
 }
 
 

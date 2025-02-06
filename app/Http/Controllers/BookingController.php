@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\BookingStatus;
 use App\Models\Booking;
 use App\Models\Tour;
 use App\Models\Customer;
@@ -266,6 +267,7 @@ class BookingController extends Controller
         $user = User::where('userID', $customer->userID)->first();
 
         // Retrieve associated tours, flights, and itinerary
+        
         $tour = Tour::where('tourCode', $booking->tourCode)->first();
     
         $flight = Flight::where('flightID', $tour->flightID)->first();
@@ -278,6 +280,7 @@ class BookingController extends Controller
 
     public function update(Request $request, string $id)
     {
+    $currentPeople = $request->input('currentAdult') + $request->input('currentChild');
 
         $request->validate([
             'noOfAdult' => 'required|integer|min:1',
@@ -289,7 +292,38 @@ class BookingController extends Controller
             'bookingRemarks' => 'required'
         ]);
 
+        $noOfPax = $request->noOfAdult + $request->noOfChild;
+
+        $tour = Tour::where('tourCode', $request->tourCode)->first();
+
+        $bookings = Booking::where('tourCode', $tour->tourCode)->get();
+
+        $joinedPeople = [];    
+
+        foreach ($bookings as $booking) {
+            $tourCode = $booking->tourCode;
+    
+            if (!isset($joinedPeople[$tourCode])) {
+                $joinedPeople[$tourCode] = 0;
+            }
+    
+            $joinedPeople[$tourCode] += $booking->noOfAdult + $booking->noOfChild;
+        }
+
+        $newPeople =  $currentPeople + $noOfPax;
+        $joinedPeopleTotal = array_sum($joinedPeople);
+        $availableSeats = $tour->noOfSeats - $joinedPeopleTotal ;
         
+        if($currentPeople != $noOfPax){
+            if($newPeople  >$tour->noOfSeats ){
+                return redirect()->back()->with([
+                    'errorMessage' => 'Only ' . $availableSeats . ' seat(s) left. Please update the available seats.',
+                    'errorLink' => route('editTour', $tour->tourCode),
+                    'errorButtonText' => $tour->tourCode,
+                ]);       }
+
+        }
+       
         $tour = Tour::where('tourCode', $request->tourCode)->first();
         $package = Package::where('packageID', $tour->packageID)->first();
 
@@ -363,12 +397,21 @@ class BookingController extends Controller
         $request->validate([
             'bookingStatus' => 'required|in:Room Pending,Pending Approval,Booking Approved,Booking Rejected,Completed',
         ]);
+        $customMessage = $request->input('customMessage');
+
+        if($request->input('bookingStatus'))
 
         Booking::where('bookingID', $id)->update([
             'bookingStatus' => $request->input('bookingStatus'),
         ]);
-        
 
+        $booking = Booking::where('bookingID', $id)->first();
+
+        $customer = Customer::where('customerID', $booking->customerID)->first();
+
+        $user = User::where('userID', $customer->userID)->first();
+
+        Mail::to($user->email)->send(new BookingStatus($booking,$customMessage));
 
         return redirect()->back()->with('success', 'Booking status updated successfully');    }
 

@@ -1,20 +1,3 @@
-<!--
-=========================================================
- Paper Dashboard - v2.0.0
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/paper-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- UPDIVISION (https://updivision.com)
- Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard/blob/master/LICENSE)
-
- Coded by Creative Tim
-
-=========================================================
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +56,7 @@ The above copyright notice and this permission notice shall be included in all c
 
     <script src="../assets/demo/jquery.sharrre.js"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    
+
     @stack('scripts')
 
     @include('layouts.navbars.fixed-plugin-js')

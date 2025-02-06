@@ -113,6 +113,7 @@ $bndRate = Session::get('BNDrate', 1);
                     <h4>Accommodation</h4>
                     <p class="xs-font-size13 xs-line-height-22">Strategic location, safe environment and easy
                         accessibility are the features that we look for our customers' hotel bookings.</p>
+                        <br>
                 </a>
             </div>
         </div>
@@ -151,6 +152,7 @@ $bndRate = Session::get('BNDrate', 1);
                     <h4>Hotels & Resorts</h4>
                     <p class="xs-font-size13 xs-line-height-22">Exhaustive technology of implementing multi purpose
                         projects is putting your project successful.</p>
+                        <br>
                 </a>
             </div>
         </div>
@@ -173,13 +175,13 @@ $bndRate = Session::get('BNDrate', 1);
                     <div class="padding-15px-bottom">
                         <i class="fa fa-paper-plane-o"></i>
                     </div>
-                    <h4>Clean Modern Code</h4>
-                    <p class="xs-font-size13 xs-line-height-22">Exhaustive technology of implementing multi purpose
-                        projects is putting your project successful.</p>
+                    <h4>Luxury Tour</h4>
+                    <p class="xs-font-size13 xs-line-height-22">Our company has been awarded many trophy for providing luxury tours</p>
+                        <br>
+                        <br>
                 </a>
             </div>
         </div>
-        <!-- end -->
     </div>
 </div>
 
@@ -210,99 +212,91 @@ $bndRate = Session::get('BNDrate', 1);
 
             <div class="col-md-4 col-sm-6">
                 <div class="event_container">
-                    <a href="#">
+                <a href="https://www.allianz.com.my/personal.html">
                         <img src="images/event1.jpg" class="img-responsive" alt="#">
                         <div class="short_info event">
                             2022-10-16
                         </div>
-                    </a>
                     <div class="event_title">
-                        <a href="#">
                             <h3 style="font-size:15px;">Allianz Event Promo买保险</h3>
-                        </a>
                     </div>
+                    </a>
                 </div>
             </div>
 
             <div class="col-md-4 col-sm-6">
                 <div class="event_container">
-                    <a href="#">
+                <a href="https://www.nst.com.my/news/nation/2023/06/925444/health-ministry-eases-covid-19-guidelines-masks-not-mandatory-%C2%A0public">
                         <img src="images/event2.png" class="img-responsive" alt="#">
                         <div class="short_info event">
                             2022-10-20
                         </div>
-                    </a>
                     <div class="event_title">
-                        <a href="#">
                             <h3 style="font-size:15px;">SOP戴口罩</h3>
-                        </a>
                     </div>
+                    </a>
+
                 </div>
             </div>
 
             <div class="col-md-4 col-sm-6">
                 <div class="event_container">
-                    <a href="#">
+                <a href="https://icshq.org/2023-charity-golf-lucky-draw/">
                         <img src="images/event3.jpg" class="img-responsive" alt="#">
                         <div class="short_info event">
                             2023-03-17
                         </div>
-                    </a>
                     <div class="event_title">
-                        <a href="#">
                             <h3 style="font-size:15px;">Lucky Draw幸运抽奖活动2023</h3>
-                        </a>
                     </div>
+                    </a>
+
                 </div>
             </div>
 
             <div class="col-md-4 col-sm-6">
                 <div class="event_container">
-                    <a href="#">
+                <a href="https://www.goldendestinations.com/">
                         <img src="images/event4.jpg" class="img-responsive" alt="#">
                         <div class="short_info event">
                             2023-04-05
                         </div>
-                    </a>
                     <div class="event_title">
-                        <a href="#">
                             <h3 style="font-size:15px;">黄金旅程(Golden Destinations)CompanyTrip</h3>
-                        </a>
                     </div>
+                    </a>
+
                 </div>
             </div>
 
 
             <div class="col-md-4 col-sm-6">
                 <div class="event_container">
-                    <a href="#">
+                <a href="https://www.facebook.com/LGMTravel">
                         <img src="images/event5.jpg" class="img-responsive" alt="#">
                         <div class="short_info event">
                             2023-06-17
                         </div>
-                    </a>
                     <div class="event_title">
-                        <a href="#">
                             <h3 style="font-size:15px;">Member Gathering</h3>
-                        </a>
 
                     </div>
+                    </a>
+
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="event_container">
-                    <a href="#">
+                <a href="https://www.mattafair.org.my/index.php/en/">
                         <img src="images/event6.jpg" class="img-responsive" alt="#">
                         <div class="short_info event">
                             2020-08-25
                         </div>
-                    </a>
                     <div class="event_title">
-                        <a href="#">
                             <h3 style="font-size:15px;">MATTAFAIR 2023</h3>
-                        </a>
-
                     </div>
+                    </a>
+
                 </div>
             </div>
 

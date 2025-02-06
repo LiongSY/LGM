@@ -20,11 +20,11 @@ $package = App\Models\Package::where('packageID', $bookedTour->packageID)->first
                         </div>
                         @endif
 
-                        @if(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                        @endif
+                        @if(session('errorMessage'))
+    <div class="alert alert-danger">
+        {!! session('errorMessage') !!} <a href="{{ session('errorLink') }}" class="btn btn-danger">{{ session('errorButtonText') }}</a>
+    </div>
+@endif
                         <!-- Form for Packages Management -->
                         <form onsubmit="return validateForm()"
                             action="{{ route('booking.update', $booking->bookingID) }}" method="POST">
@@ -91,6 +91,7 @@ $package = App\Models\Package::where('packageID', $bookedTour->packageID)->first
                                                     <button type="button"
                                                         onclick="updateQuantity('noOfAdult', 1)">+</button>
                                                 </div>
+                                                <input type="hidden" value="{{ $booking->noOfAdult }}" name="currentAdult"/>
                                                 @error('noOfAdult')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -107,6 +108,8 @@ $package = App\Models\Package::where('packageID', $bookedTour->packageID)->first
                                                     <button type="button"
                                                         onclick="updateQuantity('noOfChild', 1)">+</button>
                                                 </div>
+                                                <input type="hidden" value="{{ $booking->noOfChild }}" name="currentChild"/>
+
                                                 @error('noOfChild')
                                                 <div class="text-danger">{{ $message }}</div>
                                                 @enderror

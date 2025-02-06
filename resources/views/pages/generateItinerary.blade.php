@@ -11,7 +11,7 @@
     <!-- CSS Files -->
     <link href="{{ asset('paper') }}/css/bootstrap.min.css" rel="stylesheet" />
     <link href="{{ asset('paper') }}/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
-    <title>LGM Tour & Travel</title>
+    <title>{{ $package->packageName }}'s Itinerary</title>
     <link rel="icon" type="image/png" href="{{ asset('images/LGM.png') }}">
 
 

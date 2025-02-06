@@ -241,7 +241,6 @@ $bndRate = Session::get('BNDrate', 1);
             This tour is FULL. No more bookings are available.
         </div>
   @else
-        {{$joinedPeople[$tour->tourCode]}} / {{ $tour->noOfSeats }}
         <div style="margin-top: 10px;">
             <a href="{{ route('booking', ['id' => $tour->tourCode]) }}" class="btn btn-info">BOOK NOW</a>
         </div>

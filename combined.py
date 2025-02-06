@@ -246,6 +246,115 @@ data = [
     {'type': 'restaurant', 'name': 'ChinaHouse Penang', 'destination': 'Malaysia', 'state': 'Penang', 'info': 'Indulge in a unique dining experience at ChinaHouse in Penang. Penang'},
     {'type': 'attraction', 'name': 'Penang Interactive 3D Museum', 'destination': 'Malaysia', 'state': 'Penang', 'info': 'Have fun and take creative photos at the Penang Interactive 3D Museum. Penang'},
     {'type': 'restaurant', 'name': 'Jawi House Penang', 'destination': 'Malaysia', 'state': 'Penang', 'info': 'Experience traditional Jawi and Malay cuisine at Jawi House in Penang. Penang'},
+    {'type': 'restaurant', 'name': 'Din Tai Fung Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Experience the famous soup dumplings at Din Tai Fung. Shanghai'},
+{'type': 'attraction', 'name': 'The Bund Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Enjoy the iconic skyline along The Bund in Shanghai.'},
+{'type': 'hotel', 'name': 'JW Marriott Hotel Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Luxury awaits at the JW Marriott Hotel in the heart of Shanghai.'},
+{'type': 'restaurant', 'name': 'Lost Heaven on the Bund Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Savor Yunnan cuisine with a view of The Bund at Lost Heaven.'},
+{'type': 'attraction', 'name': 'Shanghai Museum', 'destination': 'China', 'state': 'Shanghai', 'info': 'Explore Chinese art and history at the renowned Shanghai Museum.'},
+{'type': 'hotel', 'name': 'The Ritz-Carlton Shanghai, Pudong', 'destination': 'China', 'state': 'Shanghai', 'info': 'Indulge in luxury at The Ritz-Carlton in Pudong, Shanghai.'},
+{'type': 'restaurant', 'name': 'Ultraviolet by Paul Pairet Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Experience a multi-sensory dining journey at Ultraviolet.'},
+{'type': 'attraction', 'name': 'Shanghai Tower', 'destination': 'China', 'state': 'Shanghai', 'info': 'Visit the second tallest building in the world, the Shanghai Tower.'},
+{'type': 'restaurant', 'name': 'Hakkasan Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Dine in style at Hakkasan, offering modern Cantonese cuisine in Shanghai.'},
+{'type': 'restaurant', 'name': 'Yangs Fry-Dumpling Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Enjoy crispy fried dumplings at Yangs Fry-Dumpling.'},
+{'type': 'attraction', 'name': 'Oriental Pearl Tower Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Admire the futuristic design of the Oriental Pearl Tower in Pudong.'},
+{'type': 'hotel', 'name': 'Fairmont Peace Hotel Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Experience the historic charm of Fairmont Peace Hotel on The Bund.'},
+{'type': 'restaurant', 'name': 'Jia Jia Tang Bao Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Taste the popular soup dumplings at Jia Jia Tang Bao.'},
+{'type': 'attraction', 'name': 'Shanghai French Concession', 'destination': 'China', 'state': 'Shanghai', 'info': 'Stroll through the charming streets of the Shanghai French Concession.'},
+{'type': 'hotel', 'name': 'W Shanghai - The Bund', 'destination': 'China', 'state': 'Shanghai', 'info': 'Experience modern luxury at W Shanghai with a view of The Bund.'},
+{'type': 'restaurant', 'name': 'Fu 1088 Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Dine in a historic villa and enjoy Shanghainese cuisine at Fu 1088.'},
+{'type': 'restaurant', 'name': 'Guyi Hunan Cuisine Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Savor authentic Hunan cuisine at Guyi in Shanghai.'},
+{'type': 'attraction', 'name': 'Jingan Temple Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Visit the historic Jingan Temple in the heart of Shanghai.'},
+{'type': 'hotel', 'name': 'The Langham, Shanghai, Xintiandi', 'destination': 'China', 'state': 'Shanghai', 'info': 'Indulge in luxury at The Langham, located in the vibrant Xintiandi area.'},
+{'type': 'restaurant', 'name': 'Fuchun Xiaolong Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Try traditional Xiaolongbao at Fuchun Xiaolong in Shanghai.'},
+{'type': 'restaurant', 'name': 'Lost Heaven Silk Road Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Embark on a culinary journey along the Silk Road at Lost Heaven.'},
+{'type': 'attraction', 'name': 'Shanghai Disney Resort', 'destination': 'China', 'state': 'Shanghai', 'info': 'Experience the magic of Disney at Shanghai Disney Resort.'},
+{'type': 'attraction', 'name': 'M50 Creative Park Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Explore contemporary art at M50 Creative Park in Shanghai.'},
+{'type': 'hotel', 'name': 'Andaz Xintiandi Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Experience boutique luxury at Andaz Xintiandi in Shanghai.'},
+{'type': 'restaurant', 'name': 'Lao Zheng Xing Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Dine on Shanghainese classics at Lao Zheng Xing.'},
+{'type': 'restaurant', 'name': 'Yershari Uighur Restaurant Shanghai', 'destination': 'China', 'state': 'Shanghai', 'info': 'Savor Uighur cuisine at Yershari in Shanghai.'},
+{'type': 'attraction', 'name': 'Chengdu Research Base of Giant Panda Breeding', 'destination': 'China', 'state': 'Sichuan', 'info': 'Visit the research base to see adorable giant pandas in Chengdu.'},
+{'type': 'hotel', 'name': 'The St. Regis Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Indulge in luxury at The St. Regis Chengdu with impeccable service.'},
+{'type': 'restaurant', 'name': 'Chen Mapo Tofu Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Savor the famous Mapo Tofu at Chen Mapo Tofu in Chengdu.'},
+{'type': 'attraction', 'name': 'Jinli Ancient Street Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Stroll through the historic Jinli Ancient Street for local snacks and souvenirs.'},
+{'type': 'hotel', 'name': 'Niccolo Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Experience contemporary luxury at Niccolo Chengdu with panoramic city views.'},
+{'type': 'restaurant', 'name': 'Yu Zhi Lan Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Indulge in Sichuan cuisine at Yu Zhi Lan, known for its flavorful dishes.'},
+{'type': 'attraction', 'name': 'Wuhou Shrine Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Explore the historic Wuhou Shrine, dedicated to the Three Kingdoms period.'},
+{'type': 'hotel', 'name': 'The Temple House Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Immerse yourself in luxury and culture at The Temple House in Chengdu.'},
+{'type': 'restaurant', 'name': 'Huangcheng Laoma Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Enjoy traditional Chengdu cuisine at Huangcheng Laoma.'},
+{'type': 'attraction', 'name': 'Dujiangyan Irrigation System', 'destination': 'China', 'state': 'Sichuan', 'info': 'Visit the ancient Dujiangyan Irrigation System, a UNESCO World Heritage site.'},
+{'type': 'restaurant', 'name': 'Chunyang Tea Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Experience a traditional tea ceremony at Chunyang Tea in Chengdu.'},
+{'type': 'attraction', 'name': 'Leshan Giant Buddha', 'destination': 'China', 'state': 'Sichuan', 'info': 'Marvel at the towering Leshan Giant Buddha carved into the mountainside.'},
+{'type': 'hotel', 'name': 'Shangri-La Hotel Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Indulge in luxury hospitality at Shangri-La Hotel Chengdu.'},
+{'type': 'restaurant', 'name': 'Mapu Restaurant Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Taste authentic Sichuan hot pot at Mapu Restaurant in Chengdu.'},
+{'type': 'attraction', 'name': 'Qingcheng Mountain', 'destination': 'China', 'state': 'Sichuan', 'info': 'Explore the tranquil Qingcheng Mountain, a Taoist sacred site.'},
+{'type': 'restaurant', 'name': 'Fuqi Feipian Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Try the spicy and flavorful Fuqi Feipian in Chengdu.'},
+{'type': 'attraction', 'name': 'Chengdu Research Base of Giant Panda Breeding', 'destination': 'China', 'state': 'Sichuan', 'info': 'Visit the research base to see adorable giant pandas in Chengdu.'},
+{'type': 'hotel', 'name': 'The St. Regis Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Indulge in luxury at The St. Regis Chengdu with impeccable service.'},
+{'type': 'restaurant', 'name': 'Chen Mapo Tofu Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Savor the famous Mapo Tofu at Chen Mapo Tofu in Chengdu.'},
+{'type': 'attraction', 'name': 'Jinli Ancient Street Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Stroll through the historic Jinli Ancient Street for local snacks and souvenirs.'},
+{'type': 'hotel', 'name': 'Niccolo Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Experience contemporary luxury at Niccolo Chengdu with panoramic city views.'},
+{'type': 'restaurant', 'name': 'Yu Zhi Lan Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Indulge in Sichuan cuisine at Yu Zhi Lan, known for its flavorful dishes.'},
+{'type': 'attraction', 'name': 'Wuhou Shrine Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Explore the historic Wuhou Shrine, dedicated to the Three Kingdoms period.'},
+{'type': 'hotel', 'name': 'The Temple House Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Immerse yourself in luxury and culture at The Temple House in Chengdu.'},
+{'type': 'restaurant', 'name': 'Huangcheng Laoma Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Enjoy traditional Chengdu cuisine at Huangcheng Laoma.'},
+{'type': 'attraction', 'name': 'Dujiangyan Irrigation System', 'destination': 'China', 'state': 'Sichuan', 'info': 'Visit the ancient Dujiangyan Irrigation System, a UNESCO World Heritage site.'},
+{'type': 'restaurant', 'name': 'Chunyang Tea Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Experience a traditional tea ceremony at Chunyang Tea in Chengdu.'},
+{'type': 'attraction', 'name': 'Leshan Giant Buddha', 'destination': 'China', 'state': 'Sichuan', 'info': 'Marvel at the towering Leshan Giant Buddha carved into the mountainside.'},
+{'type': 'hotel', 'name': 'Shangri-La Hotel Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Indulge in luxury hospitality at Shangri-La Hotel Chengdu.'},
+{'type': 'restaurant', 'name': 'Mapu Restaurant Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Taste authentic Sichuan hot pot at Mapu Restaurant in Chengdu.'},
+{'type': 'attraction', 'name': 'Qingcheng Mountain', 'destination': 'China', 'state': 'Sichuan', 'info': 'Explore the tranquil Qingcheng Mountain, a Taoist sacred site.'},
+{'type': 'restaurant', 'name': 'Fuqi Feipian Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Try the spicy and flavorful Fuqi Feipian in Chengdu.'},
+{'type': 'attraction', 'name': 'Li River Cruise Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Take a scenic Li River Cruise to admire the stunning karst landscapes of Guilin.'},
+{'type': 'hotel', 'name': 'Shangri-La Hotel Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Experience luxury and breathtaking views at Shangri-La Hotel Guilin.'},
+{'type': 'restaurant', 'name': 'McFound Restaurant Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Savor local Guilin cuisine at McFound Restaurant.'},
+{'type': 'attraction', 'name': 'Reed Flute Cave Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Explore the illuminated chambers of Reed Flute Cave, known for its colorful stalactite formations.'},
+{'type': 'hotel', 'name': 'Guilin Shangri-La Hotel', 'destination': 'China', 'state': 'Guangxi', 'info': 'Indulge in elegance and comfort at Guilin Shangri-La Hotel.'},
+{'type': 'restaurant', 'name': 'Aroma Tea House Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Enjoy traditional tea and local snacks at Aroma Tea House in Guilin.'},
+{'type': 'attraction', 'name': 'Elephant Trunk Hill Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Visit the iconic Elephant Trunk Hill, a natural landmark in Guilin.'},
+{'type': 'hotel', 'name': 'Lijiang Waterfall Hotel Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Experience the beauty of Lijiang Waterfall Hotel with its stunning waterfall backdrop.'},
+{'type': 'restaurant', 'name': 'Guilin Rice Noodles', 'destination': 'China', 'state': 'Guangxi', 'info': 'Delight in the famous Guilin Rice Noodles at a local eatery.'},
+{'type': 'attraction', 'name': 'Yangshuo West Street', 'destination': 'China', 'state': 'Guangxi', 'info': 'Explore the vibrant and lively Yangshuo West Street for shopping and entertainment.'},
+{'type': 'restaurant', 'name': 'Yangshuo Mountain Retreat', 'destination': 'China', 'state': 'Guangxi', 'info': 'Dine in a picturesque setting at Yangshuo Mountain Retreat with river views.'},
+{'type': 'attraction', 'name': 'Longji Rice Terraces', 'destination': 'China', 'state': 'Guangxi', 'info': 'Marvel at the breathtaking Longji Rice Terraces and experience local minority cultures.'},
+{'type': 'hotel', 'name': 'Yangshuo Village Inn', 'destination': 'China', 'state': 'Guangxi', 'info': 'Enjoy a cozy stay at Yangshuo Village Inn amidst the scenic landscapes.'},
+{'type': 'restaurant', 'name': 'Xianggui Bridge Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Dine on local specialties with a view at Xianggui Bridge in Guilin.'},
+{'type': 'attraction', 'name': 'Merryland Theme Park Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Experience fun and entertainment at Merryland Theme Park in Guilin.'},
+{'type': 'restaurant', 'name': 'Guilin Two Rivers and Four Lakes Cruise', 'destination': 'China', 'state': 'Guangxi', 'info': 'Enjoy a scenic night cruise with local delicacies in Guilin.'},
+{'type': 'attraction', 'name': 'Seven Star Park Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Explore the diverse landscapes and attractions at Seven Star Park in Guilin.'},
+{'type': 'hotel', 'name': 'Guilin Lijiang Waterfall Hotel', 'destination': 'China', 'state': 'Guangxi', 'info': 'Experience luxury at Guilin Lijiang Waterfall Hotel with a central location.'},
+{'type': 'restaurant', 'name': 'Pure Lotus Vegetarian Restaurant Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Savor vegetarian delights at Pure Lotus Vegetarian Restaurant in Guilin.'},
+{'type': 'attraction', 'name': 'Folded Brocade Hill Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Climb to the top of Folded Brocade Hill for panoramic views of Guilin.'},
+{'type': 'attraction', 'name': 'Jinsha Site Museum Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Discover ancient artifacts and archaeological wonders at Jinsha Site Museum in Chengdu.'},
+{'type': 'hotel', 'name': 'Diaoyutai Boutique Hotel Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Experience luxury and Chinese hospitality at Diaoyutai Boutique Hotel in Chengdu.'},
+{'type': 'restaurant', 'name': 'Chuanxin Restaurant Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Indulge in authentic Sichuan hot pot at Chuanxin Restaurant in Chengdu.'},
+{'type': 'attraction', 'name': 'Chengdu Anshun Bridge', 'destination': 'China', 'state': 'Sichuan', 'info': 'Admire the historical architecture of Chengdu Anshun Bridge spanning the Jin River.'},
+{'type': 'hotel', 'name': 'Niccolo Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Experience contemporary luxury and panoramic views at Niccolo Chengdu.'},
+{'type': 'restaurant', 'name': 'Yu Zhi Lan Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Savor innovative Sichuan dishes at the renowned Yu Zhi Lan restaurant in Chengdu.'},
+{'type': 'attraction', 'name': 'Du Fu Thatched Cottage Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Explore the tranquil Du Fu Thatched Cottage, a memorial to the famous Tang Dynasty poet.'},
+{'type': 'hotel', 'name': 'St. Regis Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Indulge in luxury and sophistication at the St. Regis Chengdu.'},
+{'type': 'restaurant', 'name': 'Fu Run Shanxi Noodle Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Enjoy traditional Shanxi-style noodles at Fu Run Shanxi Noodle in Chengdu.'},
+{'type': 'attraction', 'name': 'Chengdu People\'s Park', 'destination': 'China', 'state': 'Sichuan', 'info': 'Stroll through the scenic Chengdu People\'s Park, known for its tea houses and traditional performances.'},
+{'type': 'restaurant', 'name': 'Lao Ma Tou Hot Pot Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Experience the spicy flavors of Sichuan hot pot at Lao Ma Tou in Chengdu.'},
+{'type': 'attraction', 'name': 'Sichuan Opera Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Witness traditional Sichuan Opera performances, including face-changing acts.'},
+{'type': 'hotel', 'name': 'The Ritz-Carlton Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Indulge in luxury and impeccable service at The Ritz-Carlton Chengdu.'},
+{'type': 'restaurant', 'name': 'Chengdu Sichuan Restaurant', 'destination': 'China', 'state': 'Sichuan', 'info': 'Delight in authentic Sichuan cuisine at Chengdu Sichuan Restaurant.'},
+{'type': 'attraction', 'name': 'Wenshu Monastery Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Experience tranquility and Buddhist art at Wenshu Monastery in Chengdu.'},
+{'type': 'restaurant', 'name': 'Xiaolongkan Hot Pot Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Savor spicy and flavorful Xiaolongkan Hot Pot in Chengdu.'},
+{'type': 'attraction', 'name': 'Chengdu Tianfu Square', 'destination': 'China', 'state': 'Sichuan', 'info': 'Explore the vibrant Chengdu Tianfu Square, a central landmark in the city.'},
+{'type': 'hotel', 'name': 'Fairmont Chengdu', 'destination': 'China', 'state': 'Sichuan', 'info': 'Experience luxury and elegance at Fairmont Chengdu with modern amenities.'},
+{'type': 'restaurant', 'name': 'Chengdu Grandma\'s Kitchen', 'destination': 'China', 'state': 'Sichuan', 'info': 'Enjoy homestyle Sichuan dishes at Chengdu Grandma\'s Kitchen.'},
+{'type': 'attraction', 'name': 'Chengdu East Railway Station', 'destination': 'China', 'state': 'Sichuan', 'info': 'Witness the modern architecture of Chengdu East Railway Station.'},
+{'type': 'attraction', 'name': 'Detian Waterfall Guangxi', 'destination': 'China', 'state': 'Guangxi', 'info': 'Visit the magnificent Detian Waterfall, one of the largest transnational waterfalls in Asia.'},
+{'type': 'hotel', 'name': 'Guilin Shangri-La Hotel Guangxi', 'destination': 'China', 'state': 'Guangxi', 'info': 'Experience luxury and comfort at Guilin Shangri-La Hotel in Guangxi.'},
+{'type': 'restaurant', 'name': 'Xinjiang Grand Bazaar Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Savor Uighur cuisine at Xinjiang Grand Bazaar in Guilin, Guangxi.'},
+{'type': 'attraction', 'name': 'Seven Star Park Guilin', 'destination': 'China', 'state': 'Guangxi', 'info': 'Explore the diverse landscapes and attractions at Seven Star Park in Guilin, Guangxi.'},
+{'type': 'hotel', 'name': 'Yangshuo Village Inn Guangxi', 'destination': 'China', 'state': 'Guangxi', 'info': 'Enjoy a cozy stay at Yangshuo Village Inn amidst the scenic landscapes in Guangxi.'},
+{'type': 'restaurant', 'name': 'Guilin Rice Noodles Guangxi', 'destination': 'China', 'state': 'Guangxi', 'info': 'Delight in the famous Guilin Rice Noodles at a local eatery in Guangxi.'},
+
+
+
+
+
 ]
 
 
@@ -405,42 +514,33 @@ def generate_itinerary(country):
     if user_preferences is None:
         user_preferences = generate_random_preferences()
 
-    
-    # Initialize variables to track the best matching location and its similarity score
+
     best_match = None
     best_score = 0
-    # Loop through unique state values in the 'data' list and calculate similarity scores
     for known_location in set(item['state'] for item in data):
-        # Use the fuzzy string matching ratio to calculate the similarity score
         similarity_score = fuzz.ratio(country, known_location.lower())
-        # Check if the current similarity score is higher than the best score
         if similarity_score > best_score:
             best_score = similarity_score
             best_match = known_location
-    # If the best similarity score is below threshold(80), attempt to find a match using destination names
     if best_score < 80:
         for known_location in set(item['destination'] for item in data):
             similarity_score = fuzz.ratio(country.lower(), known_location.lower())
             
-            # Check if the current similarity score is higher than the best score
             if similarity_score > best_score:
                 best_score = similarity_score
-                # Get random state with that is same as the destination
                 best_match = random_state_for_destination(known_location)
 
-    # If the best similarity score is still below the threshold(80), return an error response
-    if best_score < 80:
-        return jsonify({'error': f"Location '{country}' is not in our database or being recognized. Did you mean '{best_match}'?"}), 400
-
-    # If no best match is found, return an error response
     if best_match is None:
         error_message = "Hmm, are you sure that's a real place? Please try again."
         return jsonify({'error': error_message}), 400
-    #This printing is for my own checking purpose
+    
+    if best_score < 80:
+        return jsonify({'error': f"Location '{country}' is not in our database or being recognized. Maybe '{best_match}'?"}), 400
+
+    
     print(f"Country: {best_match}, Days: {num_days}")
 
     itinerary = recommend_itinerary(user_preferences, best_match, num_days)
-    #return the itinerary generated
     return jsonify(itinerary)
 
 if __name__ == '__main__':

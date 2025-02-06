@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>LGM Tour & Travel</title>
+    <title>{{ $itinerary['country'] }}'s Itinerary</title>
     <link rel="icon" type="image/png" href="{{ asset('images/LGM.png') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
@@ -46,7 +46,7 @@
     <!-- Displaying Generated Itinerary -->
     @isset($itinerary)
 
-    <p class="text-center"><strong>Country:</strong> {{ $itinerary['country'] }}</p>
+    <p class="text-center"><strong>Destination:</strong> {{ $itinerary['country'] }}</p>
     <p class="text-center"><strong>Number of Days:</strong> {{ $itinerary['num_days'] }}</p>
 
     @foreach ($itinerary['days'] as $day)

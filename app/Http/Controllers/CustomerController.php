@@ -25,7 +25,6 @@ class CustomerController extends Controller
     if ($request->has('search')) {
         $searchTerm = $request->input('search');
         
-        // Apply search conditions for users table
         $query->where(function ($q) use ($searchTerm) {
             $q->where('users.name', 'like', '%' . $searchTerm . '%')
               ->orWhere('users.email', 'like', '%' . $searchTerm . '%');
@@ -34,7 +33,6 @@ class CustomerController extends Controller
 
     $users = $query->paginate(10);
 
-    // Return the paginated users (and staff) data to the view
     return view('users.customers', compact('users'));
     }
 

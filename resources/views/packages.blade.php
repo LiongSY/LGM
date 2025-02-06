@@ -132,6 +132,7 @@ $bndRate = Session::get('BNDrate', 1);
         </a>
         @endif
     @endforeach
+    
 @else
     <div class="col-md-10">
         <p>Oops, sorry! There are no packages found for the given search criteria.</p>

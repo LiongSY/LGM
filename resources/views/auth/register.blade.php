@@ -44,7 +44,7 @@
                                 <div class="input-group{{ $errors->has('phone') ? ' has-danger' : '' }}">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="nc-icon nc-phone-85"></i>
+                                            <i class="nc-icon nc-mobile"></i>
                                         </span>
                                     </div>
                                     <input name="phone" type="text" class="form-control" placeholder="Phone No" required value="{{ old('phone') }}">
